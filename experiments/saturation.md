@@ -63,6 +63,7 @@ Primitives: `button` `form` `label` `input` `textarea` `h1`–`h6` `p` `a`
 | 8 | Settings (Console) — preferences | account, notifications, billing, security | **2** | `mh-tabs`, `mh-alert` | mh-app, mh-page, **mh-card**, **mh-list/item** (switch rows), form/label/input/textarea, table, mh-stat, mh-avatar, mh-submenu | partial — severity/danger **colour** (see notes) |
 | 9 | E-commerce (Mercantile) — storefront + checkout | product detail, cart, multi-step checkout, confirmation | **3** | `mh-carousel`, `mh-breadcrumb`, `mh-steps` | **mh-tabs** (app 8 — desc/reviews), mh-navbar, mh-page, **mh-grid** (dense address), mh-card, **table** (property-panel summary), **mh-alert** (app 8), mh-badge, select/radio + `<input type=number>` qty, native `<progress>` | none — uptick is real, not a wall (see notes) |
 | 10 | Docs / help center (Acme Docs) — knowledge base | article, API reference, search, FAQ | **1** | `mh-pagination` | **mh-layout**, **mh-sidemenu/submenu** (nav tree), **mh-breadcrumb** (app 9), **mh-card** (TOC), **mh-alert** (callout, app 8), **table** (API params), **`<details>`** FAQ (app 8), **`<dialog>`** ⌘K palette refinement, **mh-list** (results), prose atoms (ul/ol/blockquote/kbd) | none — fully on-rails |
+| 11 | Live ops / monitoring (Beacon) — observability | overview (status + chart), services, live log, empty state | **2** | `mh-toasts`, `mh-empty` | mh-app/page/grid/**mh-stat**, mh-card, **table** + **mh-badge** (services/log), **mh-bars** (chart), **mh-alert** (toast content), native atoms **mh-skeleton**/**mh-spinner** | none — toasts are a behavior layer, not a wall (see notes) |
 
 **App 4 notes (Forum / chat — threads).** Five screens, **one** new composite,
 and it did double duty across both senses of "threads."
@@ -232,15 +233,42 @@ leaned almost entirely on what apps 1–9 already built:
 - **Walls:** none. Curve: **… → 3 → 1.** A brand-new domain dropping back to one
   composite via heavy reuse is the saturation signal doing exactly its job.
 
-## Reading the curve after 10 apps (saturation re-run, apps 8–10)
+**App 11 notes (Live ops — the async / transient-feedback cluster).** Four
+screens, **two new composites** — and the answer to the question this app was
+chosen to probe: *do toasts/skeletons/spinners ride a data hook, a behavior
+layer, or a wall?* **Answer: behavior layer, not a wall — and not a data hook.**
+- **Toasts (`mh-toasts`) — the headline.** A toast's *position* is **chrome** —
+  a constant viewport offset (fixed bottom-right), exactly the `mh-tooltip`
+  finding ("floating/positioned ≠ off-rails; only *per-element* position/geometry
+  is"). So positioning + stacking are pure CSS, and the toasts render with **zero
+  JS** (verified: the monitoring recipe shows a persistent static stack). The
+  children are reused `<mh-alert>`s — no new content type. The *only* thing that
+  needs code is the **lifecycle** (spawn on an app event, auto-dismiss after N
+  seconds) — a progressive-enhancement layer (`mh-toast.js`, ~45 lines), the same
+  graduation as `mh-menu`/`mh-dialog`. So the transient cluster fits the kit's
+  CSS-first/graduate-to-JS tenet cleanly; it is *not* a wall.
+- **`mh-empty`** (the second composite) — a centered zero-state (glyph + headline
+  + text + action). Small, genuinely absent, broadly reusable (every list/inbox/
+  search/board has one).
+- **Skeletons & spinners are native-style atoms, not composites.** `mh-skeleton`
+  (a pulsing placeholder) and `mh-spinner` (an indeterminate ring) are pure-CSS
+  animations — styled atoms like `<progress>`/`<mh-badge>`. One honest edge: a
+  skeleton's *exact per-placeholder dimensions* are per-instance data (the same
+  data-hook boundary as charts) — uniform line/block skeletons stay on-rails;
+  pixel-matching a specific layout would need the hook.
+- **The dashboard chrome was pure reuse:** `mh-stat` status tiles, `table` +
+  `mh-badge` for the services grid and the live log, `mh-bars` for the chart,
+  `mh-alert` as the toast content. Curve: **… → 1 → 2.**
+
+## Reading the curve after 11 apps (saturation re-run, apps 8–11)
 
 The original 7 apps probed *document shapes* and *data geometry*. This re-run
-(Settings, E-commerce, Docs) deliberately probed the **converged interactive /
-atomic component clusters** — the ~60-entry roster of a modern kit (tabs,
-switch, accordion, carousel, stepper, command palette, pagination, progress,
-breadcrumb, …). Full curve:
+(Settings, E-commerce, Docs, Live-ops) deliberately probed the **converged
+interactive / atomic component clusters** — the ~60-entry roster of a modern kit
+(tabs, switch, accordion, carousel, stepper, command palette, pagination,
+progress, breadcrumb, toasts, skeletons, empty states, …). Full curve:
 
-> **6 → 1 → 2 → 2 → 1 → (1+wall) → (2+hooks) → 1 → 2 → 3 → 1**
+> **6 → 1 → 2 → 2 → 1 → (1+wall) → (2+hooks) → 1 → 2 → 3 → 1 → 2**
 
 What the re-run establishes:
 
@@ -258,8 +286,13 @@ What the re-run establishes:
     `dialog:has(input[type=search])`; switch-row = `mh-list`/`mh-item`; inline
     radio label = `label:has(> input[type=radio])`; dense form = `<form>` + `mh-grid`.
   - **Reuse across domains.** `mh-tabs` (settings → product), `mh-alert`
-    (settings → checkout → docs), `mh-breadcrumb` (product → docs), `<details>`
-    (settings → docs).
+    (settings → checkout → docs → toast content), `mh-breadcrumb` (product →
+    docs), `<details>` (settings → docs).
+  - **Behavior-layer graduation (transient/async).** Toasts proved the
+    async/transient cluster (Sonner/Toast/Skeleton/Spinner) is **not a wall**:
+    appearance + viewport position + stacking are CSS (chrome, not data), and only
+    the spawn/auto-dismiss *lifecycle* needs JS — the same `mh-menu`/`mh-dialog`
+    graduation. Skeleton/spinner are pure-CSS atoms.
 - **The known colour-variant wall recurred and is now sharper.** Field *errors*
   got an honest on-rails fix — a new `--mh-danger` token + the native
   `aria-invalid` attribute. But **multi-severity fills** (alert info/success/warning)

@@ -1,0 +1,17 @@
+<h1>Loading: skeleton · spinner · progress</h1>
+<p>Three native-feeling loading atoms. <code>&lt;mh-skeleton&gt;</code> is a pulsing content placeholder (stack a few for a paragraph or a card). <code>&lt;mh-spinner&gt;</code> is an indeterminate ring for in-progress actions. For a <em>determinate</em> bar use native <code>&lt;progress&gt;</code>.</p>
+<h2>Example</h2>
+<figure>
+<mh-card>
+<header>Loading…</header>
+<mh-skeleton></mh-skeleton>
+<mh-skeleton></mh-skeleton>
+<mh-skeleton></mh-skeleton>
+</mh-card>
+<p><mh-spinner></mh-spinner> &nbsp;Streaming logs… &nbsp;&nbsp; <button><mh-spinner></mh-spinner> Saving</button></p>
+<progress value="62" max="100"></progress>
+</figure>
+<h2>Usage</h2>
+<pre><code>&lt;mh-skeleton&gt;&lt;/mh-skeleton&gt;        &lt;!-- placeholder line; stack a few --&gt;
+&lt;mh-spinner&gt;&lt;/mh-spinner&gt; Streaming…  &lt;!-- indeterminate --&gt;
+&lt;progress value="62" max="100"&gt;&lt;/progress&gt;  &lt;!-- determinate --&gt;</code></pre>

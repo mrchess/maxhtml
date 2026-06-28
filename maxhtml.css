@@ -1361,3 +1361,88 @@
 }
 :where(mh-pagination > a[aria-disabled=true]) { opacity: .5; pointer-events: none; }
 :where(mh-pagination > small) { padding: 0 .3rem; color: var(--mh-muted); }
+
+/* =========================================================================
+   APP 11 (Live ops / monitoring) — the async / transient-feedback cluster.
+   The dashboard chrome is pure reuse (mh-app/page/grid/stat/card/table/badge,
+   mh-bars charts, mh-alert incidents). The new ground is EPHEMERAL UI: toasts,
+   empty states, and loading placeholders. The headline finding (toasts): a
+   toast's POSITION is chrome — a constant viewport offset, like mh-tooltip's
+   anchor — so it lives in the sheet, NOT a per-element data hook, and NOT a
+   wall. Only the LIFECYCLE (spawn-on-event + auto-dismiss) needs code — a
+   behavior-layer graduation (mh-toast.js), exactly like mh-menu/mh-dialog.
+   ========================================================================= */
+
+/* ===== composite: <mh-toasts> (transient notification stack) =========== */
+/* A fixed, viewport-anchored, bottom-right stack. Children are reused <mh-alert>s
+   (severity still rides the leading emoji); the container restyles them as
+   compact floating cards and stacks them with flex. Renders fully with ZERO JS;
+   mh-toast.js adds only auto-dismiss + a push() API. */
+:where(mh-toasts) {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  width: min(24rem, calc(100vw - 2.5rem));
+  pointer-events: none;             /* container ignores clicks… */
+}
+:where(mh-toasts > mh-alert) {
+  pointer-events: auto;             /* …toasts re-enable them */
+  margin: 0;
+  background: var(--mh-bg);
+  box-shadow: var(--mh-shadow);
+}
+
+/* ===== composite: <mh-empty> (empty / zero state) ====================== */
+/* The "nothing here yet" placeholder — an empty list/inbox/search, or a healthy
+   incident board. A centered column: an optional big leading <strong> glyph, an
+   <h2> headline, a <p>, and an optional <footer> of actions. */
+:where(mh-empty) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: .4rem;
+  padding: 3rem 1.5rem;
+  color: var(--mh-muted);
+}
+:where(mh-empty > strong:first-child) { font-size: 2.5rem; line-height: 1; margin-bottom: .25rem; }  /* the glyph */
+:where(mh-empty > h2) { color: var(--mh-fg); margin: 0; }
+:where(mh-empty > p)  { margin: 0; max-width: 26rem; }
+:where(mh-empty > footer) { margin-top: 1rem; display: flex; gap: .6rem; }
+
+/* ===== atom: <mh-skeleton> (loading placeholder) ======================= */
+/* A pulsing placeholder block for content still loading. Fills its container
+   width at a line's height; stack a few for a paragraph, or drop one in a card/
+   grid cell. Size comes from layout, not inline data — precise per-placeholder
+   dimensions would be the data-hook boundary; uniform line/block skeletons stay
+   on-rails. */
+:where(mh-skeleton) {
+  display: block;
+  width: 100%;
+  height: 1em;
+  margin: 0 0 .5rem;
+  border-radius: var(--mh-radius);
+  background: linear-gradient(90deg, var(--mh-line) 25%, var(--mh-surface) 50%, var(--mh-line) 75%);
+  background-size: 200% 100%;
+  animation: mh-skeleton 1.3s ease-in-out infinite;
+}
+:where(mh-skeleton:last-child) { margin-bottom: 0; }
+@keyframes mh-skeleton { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+/* ===== atom: <mh-spinner> (indeterminate loading) ====================== */
+/* A small rotating ring for in-progress actions (inline in a button, beside a
+   "streaming…" label). Indeterminate; for a determinate bar use <progress>. */
+:where(mh-spinner) {
+  display: inline-block;
+  width: 1.1em; height: 1.1em;
+  border: 2px solid var(--mh-line);
+  border-top-color: var(--mh-accent);
+  border-radius: 50%;
+  vertical-align: -.2em;
+  animation: mh-spin .7s linear infinite;
+}
+@keyframes mh-spin { to { transform: rotate(360deg); } }

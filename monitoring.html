@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Monitoring — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Beacon</strong>
+<a href="#">Docs</a>
+<a href="#">Status page</a>
+<mh-avatar>🧑</mh-avatar>
+</mh-navbar>
+<mh-sidemenu>
+<header>Beacon</header>
+<nav>
+<mh-submenu>
+<header>Monitoring</header>
+<a href="monitoring.html" aria-current=page>Overview</a>
+<a href="#">Services</a>
+<a href="#">Incidents</a>
+<a href="#">Logs</a>
+</mh-submenu>
+<mh-submenu>
+<header>Account</header>
+<a href="settings.html">Settings</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<header>
+<h1>Service health</h1>
+<button type=button>Acknowledge all</button>
+</header>
+
+<mh-grid>
+<mh-stat><header>Uptime (30d)</header><strong>99.98%</strong><small>+0.01%</small></mh-stat>
+<mh-stat><header>Requests / min</header><strong>12.4k</strong><small>+5%</small></mh-stat>
+<mh-stat><header>Error rate</header><strong>0.32%</strong><small>+0.1%</small></mh-stat>
+<mh-stat><header>p95 latency</header><strong>240ms</strong><small>-12ms</small></mh-stat>
+</mh-grid>
+
+<mh-card>
+<header>Services</header>
+<table>
+<thead><tr><th>Service</th><th>Status</th><th>Latency</th><th>Last check</th></tr></thead>
+<tbody>
+<tr><td>api-us</td><td><mh-badge>🟢 Operational</mh-badge></td><td>180ms</td><td>3s ago</td></tr>
+<tr><td>api-eu</td><td><mh-badge>🟡 Degraded</mh-badge></td><td>620ms</td><td>2s ago</td></tr>
+<tr><td>web</td><td><mh-badge>🟢 Operational</mh-badge></td><td>90ms</td><td>4s ago</td></tr>
+<tr><td>workers</td><td><mh-badge>🔴 Down</mh-badge></td><td>—</td><td>1s ago</td></tr>
+<tr><td>database</td><td><mh-badge>🟢 Operational</mh-badge></td><td>12ms</td><td>2s ago</td></tr>
+</tbody>
+</table>
+</mh-card>
+
+<mh-grid>
+<mh-card>
+<header>Requests / min (last hour)</header>
+<mh-bars>
+<mh-bar style="--v:.40"></mh-bar>
+<mh-bar style="--v:.55"></mh-bar>
+<mh-bar style="--v:.48"></mh-bar>
+<mh-bar style="--v:.70"></mh-bar>
+<mh-bar style="--v:.82"></mh-bar>
+<mh-bar style="--v:.64"></mh-bar>
+<mh-bar style="--v:.90"></mh-bar>
+<mh-bar style="--v:1"></mh-bar>
+</mh-bars>
+</mh-card>
+<mh-card>
+<header>Top endpoints <mh-spinner></mh-spinner></header>
+<mh-skeleton></mh-skeleton>
+<mh-skeleton></mh-skeleton>
+<mh-skeleton></mh-skeleton>
+<mh-skeleton></mh-skeleton>
+</mh-card>
+</mh-grid>
+
+<mh-card>
+<header>Live log <mh-spinner></mh-spinner></header>
+<table>
+<tbody>
+<tr><td>12:04:31</td><td><mh-badge>🔴 ERROR</mh-badge></td><td>api-eu request timed out after 5s</td></tr>
+<tr><td>12:04:29</td><td><mh-badge>🟡 WARN</mh-badge></td><td>api-eu p95 latency above 500ms threshold</td></tr>
+<tr><td>12:04:27</td><td><mh-badge>⚪ INFO</mh-badge></td><td>workers: restarting pool (3 replicas)</td></tr>
+<tr><td>12:04:21</td><td><mh-badge>🟢 INFO</mh-badge></td><td>deploy api-us v2.3.1 succeeded</td></tr>
+</tbody>
+</table>
+</mh-card>
+
+<mh-card>
+<header>Scheduled maintenance</header>
+<mh-empty>
+<strong>🌙</strong>
+<h2>Nothing scheduled</h2>
+<p>No maintenance windows in the next 30 days. Schedule one to notify subscribers in advance.</p>
+<footer><button type=button>Schedule window</button></footer>
+</mh-empty>
+</mh-card>
+</mh-page>
+</main>
+</mh-app>
+
+<mh-toasts>
+<mh-alert>✅ <strong>Deploy finished.</strong> api-us v2.3.1 is live.<button type=button>✕</button></mh-alert>
+<mh-alert>⚠️ <strong>High latency.</strong> api-eu p95 crossed 500ms.<button type=button>✕</button></mh-alert>
+</mh-toasts>
+</body>
+</html>

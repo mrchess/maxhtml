@@ -76,6 +76,9 @@ only**.
 - `<progress value="40" max="100">` — native determinate **progress bar** (uploads, completion, goals). Omit `value` for an indeterminate bar.
 - `<mh-pagination>` — numbered **pager** for paged lists (search results, tables, an index). Children: `<a>` page links (current = `aria-current="page"`), prev/next `<a>` (disable an end with `aria-disabled="true"`), and a `<small>` for an `…` ellipsis.
 - **Command palette (⌘K):** a `<dialog>` whose content starts with `<input type=search>` renders as a top-anchored, search-first command palette (results in an `mh-list`, key hints as `<kbd>`). Same tag + open/close wiring as any dialog; keyed on structure, no new tag.
+- `<mh-toasts>` — fixed bottom-right **stack of transient notifications**. Children are `<mh-alert>`s (severity = leading emoji), each with an optional `<button>✕</button>`. Renders, positions, and stacks with **zero JS**. Auto-dismiss + spawn-on-event need `mh-toast.js` (load it, then `<button data-toast="…">` or `mhToast('…')`).
+- `<mh-empty>` — **empty / zero state** (no results, empty inbox, all-clear board). An optional big leading `<strong>` glyph + `<h2>` headline + `<p>` + optional `<footer>` of actions.
+- `<mh-skeleton>` — pulsing **loading placeholder** line; stack a few for a paragraph/card. `<mh-spinner>` — indeterminate **loading ring** (inline in a button or beside a "streaming…" label).
 
 Icons: use emoji as text (`👋`, `❌`, `🚫`) — never SVG or icon classes.
 

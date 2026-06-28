@@ -126,6 +126,9 @@ Inside a slot, tell primitives apart by **context + role**, never by counting:
 | `mh-pagination` | numbered pager (search results, tables, index) | `<a>` page links (current = `aria-current="page"`) + prev/next (`aria-disabled="true"` to disable an end) + `<small>` ellipsis |
 | `<dialog>` command-palette variant | ⌘K palette | a `<dialog>` whose content leads with `<input type=search>` → top-anchored, search-first (results in `mh-list`, hints as `<kbd>`). Keyed on structure, like the lightbox — no new tag |
 | prose atoms | lists · blockquote · kbd · code | native `<ul>`/`<ol>`/`<li>`, `<blockquote>`, `<pre><code>`, inline `<code>`, `<kbd>` — styled by the kit for long-form docs |
+| `mh-toasts` | fixed transient-notification stack (bottom-right) | children are reused `<mh-alert>`s + a `<button>✕</button>`. Position is chrome (CSS, not a data hook); zero JS to render. `mh-toast.js` adds auto-dismiss + `mhToast()`/`[data-toast]` spawn |
+| `mh-empty` | empty / zero state | optional big leading `<strong>` glyph + `<h2>` + `<p>` + optional `<footer>` actions |
+| `mh-skeleton` / `mh-spinner` | loading atoms | `<mh-skeleton>` = pulsing placeholder line (stack for paragraph/card); `<mh-spinner>` = indeterminate ring (determinate → `<progress>`) |
 
 **Icons:** emoji for now (`👋`, `❌`) — held as element *content*, never in CSS, so
 they swap to a future `<mh-icon name>` without touching layout.

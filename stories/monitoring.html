@@ -1,0 +1,22 @@
+<h1>Live ops / monitoring <small>(recipe)</small></h1>
+<p>A monitoring dashboard — chrome is pure reuse (<code>mh-app</code>/<code>mh-page</code>/<code>mh-grid</code>/<code>mh-stat</code> status tiles, <code>mh-card</code>, <code>&lt;table&gt;</code> + <code>mh-badge</code> service status, <code>mh-bars</code> chart). The new ground is the <strong>async/transient cluster</strong>: a fixed <code>mh-toasts</code> stack (bottom-right), <code>mh-skeleton</code> placeholders + <code>mh-spinner</code> for loading panels, and an <code>mh-empty</code> zero-state. The toasts render with zero styling and zero JS.</p>
+<h2>Live</h2>
+<iframe src="monitoring.html" title="Monitoring recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-app&gt;…&lt;mh-navbar/&gt;…&lt;mh-sidemenu/&gt;
+  &lt;main&gt;&lt;mh-page&gt;
+    &lt;header&gt;&lt;h1&gt;Service health&lt;/h1&gt;&lt;button type=button&gt;Acknowledge all&lt;/button&gt;&lt;/header&gt;
+    &lt;mh-grid&gt;&lt;mh-stat&gt;&lt;header&gt;Uptime&lt;/header&gt;&lt;strong&gt;99.98%&lt;/strong&gt;&lt;small&gt;+0.01%&lt;/small&gt;&lt;/mh-stat&gt;…&lt;/mh-grid&gt;
+    &lt;mh-card&gt;&lt;header&gt;Services&lt;/header&gt;&lt;table&gt;
+      &lt;tr&gt;&lt;td&gt;api-eu&lt;/td&gt;&lt;td&gt;&lt;mh-badge&gt;🟡 Degraded&lt;/mh-badge&gt;&lt;/td&gt;…&lt;/tr&gt;
+    &lt;/table&gt;&lt;/mh-card&gt;
+    &lt;mh-card&gt;&lt;header&gt;Top endpoints &lt;mh-spinner&gt;&lt;/mh-spinner&gt;&lt;/header&gt;
+      &lt;mh-skeleton&gt;&lt;/mh-skeleton&gt;&lt;mh-skeleton&gt;&lt;/mh-skeleton&gt;&lt;/mh-card&gt;
+    &lt;mh-card&gt;&lt;header&gt;Scheduled maintenance&lt;/header&gt;
+      &lt;mh-empty&gt;&lt;strong&gt;🌙&lt;/strong&gt;&lt;h2&gt;Nothing scheduled&lt;/h2&gt;&lt;p&gt;…&lt;/p&gt;&lt;/mh-empty&gt;&lt;/mh-card&gt;
+  &lt;/mh-page&gt;&lt;/main&gt;
+&lt;/mh-app&gt;
+
+&lt;mh-toasts&gt;   &lt;!-- fixed bottom-right, stacked, zero JS --&gt;
+  &lt;mh-alert&gt;✅ &lt;strong&gt;Deploy finished.&lt;/strong&gt; v2.3.1 is live.&lt;button type=button&gt;✕&lt;/button&gt;&lt;/mh-alert&gt;
+&lt;/mh-toasts&gt;</code></pre>
