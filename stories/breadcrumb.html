@@ -1,0 +1,16 @@
+<h1>Breadcrumb</h1>
+<p><code>&lt;mh-breadcrumb&gt;</code> is a horizontal trail of <code>&lt;a&gt;</code> crumbs; the current page is the last crumb, marked <code>aria-current="page"</code> (native). The <code>/</code> separators are inserted by CSS — never typed into the markup. Reused by product pages and docs.</p>
+<h2>Example</h2>
+<figure>
+<mh-breadcrumb>
+<a href="#">Home</a>
+<a href="#">Trail shoes</a>
+<a href="#" aria-current=page>Trail Runner 2.0</a>
+</mh-breadcrumb>
+</figure>
+<h2>Usage</h2>
+<pre><code>&lt;mh-breadcrumb&gt;
+  &lt;a href="/"&gt;Home&lt;/a&gt;
+  &lt;a href="/shoes"&gt;Trail shoes&lt;/a&gt;
+  &lt;a href="/shoes/tr2" aria-current="page"&gt;Trail Runner 2.0&lt;/a&gt;
+&lt;/mh-breadcrumb&gt;</code></pre>

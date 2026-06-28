@@ -26,6 +26,8 @@
   --mh-accent-fg: #ffffff;   /* text on accent */
   --mh-scrim:     #0e1116;   /* immersive overlay surface (lightbox frame) */
   --mh-scrim-fg:  #f2f4f7;   /* text on the scrim */
+  --mh-danger:    #c0362c;   /* error / invalid / destructive */
+  --mh-danger-fg: #ffffff;   /* text on danger */
   --mh-hover:     rgba(0, 0, 0, .05);              /* hover tint — flip to white on dark themes */
   --mh-shadow:    0 10px 28px rgba(0, 0, 0, .14);  /* menu / popover shadow */
   --mh-shadow-lg: 0 24px 64px rgba(0, 0, 0, .28);  /* dialog shadow */
@@ -993,3 +995,369 @@
   :where(mh-tooltip:hover > [role=tooltip]),
   :where(mh-tooltip:focus-within > [role=tooltip]) { translate: none; }
 }
+
+/* =========================================================================
+   APP 8 (Settings) — form-control atoms + section nav + inline notice.
+   A settings app is mostly reuse (mh-app/mh-page/mh-card/form/table/mh-stat),
+   but it surfaces the converged FORM-CONTROL cluster the kit hadn't styled yet
+   (toggles, selects, radios, disclosures) and two genuinely new composites:
+   a horizontal section-nav strip (mh-tabs) and an inline notice (mh-alert).
+   ========================================================================= */
+
+/* ===== native form controls: checkbox · radio · switch · select ========= */
+/* Atoms — the kit STYLES native controls, it doesn't reinvent them. Plain
+   checkbox/radio just take the accent colour (native render, themeable). A
+   SWITCH is a checkbox with role="switch" (native, self-describing — no class,
+   no new tag), restyled as a toggle. */
+:where(input[type=checkbox]), :where(input[type=radio]) {
+  accent-color: var(--mh-accent);
+  width: 1.1rem; height: 1.1rem;
+  cursor: pointer;
+}
+:where(input[type=checkbox][role=switch]) {
+  appearance: none; -webkit-appearance: none;
+  position: relative;
+  flex: none;
+  width: 2.3rem; height: 1.3rem;
+  border-radius: 999px;
+  background: var(--mh-line);
+  cursor: pointer;
+  transition: background .15s ease;
+}
+:where(input[type=checkbox][role=switch])::after {
+  content: "";
+  position: absolute; top: 2px; left: 2px;
+  width: calc(1.3rem - 4px); height: calc(1.3rem - 4px);
+  border-radius: 50%;
+  background: #fff;
+  transition: left .15s ease;
+}
+:where(input[type=checkbox][role=switch]:checked) { background: var(--mh-accent); }
+:where(input[type=checkbox][role=switch]:checked)::after { left: calc(2.3rem - 1.3rem + 2px); }
+:where(input[role=switch]:focus-visible) { outline: 2px solid var(--mh-accent); outline-offset: 2px; }
+
+:where(select) {
+  font: inherit;
+  appearance: none; -webkit-appearance: none;
+  padding: var(--mh-control-py) 2rem var(--mh-control-py) .7rem;
+  border: 1px solid var(--mh-line);
+  border-radius: var(--mh-radius);
+  background: var(--mh-surface)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%235f6b76' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")
+    no-repeat right .65rem center;
+  color: var(--mh-fg);
+  cursor: pointer;
+}
+:where(select:focus) { outline: 2px solid var(--mh-accent); outline-offset: 1px; border-color: var(--mh-accent); }
+
+/* field hint + error: a <small> inside a <label> is the field description; an
+   invalid control rides the native aria-invalid attribute (no class). */
+:where(label > small) { color: var(--mh-muted); font-weight: var(--mh-weight); }
+:where(input[aria-invalid=true]), :where(select[aria-invalid=true]), :where(textarea[aria-invalid=true]) {
+  border-color: var(--mh-danger);
+}
+:where(input[aria-invalid=true]:focus) { outline-color: var(--mh-danger); }
+
+/* a <label> WRAPPING a checkbox/radio reads control-then-text on one row (the
+   native radio/checkbox idiom), vs the kit's default column label-over-input —
+   keyed on STRUCTURE (label:has a checkbox/radio), no class. A radio group is
+   just several of these stacked. */
+:where(label:has(> input[type=checkbox])),
+:where(label:has(> input[type=radio])) {
+  flex-direction: row;
+  align-items: center;
+  gap: .5rem;
+  font-weight: var(--mh-weight);
+}
+
+/* (A switch + its label on one row reuses mh-list/mh-item: setting name in the
+   item <header>, the switch in the item <footer> — no new layout rule needed.) */
+
+/* ===== native element: <details> (accordion / disclosure) ============== */
+/* Native open/close, zero JS — like <dialog>/<table>, a styled native element,
+   not a new mh- tag. <summary> is the clickable header; the rest is the panel.
+   Stack several for an accordion (FAQ, advanced settings, danger zone). */
+:where(details) {
+  border: 1px solid var(--mh-line);
+  border-radius: var(--mh-radius);
+  padding: 0 1rem;
+  margin: 0 0 .6rem;
+}
+:where(summary) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .85rem 0;
+  font-weight: var(--mh-weight-strong);
+  cursor: pointer;
+  list-style: none;
+}
+:where(summary)::-webkit-details-marker { display: none; }
+:where(summary)::after { content: "+"; color: var(--mh-muted); font-size: 1.2rem; line-height: 1; }
+:where(details[open] > summary)::after { content: "\2212"; }  /* minus */
+:where(details > :not(summary):last-child) { margin-bottom: 1rem; }
+
+/* ===== composite: <mh-tabs> (horizontal section-nav strip) ============= */
+/* The content-level cousin of mh-sidemenu's vertical nav: a horizontal strip of
+   <a> tabs under a page title (settings sections, profile tabs, product
+   description/reviews). Active tab carries aria-current="page" (native, same
+   model as mh-submenu) and underlines in accent. Each tab routes to its own URL
+   (on-rails, zero JS); in-page panel switching without navigation is a JS
+   graduation, like mh-menu. Distinct from mh-navbar (app top bar, links pushed
+   right) and mh-slots (a chip grid). */
+:where(mh-tabs) {
+  display: flex;
+  gap: .25rem;
+  margin: 0 0 1.5rem;
+  border-bottom: 1px solid var(--mh-line);
+  overflow-x: auto;
+}
+:where(mh-tabs > a) {
+  padding: .6rem .9rem;
+  margin-bottom: -1px;
+  border-bottom: 2px solid transparent;
+  color: var(--mh-muted);
+  text-decoration: none;
+  font-size: .92rem;
+  font-weight: var(--mh-weight-strong);
+  white-space: nowrap;
+}
+:where(mh-tabs > a:hover) { color: var(--mh-fg); }
+:where(mh-tabs > a:focus-visible) { outline: 2px solid var(--mh-accent); outline-offset: 2px; }
+:where(mh-tabs > a[aria-current]) { color: var(--mh-accent); border-bottom-color: var(--mh-accent); }
+
+/* ===== composite: <mh-alert> (inline notice / banner) ================== */
+/* A full-width inline message — "changes saved", "verify your email", a
+   form-level error. Like mh-badge, severity colour can't ride a class (the kit
+   forbids variant hooks), so it rides a LEADING EMOJI as content (ℹ️ ✅ ⚠️ 🔴),
+   the same convention as badges — logged as the known colour-variant wall.
+   Slots: an optional <strong> lead, body text, and an optional trailing action. */
+:where(mh-alert) {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .7rem .9rem;
+  margin: 0 0 1rem;
+  border: 1px solid var(--mh-line);
+  border-left: 3px solid var(--mh-accent);
+  border-radius: var(--mh-radius);
+  background: var(--mh-surface);
+  font-size: .92rem;
+}
+:where(mh-alert > strong) { font-weight: var(--mh-weight-strong); }
+:where(mh-alert > button) { margin-left: auto; }  /* trailing action floats right */
+
+/* =========================================================================
+   APP 9 (E-commerce) — commerce-specific idioms. The storefront reused heavily
+   (mh-navbar, mh-page, mh-grid, mh-card, mh-tabs from app 8, table, forms,
+   select/radio, mh-alert, mh-badge, native <input type=number> for qty), but
+   introduced three converged shapes apps 1–8 never needed: a scroll-snap
+   carousel, a breadcrumb trail, and an ordered step indicator. Plus native
+   <progress> styling (an atom).
+   ========================================================================= */
+
+/* ===== composite: <mh-carousel> (horizontal scroll-snap strip) ========= */
+/* A single-row, snap-paged, horizontally scrolling strip — product image
+   galleries, a featured-products row, testimonials. Children are the slides (an
+   <img>, an <mh-card>, a <figure>); scroll-snap gives the paging feel with zero
+   JS. Distinct from mh-gallery (a wrapping tile grid) and mh-board (fixed card
+   lanes): a carousel is one scrolling, snapping viewport. */
+:where(mh-carousel) {
+  display: flex;
+  gap: var(--mh-gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-bottom: .5rem;
+  margin: 0 0 1.5rem;
+}
+:where(mh-carousel > *) { scroll-snap-align: start; flex: 0 0 auto; }
+:where(mh-carousel > img) {           /* a full-bleed image slide pages one-at-a-time */
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--mh-radius);
+  background: var(--mh-surface);
+}
+:where(mh-carousel > mh-card), :where(mh-carousel > figure) { width: 15rem; }
+
+/* ===== composite: <mh-breadcrumb> (trail nav) ========================== */
+/* A horizontal trail of <a> crumbs; the current page is the last crumb, marked
+   aria-current="page" (native). "/" separators are inserted by CSS — never typed
+   into the markup. Reused by product pages and docs. */
+:where(mh-breadcrumb) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 0 1rem;
+  font-size: .88rem;
+}
+:where(mh-breadcrumb > a) { color: var(--mh-muted); text-decoration: none; }
+:where(mh-breadcrumb > a:hover) { color: var(--mh-fg); }
+:where(mh-breadcrumb > a[aria-current]) { color: var(--mh-fg); font-weight: var(--mh-weight-strong); }
+:where(mh-breadcrumb > a + a)::before { content: "/"; margin: 0 .5rem; color: var(--mh-muted); }
+
+/* ===== composite: <mh-steps> (ordered progress stepper) ================ */
+/* A horizontal step indicator for a multi-step flow (checkout, onboarding,
+   wizard). Markup is an <ol> of <li> (ordered = step numbers come free). Mark
+   the current step aria-current="step" (native); DONE steps derive from
+   STRUCTURE — a step with a later current sibling is complete — so one marker
+   drives done/current/upcoming with no per-step class. */
+:where(mh-steps) { display: block; margin: 0 0 1.5rem; }
+:where(mh-steps ol) {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  list-style: none;
+  margin: 0; padding: 0;
+  counter-reset: step;
+}
+:where(mh-steps li) {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  counter-increment: step;
+  color: var(--mh-muted);
+  font-size: .9rem;
+  font-weight: var(--mh-weight-strong);
+  white-space: nowrap;
+}
+:where(mh-steps li)::before {            /* step-number bubble */
+  content: counter(step);
+  display: grid;
+  place-content: center;
+  width: 1.6rem; height: 1.6rem;
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid var(--mh-line);
+  background: var(--mh-bg);
+  font-size: .8rem;
+}
+:where(mh-steps li:not(:last-child))::after {   /* connector line */
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--mh-line);
+}
+:where(mh-steps li[aria-current]) { color: var(--mh-fg); }
+:where(mh-steps li[aria-current])::before { border-color: var(--mh-accent); color: var(--mh-accent); }
+/* done = a step that has a later current sibling */
+:where(mh-steps li:has(~ li[aria-current])) { color: var(--mh-fg); }
+:where(mh-steps li:has(~ li[aria-current]))::before {
+  content: "\2713";                      /* check */
+  background: var(--mh-accent);
+  border-color: var(--mh-accent);
+  color: var(--mh-accent-fg);
+}
+:where(mh-steps li:has(~ li[aria-current]))::after { background: var(--mh-accent); }
+
+/* ===== native element: <progress> (determinate bar) =================== */
+/* An atom — the kit styles the native bar (uploads, onboarding completion, goal
+   meters). Indeterminate <progress> (no value) still animates natively. */
+:where(progress) {
+  appearance: none; -webkit-appearance: none;
+  width: 100%; height: .5rem;
+  border: none; border-radius: 999px;
+  background: var(--mh-line);
+  overflow: hidden;
+}
+:where(progress)::-webkit-progress-bar { background: var(--mh-line); }
+:where(progress)::-webkit-progress-value { background: var(--mh-accent); border-radius: 999px; }
+:where(progress)::-moz-progress-bar { background: var(--mh-accent); border-radius: 999px; }
+
+/* =========================================================================
+   APP 10 (Docs / help center) — the saturation payoff. A whole content domain
+   reused breadcrumb (app 9), tabs (app 8), <details> FAQ (app 8), mh-alert
+   callouts (app 8), mh-layout/sidemenu, table, and mh-list, and the ⌘K command
+   palette fell out as a STRUCTURAL REFINEMENT of <dialog> (like the lightbox).
+   Genuinely new: one composite (mh-pagination) + native <kbd> and prose atoms.
+   ========================================================================= */
+
+/* ===== prose atoms: lists, blockquote, h4, kbd ========================= */
+/* Native elements the kit hadn't styled — extends the typography base for long-
+   form docs/articles. Atoms, not composites. */
+:where(h4) { font-size: .98rem; font-weight: var(--mh-weight-bold); line-height: 1.3; margin: 1.1rem 0 .4rem; }
+:where(ul), :where(ol) { margin: 0 0 1rem; padding-left: 1.4rem; }
+:where(li) { margin: .2rem 0; }
+:where(blockquote) {
+  margin: 0 0 1rem;
+  padding: .35rem 0 .35rem 1rem;
+  border-left: 3px solid var(--mh-line);
+  color: var(--mh-muted);
+}
+:where(kbd) {
+  font: .8em var(--mh-mono);
+  padding: .1rem .4rem;
+  border: 1px solid var(--mh-line);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: var(--mh-surface);
+  color: var(--mh-fg);
+  white-space: nowrap;
+}
+
+/* mh-steps / mh-pagination use <li>/<a> with their own layout — neutralise the
+   prose <li> margin there so it doesn't add stray vertical space */
+:where(mh-steps li) { margin: 0; }
+
+/* ===== <dialog> command-palette variant (⌘K) ========================== */
+/* A <dialog> built around a search input becomes a top-anchored command palette:
+   wide, search-first, results below. Reuses native <dialog> + mh-dialog.js
+   verbatim (open via <button commandfor>, close on backdrop/Esc) — keyed on
+   STRUCTURE (the dialog contains a search input), never a class/hook, exactly
+   like the lightbox (dialog:has(> img)). Put results in an mh-list; key hints
+   are <kbd>. */
+:where(dialog:has(> input[type=search])),
+:where(dialog:has(> form > input[type=search])) {
+  width: min(40rem, calc(100% - 2rem));
+  max-width: 40rem;
+  margin-block: 12vh auto;
+  padding: .35rem;
+}
+:where(dialog:has(input[type=search]) input[type=search]) {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  padding: .65rem .6rem;
+}
+:where(dialog:has(input[type=search]) input[type=search]:focus) { outline: none; }
+:where(dialog:has(input[type=search]) mh-list) { padding: .25rem; }
+:where(dialog:has(input[type=search]) mh-item) { border: none; border-radius: var(--mh-radius); padding: .5rem .6rem; cursor: pointer; }
+:where(dialog:has(input[type=search]) mh-item:hover) { background: var(--mh-hover); }
+
+/* ===== composite: <mh-pagination> (numbered pager) ==================== */
+/* A single row of page links for paged lists — search results, a data table, a
+   blog index. Children are <a> pages (current = aria-current="page") + prev/next
+   <a> (disabled end = aria-disabled="true"); an ellipsis is a <small>. Distinct
+   from mh-tabs (underline section nav) and mh-slots (wrapping chip grid): a
+   one-row boxed pager. */
+:where(mh-pagination) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .3rem;
+  margin: 1.5rem 0;
+}
+:where(mh-pagination > a) {
+  display: grid;
+  place-content: center;
+  min-width: 2.2rem;
+  height: 2.2rem;
+  padding: 0 .6rem;
+  border: 1px solid var(--mh-line);
+  border-radius: var(--mh-radius);
+  color: var(--mh-fg);
+  text-decoration: none;
+  font-size: .9rem;
+  font-weight: var(--mh-weight-strong);
+}
+:where(mh-pagination > a:hover) { background: var(--mh-hover); }
+:where(mh-pagination > a[aria-current]) {
+  background: var(--mh-accent);
+  border-color: var(--mh-accent);
+  color: var(--mh-accent-fg);
+}
+:where(mh-pagination > a[aria-disabled=true]) { opacity: .5; pointer-events: none; }
+:where(mh-pagination > small) { padding: 0 .3rem; color: var(--mh-muted); }

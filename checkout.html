@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Checkout — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-navbar>
+<strong>Mercantile</strong>
+<a href="#">Help</a>
+</mh-navbar>
+<main>
+<mh-page>
+<header>
+<h1>Checkout</h1>
+</header>
+
+<mh-steps>
+<ol>
+<li>Cart</li>
+<li aria-current=step>Shipping</li>
+<li>Payment</li>
+<li>Review</li>
+</ol>
+</mh-steps>
+
+<mh-alert>🎁 <strong>Free shipping unlocked.</strong> Your order qualifies for free standard delivery.</mh-alert>
+
+<mh-card>
+<header>Shipping address</header>
+<form>
+<mh-grid>
+<label>First name<input type=text value="Ada"></label>
+<label>Last name<input type=text value="Lovelace"></label>
+<label>City<input type=text value="London"></label>
+<label>Postcode<input type=text value="EC1A"></label>
+</mh-grid>
+<label>Address<input type=text value="12 Analytical Way"></label>
+<label>Country
+<select>
+<option selected>United Kingdom</option>
+<option>United States</option>
+<option>Germany</option>
+</select>
+</label>
+</form>
+</mh-card>
+
+<mh-card>
+<header>Delivery method</header>
+<form>
+<label><input type=radio name=ship checked> Standard — free (3–5 days)</label>
+<label><input type=radio name=ship> Express — $9.00 (next day)</label>
+</form>
+</mh-card>
+
+<mh-card>
+<header>Order summary</header>
+<table>
+<tbody>
+<tr><th scope=row>Trail Runner 2.0 × 1</th><td>$128.00</td></tr>
+<tr><th scope=row>Camp Slide × 1</th><td>$54.00</td></tr>
+<tr><th scope=row>Shipping</th><td>Free</td></tr>
+<tr><th scope=row>Total</th><td><strong>$182.00</strong></td></tr>
+</tbody>
+</table>
+<footer><button>Continue to payment</button><button type=button>Back to cart</button></footer>
+</mh-card>
+</mh-page>
+</main>
+</body>
+</html>

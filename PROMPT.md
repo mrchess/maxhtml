@@ -67,6 +67,15 @@ only**.
 - `<dialog>` — modal. Slots: `<header>` + body or `<form>` + `<footer>` of buttons. Open it with a trigger `<button commandfor="dialogId">`. Closes on any dialog button, the backdrop, or Esc. **Lightbox variant:** make the dialog's content an `<img>` (plus optional `<p>` caption + `<footer>` actions) and it styles itself as a wide, dark photo viewer — same tag, same open/close wiring, no extra hooks.
 - `<mh-tooltip>` — themed hover/focus hint. Children: a trigger (a `<button>`/`<a>`) + the tip as `<small role="tooltip">`; a11y via `aria-describedby` on the trigger + a matching `id` on the tip. **Emit no placement** — the side is automatic. For a plain text hint, prefer the native `title` attribute (`<button title="…">`) and skip the component (fewest tokens).
 - `<table>` — data table. Plain native `<thead>`/`<tbody>`/`<tr>`/`<th>`/`<td>`; the kit styles it. **Property panel:** for a key/value record panel, drop the `<thead>` and make each row's label a `<th scope="row">` in `<tbody>` (`<tr><th scope=row>Email</th><td>…</td></tr>`) — the kit renders the label column muted + narrow automatically.
+- `<mh-tabs>` — horizontal in-page **section nav** (settings sections, profile tabs, a product page's description/reviews). Children: `<a>` tabs; mark the active one `aria-current="page"`. Each tab routes to its own URL (the content-level cousin of `<mh-sidemenu>`). In-page panel switching without navigation needs JS.
+- `<mh-alert>` — inline notice / banner (saved, verify email, a form-level error). Lead with an **emoji for severity** (`ℹ️`/`✅`/`⚠️`/`🔴`) — there is no colour variant, like `mh-badge`. Optional `<strong>` lead, body text, and a trailing `<button>` action.
+- `<details>` / `<summary>` — native **accordion / disclosure** (FAQ, advanced settings, danger zone). `<summary>` is the clickable header; everything after it is the panel. Stack several. Zero JS.
+- `<mh-carousel>` — horizontal **scroll-snap strip** (product image gallery, featured-products row, testimonials). Children are slides: `<img>` (full-bleed, pages one at a time) or `<mh-card>`/`<figure>`. Zero JS.
+- `<mh-breadcrumb>` — **trail nav**. Children: `<a>` crumbs; mark the last (current page) `aria-current="page"`. Separators are inserted automatically — never type `/` into the markup.
+- `<mh-steps>` — **ordered step indicator** for a multi-step flow (checkout, onboarding, wizard). Children: an `<ol>` of `<li>`; mark the current step `aria-current="step"`. Earlier steps auto-render as done (✓) — no per-step marker.
+- `<progress value="40" max="100">` — native determinate **progress bar** (uploads, completion, goals). Omit `value` for an indeterminate bar.
+- `<mh-pagination>` — numbered **pager** for paged lists (search results, tables, an index). Children: `<a>` page links (current = `aria-current="page"`), prev/next `<a>` (disable an end with `aria-disabled="true"`), and a `<small>` for an `…` ellipsis.
+- **Command palette (⌘K):** a `<dialog>` whose content starts with `<input type=search>` renders as a top-anchored, search-first command palette (results in an `mh-list`, key hints as `<kbd>`). Same tag + open/close wiring as any dialog; keyed on structure, no new tag.
 
 Icons: use emoji as text (`👋`, `❌`, `🚫`) — never SVG or icon classes.
 
@@ -75,14 +84,19 @@ Icons: use emoji as text (`👋`, `❌`, `🚫`) — never SVG or icon classes.
 Use these, not custom tags, where they fit:
 
 `<main>` `<nav>` `<header>` `<footer>` `<section>` `<h1>`–`<h6>` `<p>` `<a>`
-`<form>` `<label>` `<input>` `<textarea>` `<button>` `<strong>` `<small>`
-`<figure>` `<figcaption>` `<img>` `<table>`
+`<form>` `<label>` `<input>` `<textarea>` `<select>` `<button>` `<strong>` `<small>`
+`<figure>` `<figcaption>` `<img>` `<table>` `<details>` `<summary>`
+`<ul>` `<ol>` `<li>` `<blockquote>` `<pre>` `<code>` `<kbd>`
 
 - `<button>` = primary action; `<button type=button>` = secondary action.
 - Always wrap an `<input>` in a `<label>`.
+- **Checkbox / radio / switch:** native `<input type=checkbox>` / `<input type=radio>`; a **switch** is `<input type=checkbox role=switch>` (toggle — native, no class). Wrap inline: `<label><input type=checkbox> Agree</label>` (the label auto-rows). `<select>` for dropdowns.
+- **Field hint / error:** a `<small>` inside a `<label>` is the field description; mark an invalid control with `aria-invalid="true"` (native, no class).
+- **Switch rows** (a setting name + a toggle): use `<mh-list>`/`<mh-item>` — name in the item `<header>`, the switch in the item `<footer>`.
 - `<figure>`/`<figcaption>`/`<img>` are for image tiles — use them **inside `<mh-gallery>`**, not as free-floating images.
 - `<section>` is for `<mh-board>` lanes — not a general-purpose container.
 - **Dense form:** to lay form fields out in 2–3 columns, wrap the `<label>`s in an `<mh-grid>` inside the `<form>` (put a full-width field like a `<textarea>` directly in the form, outside the grid).
+- **Prose / docs:** use `<ul>`/`<ol>` for lists, `<blockquote>` for asides, `<pre><code>` for code blocks, inline `<code>`, and `<kbd>` for keys (`<kbd>⌘K</kbd>`). For a callout use `<mh-alert>`; for collapsible FAQ use `<details>`.
 
 ## The one escape hatch — free-form canvases only
 

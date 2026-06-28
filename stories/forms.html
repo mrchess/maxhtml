@@ -1,0 +1,39 @@
+<h1>Form controls</h1>
+<p>Native controls the kit styles (it doesn't reinvent atoms). A <strong>switch</strong> is a checkbox with <code>role="switch"</code> — native and self-describing, no class, no new tag. A field <strong>hint</strong> is a <code>&lt;small&gt;</code> inside the <code>&lt;label&gt;</code>; an <strong>error</strong> rides the native <code>aria-invalid</code> attribute. A <code>&lt;label&gt;</code> that <em>wraps</em> a checkbox/radio flips to an inline row automatically (keyed on structure).</p>
+<h2>Example</h2>
+<figure>
+<form>
+<label>Email
+<input type=email value="ada@example.com">
+<small>Used for sign-in and notifications.</small>
+</label>
+<label>Email
+<input type=email value="not-an-email" aria-invalid="true">
+<small>Enter a valid email address.</small>
+</label>
+<label>Role
+<select>
+<option>Owner</option>
+<option selected>Member</option>
+</select>
+</label>
+<label><input type=checkbox checked> I agree to the terms</label>
+<label><input type=radio name=plan checked> Monthly</label>
+<label><input type=radio name=plan> Annual</label>
+<label><input type=checkbox role=switch checked> Email notifications</label>
+<button>Save</button>
+</form>
+</figure>
+<h2>Usage</h2>
+<pre><code>&lt;label&gt;Email
+  &lt;input type=email value="…"&gt;
+  &lt;small&gt;Hint text&lt;/small&gt;          &lt;!-- field description --&gt;
+&lt;/label&gt;
+&lt;input type=email aria-invalid="true"&gt;  &lt;!-- error state, native attr --&gt;
+
+&lt;select&gt;&lt;option&gt;…&lt;/option&gt;&lt;/select&gt;
+
+&lt;label&gt;&lt;input type=checkbox&gt; Agree&lt;/label&gt;       &lt;!-- inline row --&gt;
+&lt;label&gt;&lt;input type=radio name=plan&gt; Monthly&lt;/label&gt;
+&lt;label&gt;&lt;input type=checkbox role=switch&gt; On&lt;/label&gt;  &lt;!-- toggle --&gt;</code></pre>
+<p><small>A switch beside a setting name + description is a <code>&lt;mh-list&gt;</code> row: name in the item <code>&lt;header&gt;</code>, switch in the item <code>&lt;footer&gt;</code> — see the Settings recipe.</small></p>

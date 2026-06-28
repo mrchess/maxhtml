@@ -1,0 +1,27 @@
+<h1>Carousel</h1>
+<p><code>&lt;mh-carousel&gt;</code> is a single-row, snap-paged, horizontally scrolling strip — a product image gallery, a featured-products row, testimonials. Children are the slides: an <code>&lt;img&gt;</code> (full-bleed, pages one at a time), an <code>&lt;mh-card&gt;</code>, or a <code>&lt;figure&gt;</code>. Scroll-snap gives the paging feel with <strong>zero JS</strong>. Distinct from <code>mh-gallery</code> (a wrapping tile grid) and <code>mh-board</code> (fixed card lanes).</p>
+<h2>Example — image slides</h2>
+<figure>
+<mh-carousel>
+<img src="https://picsum.photos/seed/c1/800/600" alt="">
+<img src="https://picsum.photos/seed/c2/800/600" alt="">
+<img src="https://picsum.photos/seed/c3/800/600" alt="">
+</mh-carousel>
+</figure>
+<h2>Example — card slides</h2>
+<figure>
+<mh-carousel>
+<mh-card><header>Trail Runner 1.0</header><p>$98.00</p><footer><button>Add</button></footer></mh-card>
+<mh-card><header>Summit Hiker</header><p>$142.00</p><footer><button>Add</button></footer></mh-card>
+<mh-card><header>Road Glide</header><p>$110.00</p><footer><button>Add</button></footer></mh-card>
+<mh-card><header>Camp Slide</header><p>$54.00</p><footer><button>Add</button></footer></mh-card>
+</mh-carousel>
+</figure>
+<h2>Usage</h2>
+<pre><code>&lt;mh-carousel&gt;
+  &lt;img src="…"&gt;&lt;img src="…"&gt;&lt;img src="…"&gt;       &lt;!-- image gallery --&gt;
+&lt;/mh-carousel&gt;
+
+&lt;mh-carousel&gt;
+  &lt;mh-card&gt;…&lt;/mh-card&gt;&lt;mh-card&gt;…&lt;/mh-card&gt;      &lt;!-- featured row --&gt;
+&lt;/mh-carousel&gt;</code></pre>

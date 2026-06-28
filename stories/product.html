@@ -1,0 +1,21 @@
+<h1>Product detail <small>(recipe)</small></h1>
+<p>A storefront product page: <code>mh-breadcrumb</code> trail, an <code>mh-carousel</code> image gallery, title/price/rating, a <code>&lt;form&gt;</code> with <code>&lt;select&gt;</code> + <code>&lt;input type=number&gt;</code> quantity, <code>mh-tabs</code> (reused from Settings) for description/reviews, and a second <code>mh-carousel</code> of related-product cards. Zero styling emitted.</p>
+<h2>Live</h2>
+<iframe src="product.html" title="Product detail recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-navbar&gt;&lt;strong&gt;Mercantile&lt;/strong&gt;…&lt;/mh-navbar&gt;
+&lt;main&gt;&lt;mh-page&gt;
+  &lt;mh-breadcrumb&gt;&lt;a&gt;Home&lt;/a&gt;&lt;a&gt;Trail shoes&lt;/a&gt;&lt;a aria-current="page"&gt;Trail Runner 2.0&lt;/a&gt;&lt;/mh-breadcrumb&gt;
+  &lt;mh-carousel&gt;&lt;img&gt;&lt;img&gt;&lt;img&gt;&lt;/mh-carousel&gt;
+  &lt;header&gt;&lt;h1&gt;Trail Runner 2.0&lt;/h1&gt;&lt;strong&gt;$128.00&lt;/strong&gt;&lt;/header&gt;
+  &lt;p&gt;⭐⭐⭐⭐½ &lt;small&gt;(214 reviews)&lt;/small&gt; · &lt;mh-badge&gt;🟢 In stock&lt;/mh-badge&gt;&lt;/p&gt;
+  &lt;form&gt;
+    &lt;label&gt;Size&lt;select&gt;…&lt;/select&gt;&lt;/label&gt;
+    &lt;label&gt;Quantity&lt;input type=number value="1" min="1"&gt;&lt;/label&gt;
+    &lt;button&gt;Add to cart&lt;/button&gt;
+  &lt;/form&gt;
+  &lt;mh-tabs&gt;&lt;a aria-current="page"&gt;Description&lt;/a&gt;&lt;a&gt;Reviews&lt;/a&gt;&lt;a&gt;Specs&lt;/a&gt;&lt;/mh-tabs&gt;
+  &lt;p&gt;A lightweight, grippy trail shoe…&lt;/p&gt;
+  &lt;h2&gt;You might also like&lt;/h2&gt;
+  &lt;mh-carousel&gt;&lt;mh-card&gt;…&lt;/mh-card&gt;…&lt;/mh-carousel&gt;
+&lt;/mh-page&gt;&lt;/main&gt;</code></pre>

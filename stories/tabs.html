@@ -1,0 +1,17 @@
+<h1>Tabs</h1>
+<p><code>&lt;mh-tabs&gt;</code> is a horizontal in-page section-nav strip — settings sections, profile tabs, a product page's description/reviews. It's the content-level cousin of <code>&lt;mh-sidemenu&gt;</code>'s vertical nav: each tab is an <code>&lt;a&gt;</code> routing to its own URL, and the active one carries <code>aria-current="page"</code> (same model as <code>&lt;mh-submenu&gt;</code>). In-page panel switching <em>without</em> navigation is a JS graduation, like <code>mh-menu</code>.</p>
+<h2>Example</h2>
+<figure>
+<mh-tabs>
+<a href="#" aria-current=page>Account</a>
+<a href="#">Notifications</a>
+<a href="#">Billing</a>
+<a href="#">Security</a>
+</mh-tabs>
+</figure>
+<h2>Usage</h2>
+<pre><code>&lt;mh-tabs&gt;
+  &lt;a href="/settings" aria-current="page"&gt;Account&lt;/a&gt;
+  &lt;a href="/settings/notifications"&gt;Notifications&lt;/a&gt;
+  &lt;a href="/settings/billing"&gt;Billing&lt;/a&gt;
+&lt;/mh-tabs&gt;</code></pre>

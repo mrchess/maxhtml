@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Settings — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Acme</strong>
+<a href="dashboard.html">Dashboard</a>
+<a href="#">Support</a>
+<mh-avatar>🧑</mh-avatar>
+</mh-navbar>
+<mh-sidemenu>
+<header>Acme</header>
+<nav>
+<mh-submenu>
+<header>Workspace</header>
+<a href="dashboard.html">Dashboard</a>
+<a href="#">Reports</a>
+<a href="#">Team</a>
+</mh-submenu>
+<mh-submenu>
+<header>Account</header>
+<a href="settings.html" aria-current=page>Settings</a>
+<a href="#">Sign out</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<header>
+<h1>Settings</h1>
+</header>
+<mh-tabs>
+<a href="settings.html" aria-current=page>Account</a>
+<a href="#">Notifications</a>
+<a href="#">Billing</a>
+<a href="#">Security</a>
+</mh-tabs>
+
+<mh-alert>⚠️ <strong>Verify your email.</strong> We sent a link to ada@example.com.<button type=button>Resend</button></mh-alert>
+
+<mh-card>
+<header>Profile</header>
+<form>
+<label>Full name
+<input type=text value="Ada Lovelace">
+</label>
+<label>Email
+<input type=email value="ada@example.com">
+<small>Used for sign-in and notifications.</small>
+</label>
+<label>Role
+<select>
+<option>Owner</option>
+<option>Admin</option>
+<option selected>Member</option>
+</select>
+</label>
+<label>Bio
+<textarea>Mathematician. Working on the Analytical Engine.</textarea>
+</label>
+<button>Save changes</button>
+</form>
+</mh-card>
+
+<mh-card>
+<header>Notifications</header>
+<mh-list>
+<mh-item>
+<header><strong>Product updates</strong><small>News about features and releases</small></header>
+<footer><input type=checkbox role=switch checked></footer>
+</mh-item>
+<mh-item>
+<header><strong>Weekly digest</strong><small>A summary of your account every Monday</small></header>
+<footer><input type=checkbox role=switch></footer>
+</mh-item>
+<mh-item>
+<header><strong>Security alerts</strong><small>Always on for your protection</small></header>
+<footer><input type=checkbox role=switch checked disabled></footer>
+</mh-item>
+</mh-list>
+</mh-card>
+
+<mh-card>
+<header>Appearance</header>
+<form>
+<label><input type=radio name=theme checked> Light</label>
+<label><input type=radio name=theme> Dark</label>
+<label><input type=radio name=theme> Match system</label>
+</form>
+</mh-card>
+
+<mh-card>
+<header>Danger zone</header>
+<details>
+<summary>Export account data</summary>
+<p>Download everything on your account as a ZIP archive.</p>
+<button type=button>Request export</button>
+</details>
+<details>
+<summary>Delete account</summary>
+<p>Permanently remove your account and all associated data. This cannot be undone.</p>
+<button>🗑️ Delete account</button>
+</details>
+</mh-card>
+</mh-page>
+</main>
+</mh-app>
+</body>
+</html>
