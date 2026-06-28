@@ -29,6 +29,7 @@
 <a href="#badge">Badge</a>
 <a href="#menu">Menu (JS)</a>
 <a href="#dialog">Dialog (JS)</a>
+<a href="#tooltip">Tooltip</a>
 </mh-submenu>
 <mh-submenu>
 <header>Composites</header>
@@ -40,6 +41,9 @@
 <a href="#slots">Slots</a>
 <a href="#board">Board</a>
 <a href="#message">Message</a>
+<a href="#toolbar">Toolbar</a>
+<a href="#charts">Charts</a>
+<a href="#bubble">Bubble thread</a>
 </mh-submenu>
 <mh-submenu>
 <header>Recipes</header>
@@ -58,6 +62,9 @@
 <a href="#forum">Forum</a>
 <a href="#thread">Thread</a>
 <a href="#chat">Chat</a>
+<a href="#whiteboard">Whiteboard ⚠</a>
+<a href="#analytics">Analytics</a>
+<a href="#messages">Messages</a>
 </mh-submenu>
 </nav>
 </mh-sidemenu>
@@ -87,7 +94,15 @@ function showStory() {
   if (!id) { stage.innerHTML = INTRO; syncActiveNav(); return; }
   fetch('stories/' + id + '.html')
     .then(function (r) { if (!r.ok) throw r.status; return r.text(); })
-    .then(function (html) { stage.innerHTML = html; stage.scrollTop = 0; syncActiveNav(); })
+    .then(function (html) {
+      stage.innerHTML = html; stage.scrollTop = 0; syncActiveNav();
+      // Recipes render in isolated iframes; the parent's data-theme can't cross
+      // that boundary, so push themes.css + the current theme into each frame.
+      stage.querySelectorAll('iframe').forEach(function (f) {
+        f.addEventListener('load', function () { themeFrame(f); });
+        themeFrame(f);
+      });
+    })
     .catch(function () {
       stage.innerHTML = '<p>Story not found: <code>' + id + '</code></p>';
       syncActiveNav();
@@ -98,17 +113,41 @@ addEventListener('hashchange', showStory);
 showStory();
 
 // Theme switcher (host/chrome concern — sets data-theme on <html>, persisted).
+function currentTheme() {
+  try { return localStorage.getItem('mh-theme') || ''; } catch (_) { return ''; }
+}
+
+// Mirror the active theme into a recipe iframe. Recipes link only maxhtml.css
+// (standalone by design), so we also inject themes.css on demand here.
+function themeFrame(f) {
+  try {
+    var doc = f.contentDocument;
+    if (!doc || !doc.head) return;
+    if (!doc.querySelector('link[data-mh-themes]')) {
+      var link = doc.createElement('link');
+      link.rel = 'stylesheet'; link.href = 'themes.css'; link.setAttribute('data-mh-themes', '');
+      doc.head.appendChild(link);
+    }
+    var t = currentTheme();
+    if (t) doc.documentElement.setAttribute('data-theme', t);
+    else doc.documentElement.removeAttribute('data-theme');
+  } catch (_) {}
+}
+
+function applyTheme(value) {
+  if (value) document.documentElement.setAttribute('data-theme', value);
+  else document.documentElement.removeAttribute('data-theme');
+  try { localStorage.setItem('mh-theme', value); } catch (_) {}
+  stage.querySelectorAll('iframe').forEach(themeFrame);
+}
+
 document.addEventListener('click', function (e) {
   var b = e.target.closest('button[name="theme"]');
   if (!b) return;
-  if (b.value) document.documentElement.setAttribute('data-theme', b.value);
-  else document.documentElement.removeAttribute('data-theme');
-  try { localStorage.setItem('mh-theme', b.value); } catch (_) {}
+  applyTheme(b.value);
 });
-try {
-  var saved = localStorage.getItem('mh-theme');
-  if (saved) document.documentElement.setAttribute('data-theme', saved);
-} catch (_) {}
+var saved = currentTheme();
+if (saved) document.documentElement.setAttribute('data-theme', saved);
 </script>
 </body>
 </html>

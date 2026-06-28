@@ -72,6 +72,12 @@ Inside a slot, tell primitives apart by **context + role**, never by counting:
 | `mh-slots` | selectable chip grid (booking times, filters) | `<button type=button>` chips; chosen = `aria-pressed="true"`, unavailable = `disabled` |
 | `mh-board` | kanban board (deal pipeline, task board) | `<section>` lanes: `<header>` (stage + `<small>` count) + a stack of `<mh-card>` cards; scrolls horizontally |
 | `mh-message` | comment / chat message (nestable) | `<mh-avatar>` + `<header>` (author + time) + `<p>` body + optional `<footer>` (actions/reactions); nest `<mh-message>` for threaded replies |
+| `mh-toolbar` | floating tool bar (editor/canvas) | `<button type=button>` tools (active = `aria-pressed`) + optional `<hr>` divider |
+| `mh-canvas` / `mh-note` | free-form canvas (**escape hatch**) | surface + `<svg>` connectors + `<mh-note style="--x;--y;--note">` stickies. See "Escape hatch" below — positions are inline *data*, the one sanctioned exception to "no `style=`" |
+| `mh-bars` / `mh-bar` | bar chart | `<mh-bar style="--v:.62">` (value 0–1 as a data hook); frame in `mh-card` |
+| `mh-donut` | donut chart | `<mh-donut style="--p1:40; --p2:30; …">` segment %s (palette `--mh-c1…c5`); legend in the card `<footer>` |
+| line/area chart | (no tag) styled inline `<svg>` | `<polygon>`/`<polyline>`/`<circle>`/`<line>` styled by tag inside an `mh-card` — coordinate data inline (escape hatch) |
+| `mh-thread` / `mh-bubble` | sender-aligned messaging thread | `<mh-bubble>` incoming (left); `<mh-bubble me>` outgoing (right, accent) — `me` is a self-describing boolean role. `<small>` = timestamp, `<header>` = day divider |
 
 **Components:**
 
@@ -83,6 +89,7 @@ Inside a slot, tell primitives apart by **context + role**, never by counting:
 | `mh-card` | titled container | `<header>` + body + `<footer>` (actions) |
 | `mh-stat` | metric tile | `<header>` (label) + `<strong>` (value) + `<small>` (delta) |
 | `mh-menu` | dropdown (needs `mh-menu.js`) | `<button>` (trigger) + `<a>` items |
+| `mh-tooltip` | CSS-only hover/focus hint (no JS) | a trigger + `<small role="tooltip">` tip; a11y via `aria-describedby`+`id`. Plain hints: use native `title` instead |
 | `mh-avatar` | round user image | an emoji, initials, or an `<img>` |
 | `mh-badge` | neutral status pill (atom) | a short label + leading emoji dot for status colour (`🟢 Customer`); no colour variant — colour rides on the emoji, never a class |
 | `<dialog>` | modal (needs `mh-dialog.js`) | `<header>` + body/`<form>` + `<footer>`; open via `<button commandfor="id">`. **Image variant (lightbox):** content is an `<img>` → wide, dark photo viewer, keyed on structure (`dialog:has(> img)`), no new tag/hook |
@@ -100,6 +107,29 @@ tags for the parts HTML already names.
 
 The library grows by adding a component here, a rule block in `maxhtml.css`, and
 a `<section>` story + `mh-submenu` link in `storybook.html`.
+
+## The escape hatch (free-form canvases)
+
+Almost everything in MaxHTML is document-flow: stacks, grids, lists, tables. One
+class of app isn't — **free-form spatial canvases** (whiteboard, diagram,
+mind-map), where each element has a *position* `(x, y)` and connectors have
+*geometry*. That is **per-instance data**, not reusable style, so it cannot live
+in an external stylesheet — the kit's entire premise doesn't reach it.
+
+The sanctioned hatch, used **only** here:
+
+- Position/size/colour ride on **custom properties** set via `style=` —
+  `<mh-note style="--x:60px; --y:80px; --w:12rem; --note:#fde68a">`. The `style`
+  attribute carries *only data* (numbers, a colour token); every actual visual
+  rule (paper, shadow, type, the dotted grid) still lives in `maxhtml.css`.
+- Connectors are a raw `<svg>` layer (`<line>`/`<path>` with inline coordinates).
+- Dragging is a behavior layer (`mh-canvas.js`) that writes **only** `--x/--y` —
+  never a style string, never a class.
+
+This is a deliberate, narrow exception to rule 1 ("never write `style=`"), not a
+general allowance. It exists because positions are data; for anything that's
+actually *styling*, take an exit instead. In the saturation experiment this is
+logged as the first genuine **wall** — the edge of what the vocabulary covers.
 
 ## Token layer (Exit B — theming)
 

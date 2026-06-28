@@ -1,0 +1,21 @@
+<h1>Bubble thread</h1>
+<p><code>&lt;mh-thread&gt;</code> + <code>&lt;mh-bubble&gt;</code> is the messaging idiom — bubbles aligned by <strong>sender</strong>: incoming on the left (surface fill), the current user's own on the right (accent). Mark your own with the boolean attribute <code>me</code> — a self-describing <em>role</em>, exactly like <code>type=button</code> on a secondary button, never a class/data/style/position hook. (The other conversation idiom — avatar + author + body rows for forums/Slack — is <a href="#message">Message</a>.)</p>
+<h2>Example</h2>
+<figure>
+<mh-thread>
+<header>Today</header>
+<mh-bubble>Hey! Did you get a chance to look at the tokens PR?<small>9:01</small></mh-bubble>
+<mh-bubble me>Yeah — just approved it ✅<small>9:03</small></mh-bubble>
+<mh-bubble>🙌 the markup didn't change at all, right?</mh-bubble>
+<mh-bubble me>Zero diff. It's all in the token layer.<small>9:04</small></mh-bubble>
+<mh-bubble>Perfect. Shipping today then.</mh-bubble>
+</mh-thread>
+</figure>
+<h2>Anatomy</h2>
+<p>Side comes from one attribute: a plain <code>&lt;mh-bubble&gt;</code> is incoming (left); <code>&lt;mh-bubble me&gt;</code> is outgoing (right, accent). A <code>&lt;small&gt;</code> inside a bubble is its timestamp; a <code>&lt;header&gt;</code> in the thread is a centred day divider. The <strong>conversation list</strong> beside it is just a reused <code>mh-list</code> (active row = <code>aria-current</code>), and the <strong>composer</strong> a reused <code>&lt;form&gt;</code>; the whole two-pane app is <code>mh-layout</code> — see the <a href="#messages">Messages</a> recipe.</p>
+<h2>Usage</h2>
+<pre><code>&lt;mh-thread&gt;
+  &lt;header&gt;Today&lt;/header&gt;
+  &lt;mh-bubble&gt;Did you see the tokens PR?&lt;small&gt;9:01&lt;/small&gt;&lt;/mh-bubble&gt;
+  &lt;mh-bubble me&gt;Yeah — just approved it ✅&lt;small&gt;9:03&lt;/small&gt;&lt;/mh-bubble&gt;
+&lt;/mh-thread&gt;</code></pre>

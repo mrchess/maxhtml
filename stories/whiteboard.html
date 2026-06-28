@@ -1,0 +1,18 @@
+<h1>Whiteboard <small>(recipe — escape hatch)</small></h1>
+<p>A diagram editor — <code>mh-app</code> shell + <code>mh-canvas</code> with a floating <code>mh-toolbar</code>, an SVG connector layer, and draggable <code>mh-note</code> stickies. <strong>This is the first recipe that leaves the rail</strong>, and it's here to show exactly where and how.</p>
+<h2>Live <small>(drag the notes)</small></h2>
+<iframe src="whiteboard.html" title="Whiteboard recipe"></iframe>
+<h2>What's on-rails vs. the escape hatch</h2>
+<p><strong>On-rails:</strong> the app shell, the floating <code>mh-toolbar</code> (buttons + <code>aria-pressed</code>), the note's <em>visual</em> box (paper, shadow, type — all in the stylesheet), and the dotted-grid canvas background. The toolbar's <em>anchor</em> (top-centre) is reusable chrome, so it lives in the sheet too.</p>
+<p><strong>Escape hatch:</strong> a canvas's substance is <em>per-element position</em> and <em>connector geometry</em> — that's <strong>data</strong>, unique per note, so it can't live in an external stylesheet. Positions ride on the custom properties <code>--x/--y/--w</code> (and colour on <code>--note</code>) set via <code>style="…"</code>. The <code>style</code> attribute carries <em>only data</em> here — never a visual rule — but it is still an exception to rule&nbsp;1 ("never write <code>style=</code>"). Connectors are a raw <code>&lt;svg&gt;</code> of <code>&lt;line&gt;</code>s with inline coordinates.</p>
+<pre><code>&lt;mh-canvas&gt;
+  &lt;mh-toolbar&gt;…tools…&lt;/mh-toolbar&gt;
+  &lt;svg&gt;&lt;line x1=252 y1=140 x2=340 y2=120 marker-end="url(#arrow)"&gt;&lt;/line&gt;…&lt;/svg&gt;
+  &lt;mh-note style="--x:60px; --y:80px; --note:#fde68a"&gt;
+    &lt;strong&gt;Kickoff&lt;/strong&gt;&lt;p&gt;Align on goals &amp; owners.&lt;/p&gt;
+  &lt;/mh-note&gt;
+  …
+&lt;/mh-canvas&gt;
+&lt;script src="mh-canvas.js"&gt;&lt;/script&gt;   &lt;!-- drag: writes only --x/--y --&gt;</code></pre>
+<h2>The honest finding</h2>
+<p>Because position is a <em>data</em> hook, the drag script (<code>mh-canvas.js</code>) only ever writes two numbers — never a style string, never a class. That's the cleanest the hatch can be. But it's still a hatch: connectors don't re-route when you drag (that would need per-note wiring + geometry recompute, fully off-rail), and free positioning can't be expressed as vocabulary. <strong>This is the experiment's first real wall</strong> — see <a href="#" onclick="return false">experiments/saturation.md</a>. MaxHTML's converged, flow-based vocabulary covers document-shaped apps; a spatial canvas is where you eject to a real canvas library.</p>

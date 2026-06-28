@@ -38,6 +38,12 @@ only**.
 - `<mh-slots>` — grid of selectable chips (booking times, filters, sizes). Children: `<button type=button>` chips. Mark the chosen one with `aria-pressed="true"`, unavailable ones with `disabled`.
 - `<mh-board>` — kanban board (deal pipeline, task board). Children: `<section>` lanes, each a `<header>` (stage name + a `<small>` count) followed by a stack of `<mh-card>` cards. Scrolls horizontally.
 - `<mh-message>` — one comment/message in a thread or chat stream. Children: a leading `<mh-avatar>`, a `<header>` (`<strong>` author + `<small>` time), the body as `<p>`(s), and an optional `<footer>` of actions (`<button type=button>` Reply/votes, or `<mh-badge>` reactions). **Nest a `<mh-message>` inside another for a threaded reply** — it indents. Use this for conversations; the flat thread *list* (topic + author + count) is `<mh-list>`/`<mh-item>`, not this.
+- `<mh-toolbar>` — floating bar of tool buttons (editor/canvas toolbar, formatting bar). Children: `<button type=button>` tools (active = `aria-pressed="true"`) with an optional `<hr>` divider. Give each icon button an `aria-label`.
+- **Charts** — frame each in a normal `<mh-card>` (`<header>` title, body = the chart, `<footer>` = legend of `<small>` items). The chart marks carry their *data* (the one place numeric data rides in markup):
+  - Bar chart: `<mh-bars>` of `<mh-bar style="--v:0.62">` — `--v` is the value, 0–1.
+  - Donut: `<mh-donut style="--p1:40; --p2:30; --p3:20; --p4:10">` — segment percentages (palette `--mh-c1…c5`).
+  - Line/area: an inline `<svg viewBox="0 0 W H" preserveAspectRatio="none">` with `<polygon>` (area), `<polyline>` (line), `<circle>` (points), `<line>` (gridlines) — the kit styles each by tag.
+- `<mh-thread>` of `<mh-bubble>` — sender-aligned messaging thread. A plain `<mh-bubble>` is incoming (left); `<mh-bubble me>` is the current user's own (right, accent). A `<small>` in a bubble is its timestamp; a `<header>` in the thread is a day divider. (For avatar+author+body conversation rows use `<mh-message>` instead.) The conversation **list** beside it is a reused `<mh-list>` (active row `aria-current`); the composer is a reused `<form>`.
 - `<mh-center>` — centers one child in the viewport (auth, empty states). Child is usually an `<mh-card>` with a `<form>`.
 - `<mh-profile>` — profile header. Children: a big `<mh-avatar>` + a `<header>` (`<h1>` name + `<p>` meta) + a `<footer>` of actions.
 
@@ -52,6 +58,7 @@ only**.
 - `<mh-avatar>` — round user image. Content: an emoji, initials, or an `<img>`.
 - `<mh-badge>` — small neutral status pill (table cells, record headers, board cards). Content: a short label, with a leading emoji dot for status colour (`🟢 Customer`, `🟡 Lead`, `🔴 Churned`). There is no colour variant — status colour rides on the emoji, never a class.
 - `<dialog>` — modal. Slots: `<header>` + body or `<form>` + `<footer>` of buttons. Open it with a trigger `<button commandfor="dialogId">`. Closes on any dialog button, the backdrop, or Esc. **Lightbox variant:** make the dialog's content an `<img>` (plus optional `<p>` caption + `<footer>` actions) and it styles itself as a wide, dark photo viewer — same tag, same open/close wiring, no extra hooks.
+- `<mh-tooltip>` — CSS-only hover/focus hint. Children: a trigger (a `<button>`/`<a>`) + the tip as `<small role="tooltip">`. Wire a11y with `aria-describedby` on the trigger + a matching `id` on the tip. For a plain text hint, prefer the native `title` attribute (`<button title="…">`) and skip the component.
 - `<table>` — data table. Plain native `<thead>`/`<tbody>`/`<tr>`/`<th>`/`<td>`; the kit styles it. **Property panel:** for a key/value record panel, drop the `<thead>` and make each row's label a `<th scope="row">` in `<tbody>` (`<tr><th scope=row>Email</th><td>…</td></tr>`) — the kit renders the label column muted + narrow automatically.
 
 Icons: use emoji as text (`👋`, `❌`, `🚫`) — never SVG or icon classes.
@@ -69,6 +76,24 @@ Use these, not custom tags, where they fit:
 - `<figure>`/`<figcaption>`/`<img>` are for image tiles — use them **inside `<mh-gallery>`**, not as free-floating images.
 - `<section>` is for `<mh-board>` lanes — not a general-purpose container.
 - **Dense form:** to lay form fields out in 2–3 columns, wrap the `<label>`s in an `<mh-grid>` inside the `<form>` (put a full-width field like a `<textarea>` directly in the form, outside the grid).
+
+## The one escape hatch — free-form canvases only
+
+Rule 1 ("never write `style=`") has exactly one sanctioned exception: a **spatial
+canvas** (whiteboard, diagram, mind-map), where each element's *position* is data
+that can't live in the stylesheet. Use it **only** for this — never for normal
+layout, sizing, or colour.
+
+- `<mh-canvas>` — the surface (dotted grid). Holds an `<mh-toolbar>`, an optional
+  `<svg>` connector layer, and `<mh-note>` stickies.
+- `<mh-note style="--x:60px; --y:80px; --note:#fde68a">` — a sticky note. The
+  `style` attribute carries **only data**: `--x`/`--y` (position), `--w` (width),
+  `--note` (paper colour). Never put visual rules there. Content: a `<strong>`
+  title + `<p>`.
+- Connectors: a raw `<svg>` of `<line>`/`<path>` with inline coordinates.
+
+If a layout tempts you toward `style=` and it is **not** a free-form canvas, stop
+and ask instead (rule 4).
 
 ## Example
 

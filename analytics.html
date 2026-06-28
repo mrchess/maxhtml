@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Analytics — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Pulse</strong>
+<a href="#">Overview</a>
+<a href="#">Reports</a>
+<mh-avatar>🧑</mh-avatar>
+</mh-navbar>
+<mh-sidemenu>
+<header>Pulse</header>
+<nav>
+<mh-submenu>
+<header>Analytics</header>
+<a href="#" aria-current=page>Overview</a>
+<a href="#">Traffic</a>
+<a href="#">Revenue</a>
+<a href="#">Funnels</a>
+<a href="#">Cohorts</a>
+</mh-submenu>
+<mh-submenu>
+<header>Account</header>
+<a href="#">Settings</a>
+<a href="#">Billing</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<header>
+<h1>Overview</h1>
+<button>Export</button>
+</header>
+
+<mh-slots>
+<button type=button>7 days</button>
+<button type=button aria-pressed=true>30 days</button>
+<button type=button>90 days</button>
+<button type=button>Custom</button>
+</mh-slots>
+
+<mh-grid>
+<mh-stat><header>Revenue</header><strong>$128.4k</strong><small>▲ 14% vs prev</small></mh-stat>
+<mh-stat><header>Visitors</header><strong>48,210</strong><small>▲ 8% vs prev</small></mh-stat>
+<mh-stat><header>Signups</header><strong>1,204</strong><small>▲ 3% vs prev</small></mh-stat>
+<mh-stat><header>Conversion</header><strong>3.4%</strong><small>▼ 0.2% vs prev</small></mh-stat>
+</mh-grid>
+
+<mh-card>
+<header>Revenue <small>· last 30 days</small></header>
+<svg viewBox="0 0 320 140" preserveAspectRatio="none" role="img" aria-label="Revenue trend, rising over 30 days">
+<line x1=0 y1=35 x2=320 y2=35></line>
+<line x1=0 y1=70 x2=320 y2=70></line>
+<line x1=0 y1=105 x2=320 y2=105></line>
+<polygon points="0,140 0,110 45,92 90,98 135,62 180,72 225,42 270,52 315,24 320,24 320,140"></polygon>
+<polyline points="0,110 45,92 90,98 135,62 180,72 225,42 270,52 315,24"></polyline>
+<circle cx=0 cy=110 r=3></circle>
+<circle cx=45 cy=92 r=3></circle>
+<circle cx=90 cy=98 r=3></circle>
+<circle cx=135 cy=62 r=3></circle>
+<circle cx=180 cy=72 r=3></circle>
+<circle cx=225 cy=42 r=3></circle>
+<circle cx=270 cy=52 r=3></circle>
+<circle cx=315 cy=24 r=3></circle>
+</svg>
+</mh-card>
+
+<mh-grid>
+<mh-card>
+<header>Signups by day</header>
+<mh-bars>
+<mh-bar style="--v:.45"><small>Mon</small></mh-bar>
+<mh-bar style="--v:.62"><small>Tue</small></mh-bar>
+<mh-bar style="--v:.55"><small>Wed</small></mh-bar>
+<mh-bar style="--v:.80"><small>Thu</small></mh-bar>
+<mh-bar style="--v:.72"><small>Fri</small></mh-bar>
+<mh-bar style="--v:.38"><small>Sat</small></mh-bar>
+<mh-bar style="--v:.30"><small>Sun</small></mh-bar>
+</mh-bars>
+</mh-card>
+<mh-card>
+<header>Traffic sources</header>
+<mh-donut style="--p1:40; --p2:30; --p3:20; --p4:10"></mh-donut>
+<footer>
+<small>🟢 Direct 40%</small>
+<small>🔵 Search 30%</small>
+<small>🟡 Social 20%</small>
+<small>🟣 Referral 10%</small>
+</footer>
+</mh-card>
+</mh-grid>
+
+<mh-card>
+<header>Top pages</header>
+<table>
+<thead><tr><th>Page</th><th>Views</th><th>Avg time</th><th>Bounce</th></tr></thead>
+<tbody>
+<tr><td>/</td><td>18,402</td><td>1m 12s</td><td>34%</td></tr>
+<tr><td>/pricing</td><td>9,118</td><td>2m 04s</td><td>22%</td></tr>
+<tr><td>/docs</td><td>7,640</td><td>3m 41s</td><td>18%</td></tr>
+<tr><td>/blog/maxhtml</td><td>5,233</td><td>4m 02s</td><td>12%</td></tr>
+</tbody>
+</table>
+</mh-card>
+</mh-page>
+</main>
+</mh-app>
+</body>
+</html>

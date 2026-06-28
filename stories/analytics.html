@@ -1,0 +1,21 @@
+<h1>Analytics <small>(recipe)</small></h1>
+<p>A dashboard with real charts — <code>mh-app</code> + <code>mh-page</code> + a date-range <code>mh-slots</code> + a <code>mh-grid</code> of <code>mh-stat</code> tiles, then <strong>line, bar, and donut</strong> charts (each framed by a reused <code>mh-card</code>) and a <code>&lt;table&gt;</code>. The chrome is fully on-rails; the chart marks ride the data-hook / SVG boundary (see <a href="#charts">Charts</a>).</p>
+<h2>Live</h2>
+<iframe src="analytics.html" title="Analytics recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-page&gt;
+  &lt;header&gt;&lt;h1&gt;Overview&lt;/h1&gt;&lt;button&gt;Export&lt;/button&gt;&lt;/header&gt;
+  &lt;mh-slots&gt;&lt;button type=button aria-pressed="true"&gt;30 days&lt;/button&gt;…&lt;/mh-slots&gt;
+  &lt;mh-grid&gt;&lt;mh-stat&gt;…&lt;/mh-stat&gt;×4&lt;/mh-grid&gt;
+
+  &lt;mh-card&gt;&lt;header&gt;Revenue&lt;/header&gt;
+    &lt;svg viewBox="0 0 320 140" preserveAspectRatio="none"&gt;…polyline/polygon…&lt;/svg&gt;
+  &lt;/mh-card&gt;
+
+  &lt;mh-grid&gt;
+    &lt;mh-card&gt;&lt;header&gt;Signups by day&lt;/header&gt;&lt;mh-bars&gt;&lt;mh-bar style="--v:.62"&gt;&lt;small&gt;Tue&lt;/small&gt;&lt;/mh-bar&gt;…&lt;/mh-bars&gt;&lt;/mh-card&gt;
+    &lt;mh-card&gt;&lt;header&gt;Traffic&lt;/header&gt;&lt;mh-donut style="--p1:40;--p2:30;--p3:20;--p4:10"&gt;&lt;/mh-donut&gt;&lt;footer&gt;…legend…&lt;/footer&gt;&lt;/mh-card&gt;
+  &lt;/mh-grid&gt;
+
+  &lt;mh-card&gt;&lt;header&gt;Top pages&lt;/header&gt;&lt;table&gt;…&lt;/table&gt;&lt;/mh-card&gt;
+&lt;/mh-page&gt;</code></pre>

@@ -57,6 +57,9 @@ Primitives: `button` `form` `label` `input` `textarea` `h1`–`h6` `p` `a`
 | 2 | Booking / calendar (Cadence) | month calendar, booking flow, event detail, new event, confirm | **2** | `mh-calendar`, `mh-slots` | mh-app, mh-page, mh-sidemenu/submenu, mh-navbar, mh-avatar, dialog (+mh-dialog.js), form/label/input/textarea | none |
 | 3 | CRM (Relate) — dense forms + tables | contacts table, contact record, deal pipeline, add/edit form | **2** (1 composite + 1 atom) | `mh-board`, `mh-badge` | mh-app, mh-page, mh-sidemenu, mh-navbar, mh-profile, mh-stat/grid, mh-card, mh-list, mh-menu, mh-avatar, dialog, **table** (twice) | status colour (see notes) |
 | 4 | Forum / chat (Commons) — threads | forum home (thread list), thread view, chat channel, composer, new topic | **1** | `mh-message` | mh-app, mh-page, mh-sidemenu, mh-navbar, mh-avatar, **mh-list/item** (thread list), mh-card (composer), mh-badge (reactions/counts), mh-menu, form/textarea/input, dialog | none |
+| 5 | Whiteboard / diagram (Canvas) | canvas, sticky notes, connectors, toolbar | **1** on-rails (`mh-toolbar`) **+ escape hatch** (`mh-canvas`/`mh-note`/svg) | `mh-toolbar`; `mh-canvas`, `mh-note` (+`mh-canvas.js`) | mh-app, mh-navbar, mh-sidemenu, mh-avatar, button (`aria-pressed`) | **YES — free positioning + connectors (the headline)** |
+| 6 | Analytics dashboard (Pulse) — real charts | range filter, KPI tiles, line, bar, donut, table | **2** (`mh-bars`, `mh-donut`) **+ svg line** (data hook / escape hatch) | `mh-bars`/`mh-bar`, `mh-donut`; styled `<svg>` line | mh-app, mh-page, mh-grid, **mh-stat**, **mh-card** (chart frames), **mh-slots** (range), table, button | partial — chart *marks* are data (see notes) |
+| 7 | Messaging (Messages) — bubble thread | conversation list, bubble thread, composer | **1** | `mh-thread`/`mh-bubble` | **mh-layout**, mh-sidemenu, **mh-list/item** (convo list, `aria-current`), mh-avatar, mh-badge (unread), **mh-navbar** (thread header), form/input/button (composer) | none — fully on-rails |
 
 **App 4 notes (Forum / chat — threads).** Five screens, **one** new composite,
 and it did double duty across both senses of "threads."
@@ -78,29 +81,122 @@ and it did double duty across both senses of "threads."
   tokens, no new JS.
 - **Walls:** none. Curve: **6 → 1 → 2 → 2 → 1.**
 
-## Reading the curve after 4 apps
+**App 5 notes (Whiteboard / diagram — the stress test).** Four parts; this is the
+app the app-4 note predicted would break — *"a genuinely odd domain (a map/canvas
+editor…) where the converged vocabulary might not reach."* It didn't reach. This
+is the experiment's **first real wall**, and the most valuable single data point.
+- **What's on-rails:** the app shell, and **`mh-toolbar`** — a floating bar of
+  `<button type=button>` tools (active = `aria-pressed`, `<hr>` divider). That's a
+  clean, reusable composite (any editor has one); it was the only honest *win*.
+- **What's a wall:** a canvas's substance is **per-element position** (`x,y`) and
+  **connector geometry** — that's *data, unique per instance*, so it cannot live
+  in an external stylesheet. MaxHTML's whole premise ("markup only, no `style=`,
+  styling lives outside") structurally cannot express it. No composite, no
+  structural refinement, no native attribute reaches free-form coordinates.
+- **The sanctioned escape hatch (not a win — an exception):** `mh-canvas` +
+  `mh-note` exist, but a note is placed with `style="--x:60px; --y:80px;
+  --note:#fde68a"` — coordinates/colour as **data on custom properties**, and
+  connectors are a raw `<svg>`. The hatch is as narrow as possible: the `style`
+  attr carries *only data* (verified: dragging a note writes `--x/--y` and the
+  inline style still contains **zero** visual rules), every real visual decision
+  stays in `maxhtml.css`, and the drag layer (`mh-canvas.js`) only ever writes two
+  numbers. But it *is* rule-1 exception, and connectors don't even re-route on
+  drag (that needs per-note wiring + geometry recompute — fully off-rail).
+- **Honest count:** 1 on-rails composite (`mh-toolbar`); the canvas itself is
+  escape-hatched, not composed. Curve: **6 → 1 → 2 → 2 → 1 → (1 + wall).**
 
-Baseline aside, four very different app types (photos, calendar/booking, CRM,
-forum/chat) needed **1, 2, 2, 1** new composites — it stays low and flat, never
-climbing. The pattern underneath matters more than the numbers:
+**App 6 notes (Analytics — real charts).** A dashboard is the friendliest possible
+home for the app-5 finding: **mostly on-rails chrome with charts as data-geometry
+islands.** The shell, page, date-range (`mh-slots`), KPI tiles (`mh-stat`), and the
+table are pure reuse; even the chart *frames* are reused `mh-card`. Only the marks
+carry data, and they land exactly on the boundary app 5 drew:
+- **Single-scalar marks fit a narrow data hook** (the same kind as a note's
+  `--x/--y`): a bar is `<mh-bar style="--v:.62">` (height = `calc(var(--v)*100%)`),
+  a donut is `<mh-donut style="--p1:40;--p2:30;…">` (a `conic-gradient` assembled
+  in the sheet from the palette). One number per mark, in markup; every visual
+  rule in the stylesheet. On the edge of on-rails, not past it.
+- **Multi-point geometry is past it** — a line/area path can't be a scalar, so it's
+  an inline `<svg>` of coordinates (styled by element type: `polyline`/`polygon`/
+  `circle`/`line`). That's the same escape hatch as the canvas connectors.
+- **Honest count:** 2 chart composites (`mh-bars`, `mh-donut`) + a styled `<svg>`
+  line; added a categorical palette (`--mh-c1…c5`). The dashboard *around* the
+  charts added **zero** — it's all reuse. So this is a partial-wall, not a wall:
+  the app is built, looks real, and only the irreducible data (heights, slices,
+  points) sits in markup. Curve: **… → 1 → (1+wall) → (2 + data-hooks).**
 
-- **New pieces appear only for genuinely novel *shapes*** — an image tile grid, a
-  month grid, a kanban board, a nestable message. Each is something no prior
-  composite could be, and each is broadly reusable by *future* apps (the calendar
-  and board especially).
-- **Everything else compounded into reuse + structural refinements** — `<table>`
-  served data grids *and* property panels; `<dialog>` served form modals, a
-  lightbox, *and* a wide edit form; `mh-grid` served dashboards *and* dense form
-  layouts; `mh-list` served friend lists *and* thread lists; `mh-card` served
-  page cards, board cards, *and* composers. The refinements rode on **structure**
-  (`dialog:has(>img)`, `tbody th`, nested `mh-message`), never a class/data hook.
-- **The one real wall stayed exactly where CLAUDE.md predicted** — colour-coded
-  variants (status badges), worked around with emoji dots, not hidden.
+**App 7 notes (Messaging — bubble thread).** Three parts, **one** composite, and
+a clean return to fully on-rails after the two data-heavy apps. The genuine gap
+was the **sender-aligned bubble** — `mh-message` (app 4) is the avatar+author+body
+forum/Slack row; a messaging thread is *bubbles aligned by who sent them*, a
+distinct converged idiom. The interesting bit is how "mine vs theirs" is encoded:
+- **Sender is a 2-state role, and it rode a self-describing boolean attribute** —
+  `<mh-bubble>` (incoming, left) vs `<mh-bubble me>` (outgoing, right, accent),
+  exactly the shape of `type=button` for a secondary button. No class, no data-*,
+  no `style`, no position. So unlike the badge-*colour* variant (which had no
+  native attribute and fell back to emoji), sender-side **did** have a clean
+  attribute-shaped answer — it's a binary role, not an open-ended colour.
+- **Everything else was reuse.** The conversation list is `mh-list`/`mh-item`
+  (active row via `aria-current`, unread via `mh-badge`); the two-pane shell is
+  `mh-layout`; the thread header is `mh-navbar`; the composer is a `<form>`. Two
+  structural refinements (no hooks) made the pane behave: `main:has(> mh-thread)`
+  lays the pane as a column so the thread scrolls and the composer pins to the
+  bottom.
+- **Walls:** none. (Build note: a `*/` buried in a CSS comment — `data-*/style` —
+  closed the comment early and silently dropped the `mh-thread` rule; caught it
+  on verify when the bubbles wouldn't stack. Evidence before assertions.)
 
-So far the bet holds: the vocabulary behaves like generative LEGO, not like
-per-app bespoke CSS. The honest caveat is sample size — four apps in conventional
-domains. The next stress test is a genuinely odd domain (a map/canvas editor, a
-spreadsheet, a music timeline) where the converged vocabulary might not reach.
+## Reading the curve after 7 apps
+
+Seven app types — photos, calendar/booking, CRM, forum/chat, whiteboard,
+analytics, messaging — needed **1, 2, 2, 1, (1+wall), (2+data-hooks), 1** new
+composites. The shape of the result:
+
+- **For document-flow apps the vocabulary saturates.** New pieces appeared only
+  for genuinely novel *shapes* (image tile grid, month grid, kanban board,
+  nestable message, toolbar, bubble thread), each broadly reusable by future apps.
+  Everything else compounded into reuse + structural refinements: `<table>` did
+  data grids *and* property panels; `<dialog>` did form modals, a lightbox, *and*
+  a wide edit form; `mh-grid` did dashboards *and* dense forms; `mh-list` did
+  friend lists, thread lists, *and* conversation lists; `mh-card` did page/board
+  cards, composers, *and* chart frames; `mh-slots` did booking times *and* a
+  date-range filter — all keyed on **structure** (`dialog:has(>img)`, `tbody th`,
+  nested `mh-message`, `main:has(>mh-thread)`), never a hook.
+- **The boundary is now mapped — and it's a gradient, not a cliff.** What falls
+  outside is one thing in three doses: **markup that must carry per-element data**
+  the stylesheet can't hold. (a) *Binary roles* stay on-rails via a native/boolean
+  attribute — secondary buttons (`type=button`), today (`aria-current`), a chosen
+  slot (`aria-pressed`), **a message's sender (`me`)**. (b) *Open-ended values*
+  (a status colour) have no attribute, so they degrade to a content workaround
+  (emoji dots). (c) *Scalar-per-element data* (a bar height, a donut slice, a note
+  position) rides a narrow **custom-property data hook** (`--v`, `--p1`, `--x/--y`)
+  — on the edge, sanctioned. (d) *Coordinate geometry* (a line path, a connector)
+  has no scalar form and needs a raw `<svg>` — the full **escape hatch**.
+- **Verdict (7 apps).** The legible rule: **MaxHTML covers apps whose layout is a
+  function of *structure or a role*, takes apps whose marks are *scalar data* via a
+  narrow data hook, and ejects to `<svg>`/a real lib only for *coordinate
+  geometry*.** That places the overwhelming majority of CRUD/content/social/comms
+  apps squarely inside (apps 1–4, 7 needed 1–2 composites each, no walls), dashboards
+  *mostly* inside (chrome on-rails, marks on data hooks), and pure spatial editors
+  outside. Within its domain the bet holds — generative LEGO, not per-app bespoke
+  CSS. The experiment did its job: it found the edge *and* showed the edge is
+  graded, not a wall you hit all at once.
+
+### Component addendum — `mh-tooltip` (floating ≠ data-driven)
+
+Not an app, but a useful sharpening of the boundary. A tooltip *looks* like the
+canvas — it floats, it's positioned, it's behavioral — so you'd expect a data
+hook or JS. It needs **neither: 0 new data hooks, 0 JS.** The reason is the whole
+point of the gradient above: a tooltip's position is a **constant offset from its
+own trigger** — that's *chrome*, fixed by the component, so it lives in the sheet
+(like the floating `mh-toolbar`'s anchor). Contrast a sticky note, whose x/y is
+*per-instance data* and needs `--x/--y`. Show/hide is pure CSS (`:hover` /
+`:focus-within`); the tip is a slot picked by a native role (`role="tooltip"`),
+not position; a11y rides `aria-describedby`+`id`. Plain hints don't even need the
+component — native `title` is the on-rails default. The lesson for the boundary:
+**"floating / positioned / interactive" does not imply off-rails — only
+*per-element position or geometry* does.** The only thing that would push tooltips
+out is edge-collision flipping (anchor positioning, or a behavior layer) — the
+same graduation path as `mh-menu`, not the data/geometry escape hatch.
 
 **App 3 notes (CRM — dense forms + tables).** Four screens; **one composite + one
 atom**, and the rest fell out of reuse + structural refinements (no new tags).

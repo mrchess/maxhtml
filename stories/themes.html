@@ -4,7 +4,6 @@
 <figure>
 <button name=theme value="">Default</button>
 <button name=theme value="shadcn" type=button>shadcn</button>
-<button name=theme value="shadcn-dark" type=button>shadcn dark</button>
 </figure>
 <h2>Live sample</h2>
 <figure>
@@ -21,7 +20,7 @@
 <label>Email<input type=email value="ada@example.com"></label>
 </figure>
 <h2>How it works</h2>
-<p>Every visual value in the kit comes from a token, and every rule is zero-specificity (<code>:where()</code>), so a theme overrides cleanly — no specificity fight, no touched markup. The dark theme also flips <code>--mh-hover</code> to a translucent white so hovers stay visible.</p>
+<p>Every visual value in the kit comes from a token, and every rule is zero-specificity (<code>:where()</code>), so a theme overrides cleanly — no specificity fight, no touched markup. A dark theme would also flip <code>--mh-hover</code> to a translucent white so hovers stay visible (see the prompt in <code>themes.css</code>).</p>
 <h2>Add your own</h2>
 <p>Drop a block into <code>themes.css</code> (the file header has a copy-paste prompt to generate one from any palette):</p>
 <pre><code>:root[data-theme="midnight"] {

@@ -26,19 +26,3 @@
   --mh-accent-fg: #fafafa;
   --mh-radius:    8px;
 }
-
-/* shadcn — dark (zinc-950, light primary) */
-:root[data-theme="shadcn-dark"] {
-  --mh-bg:        #09090b;
-  --mh-surface:   #18181b;
-  --mh-fg:        #fafafa;
-  --mh-muted:     #a1a1aa;
-  --mh-line:      #27272a;
-  --mh-accent:    #fafafa;
-  --mh-accent-fg: #18181b;
-  --mh-hover:     rgba(255, 255, 255, .08);   /* the themeability fix: white hover on dark */
-  --mh-shadow:    0 10px 28px rgba(0, 0, 0, .5);
-  --mh-shadow-lg: 0 24px 64px rgba(0, 0, 0, .6);
-  --mh-scrim:     #000000;
-  --mh-radius:    8px;
-}

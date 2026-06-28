@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Whiteboard — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Canvas</strong>
+<a href="#">Untitled board</a>
+<mh-avatar>👩</mh-avatar>
+<mh-avatar>🧔</mh-avatar>
+<mh-avatar>🧑</mh-avatar>
+<button type=button>－</button>
+<button type=button>100%</button>
+<button type=button>＋</button>
+<button>Share</button>
+</mh-navbar>
+<mh-sidemenu>
+<header>Canvas</header>
+<nav>
+<mh-submenu>
+<header>Pages</header>
+<a href="#" aria-current=page>Roadmap</a>
+<a href="#">Retro</a>
+<a href="#">Architecture</a>
+</mh-submenu>
+<mh-submenu>
+<header>Layers</header>
+<a href="#">🟨 Kickoff</a>
+<a href="#">🟪 Research</a>
+<a href="#">🟦 Build</a>
+<a href="#">🟩 Ship</a>
+<a href="#">🟧 Risks</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-canvas>
+<mh-toolbar>
+<button type=button aria-pressed=true aria-label="Select">↖</button>
+<button type=button aria-label="Sticky note">🗒</button>
+<button type=button aria-label="Connector">➜</button>
+<button type=button aria-label="Shape">▢</button>
+<button type=button aria-label="Text">T</button>
+<button type=button aria-label="Draw">✎</button>
+<hr>
+<button type=button aria-label="Image">🖼</button>
+<button type=button aria-label="Comment">💬</button>
+</mh-toolbar>
+
+<svg>
+<defs>
+<marker id=arrow viewBox="0 0 10 10" refX=9 refY=5 markerWidth=7 markerHeight=7 orient=auto-start-reverse>
+<path d="M0 0 L10 5 L0 10 z"></path>
+</marker>
+</defs>
+<line x1=252 y1=140 x2=340 y2=120 marker-end="url(#arrow)"></line>
+<line x1=532 y1=120 x2=620 y2=160 marker-end="url(#arrow)"></line>
+<line x1=436 y1=170 x2=472 y2=330 marker-end="url(#arrow)"></line>
+<line x1=156 y1=185 x2=186 y2=335 marker-end="url(#arrow)"></line>
+<line x1=572 y1=360 x2=716 y2=210 marker-end="url(#arrow)"></line>
+</svg>
+
+<mh-note style="--x:60px; --y:80px; --note:#fde68a">
+<strong>Kickoff</strong>
+<p>Align on goals & owners for Q3.</p>
+</mh-note>
+<mh-note style="--x:340px; --y:60px; --note:#fbcfe8">
+<strong>Research</strong>
+<p>Interview 5 users about the token flow.</p>
+</mh-note>
+<mh-note style="--x:620px; --y:110px; --note:#bfdbfe">
+<strong>Build</strong>
+<p>Ship the saturation experiment apps.</p>
+</mh-note>
+<mh-note style="--x:380px; --y:320px; --note:#bbf7d0">
+<strong>Ship 🚀</strong>
+<p>Cut the 1.0 and write the recap.</p>
+</mh-note>
+<mh-note style="--x:80px; --y:330px; --note:#fed7aa">
+<strong>Risks</strong>
+<p>Odd domains may not fit the vocab.</p>
+</mh-note>
+</mh-canvas>
+</main>
+</mh-app>
+
+<script src="mh-canvas.js"></script>
+</body>
+</html>

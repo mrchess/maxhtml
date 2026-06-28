@@ -1,0 +1,53 @@
+<h1>Charts</h1>
+<p>Charts are <strong>data-driven geometry</strong> — the same class of thing that walls the canvas (see <a href="#whiteboard">Whiteboard</a>). They split along that boundary: a mark that's a <em>single scalar</em> (a bar height, a donut slice) rides a narrow custom-property <strong>data hook</strong> — the sanctioned pattern from <code>mh-note</code>'s <code>--x/--y</code>. A mark that's <em>multi-point geometry</em> (a line/area path) can't be a scalar, so it needs a raw <code>&lt;svg&gt;</code> of coordinates — the full escape hatch. Either way the <strong>frame is a reused <code>mh-card</code></strong> and all colour/stroke/sizing lives in the stylesheet.</p>
+
+<h2>Bar chart — <code>&lt;mh-bars&gt;</code> + <code>&lt;mh-bar style="--v:.62"&gt;</code></h2>
+<p><code>--v</code> is data (0–1); the bar's height is <code>calc(var(--v) * 100%)</code> in the sheet.</p>
+<figure>
+<mh-card>
+<header>Signups by day</header>
+<mh-bars>
+<mh-bar style="--v:.45"><small>Mon</small></mh-bar>
+<mh-bar style="--v:.62"><small>Tue</small></mh-bar>
+<mh-bar style="--v:.55"><small>Wed</small></mh-bar>
+<mh-bar style="--v:.80"><small>Thu</small></mh-bar>
+<mh-bar style="--v:.72"><small>Fri</small></mh-bar>
+<mh-bar style="--v:.38"><small>Sat</small></mh-bar>
+<mh-bar style="--v:.30"><small>Sun</small></mh-bar>
+</mh-bars>
+</mh-card>
+</figure>
+
+<h2>Donut — <code>&lt;mh-donut style="--p1:40; --p2:30; …"&gt;</code></h2>
+<p>Segment percentages are data on custom props; the <code>conic-gradient</code> is assembled in the sheet from the categorical palette (<code>--mh-c1…c5</code>). Legend swatches are emoji dots that match the palette.</p>
+<figure>
+<mh-card>
+<header>Traffic sources</header>
+<mh-donut style="--p1:40; --p2:30; --p3:20; --p4:10"></mh-donut>
+<footer>
+<small>🟢 Direct 40%</small>
+<small>🔵 Search 30%</small>
+<small>🟡 Social 20%</small>
+<small>🟣 Referral 10%</small>
+</footer>
+</mh-card>
+</figure>
+
+<h2>Line / area — a styled inline <code>&lt;svg&gt;</code> (escape hatch)</h2>
+<p>Multi-point geometry can't be a scalar, so the points live in the markup. The kit styles by SVG element type (no classes): <code>polygon</code> = area fill, <code>polyline</code> = line, <code>circle</code> = points, <code>line</code> = gridlines. Use <code>preserveAspectRatio="none"</code> so it fills the card.</p>
+<figure>
+<mh-card>
+<header>Revenue</header>
+<svg viewBox="0 0 320 140" preserveAspectRatio="none">
+<line x1=0 y1=35 x2=320 y2=35></line>
+<line x1=0 y1=70 x2=320 y2=70></line>
+<line x1=0 y1=105 x2=320 y2=105></line>
+<polygon points="0,140 0,110 45,92 90,98 135,62 180,72 225,42 270,52 315,24 320,24 320,140"></polygon>
+<polyline points="0,110 45,92 90,98 135,62 180,72 225,42 270,52 315,24"></polyline>
+<circle cx=135 cy=62 r=3></circle><circle cx=225 cy=42 r=3></circle><circle cx=315 cy=24 r=3></circle>
+</svg>
+</mh-card>
+</figure>
+
+<h2>The honest read</h2>
+<p>Bars and donut sit right on the data-hook line — one number per mark, carried on a custom property, with every visual rule still in the sheet. The line is past it: coordinate geometry can only live inline. So a dashboard is <strong>mostly on-rails chrome</strong> (shell, stat tiles, table, the <code>mh-card</code> frames) with charts as <strong>data-geometry islands</strong> — exactly the boundary the saturation experiment maps.</p>

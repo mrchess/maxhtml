@@ -1,0 +1,32 @@
+<h1>Tooltip <small>(CSS-only)</small></h1>
+<p><code>&lt;mh-tooltip&gt;</code> wraps a trigger and its tip. The tip is the child with <code>role="tooltip"</code> — a native, self-describing slot, not sibling position. It appears on <strong>hover or keyboard focus</strong> and floats a fixed offset above the trigger. No JS: the float is <em>chrome</em> (a constant offset from its own trigger), so it lives in the stylesheet — a tooltip looks like the canvas but isn't, because its position is fixed by the component, never per-instance data.</p>
+<h2>Example — hover or tab to it</h2>
+<figure>
+<p>
+<mh-tooltip>
+<button aria-describedby="tt-del">🗑 Delete</button>
+<small role="tooltip" id="tt-del">Delete forever — this can't be undone</small>
+</mh-tooltip>
+&nbsp;
+<mh-tooltip>
+<button type=button aria-describedby="tt-info">ⓘ</button>
+<small role="tooltip" id="tt-info">More about this metric</small>
+</mh-tooltip>
+&nbsp;
+<mh-tooltip>
+<a href="#tooltip" aria-describedby="tt-link">Pricing</a>
+<small role="tooltip" id="tt-link">Plans start at $9/mo</small>
+</mh-tooltip>
+</p>
+</figure>
+<h2>Accessibility is free and JS-free</h2>
+<p>Put <code>aria-describedby="id"</code> on the trigger and a matching <code>id</code> on the <code>&lt;small role="tooltip"&gt;</code>. Keyboard users get it via <code>:focus-within</code>; screen readers get it via the description. All native attributes — no class, no <code>data-*</code>, no script.</p>
+<h2>For a plain hint, skip the component</h2>
+<p>A bare text hint doesn't need any of this — use the native <code>title</code> attribute: <code>&lt;button title="Delete forever"&gt;🗑&lt;/button&gt;</code>. It's the <code>type=button</code> of tooltips: content on a native attribute, zero vocabulary. Reach for <code>&lt;mh-tooltip&gt;</code> only when you want it themed, on focus, or richer.</p>
+<h2>Limits (and the graduation path)</h2>
+<p>Default placement is <strong>top</strong> — no manual <code>placement</code> hook (that'd be an open-ended variant the kit avoids). A tip inside an <code>overflow:hidden</code> ancestor will clip, and edge-collision flipping needs CSS anchor positioning or a small <code>mh-tooltip.js</code> behavior layer — the same graduation path as <code>mh-menu</code>. Until then it's <strong>zero JS, zero data hooks</strong>.</p>
+<h2>Usage</h2>
+<pre><code>&lt;mh-tooltip&gt;
+  &lt;button aria-describedby="t1"&gt;🗑 Delete&lt;/button&gt;
+  &lt;small role="tooltip" id="t1"&gt;Delete forever&lt;/small&gt;
+&lt;/mh-tooltip&gt;</code></pre>

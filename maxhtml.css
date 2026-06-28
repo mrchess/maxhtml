@@ -30,6 +30,8 @@
   --mh-shadow:    0 10px 28px rgba(0, 0, 0, .14);  /* menu / popover shadow */
   --mh-shadow-lg: 0 24px 64px rgba(0, 0, 0, .28);  /* dialog shadow */
   --mh-backdrop:  rgba(0, 0, 0, .45);              /* modal backdrop */
+  /* categorical chart palette — donut segments, multi-series (roughly 🟢🔵🟡🟣🩷) */
+  --mh-c1: #2d7a4b;  --mh-c2: #3b82f6;  --mh-c3: #eab308;  --mh-c4: #9333ea;  --mh-c5: #ec4899;
   /* type & density — theme these for a tighter/looser "shape" (e.g. shadcn) */
   --mh-text-base:     1rem;     /* body + control text */
   --mh-h1:            1.6rem;
@@ -719,3 +721,248 @@
   padding-left: .9rem;
   margin-top: .2rem;
 }
+
+/* ===== composite: <mh-toolbar> (floating tool bar) ===================== */
+/* An elevated bar of tool buttons — a canvas/editor toolbar, a formatting bar.
+   Children: <button type=button> tools (the active one carries aria-pressed),
+   with an optional <hr> as a vertical divider. This part is fully on-rails:
+   it's just buttons + a native attribute, like mh-slots but horizontal and
+   elevated. Reusable by any editor (canvas, doc, image, video). */
+:where(mh-toolbar) {
+  display: inline-flex;
+  align-items: center;
+  gap: .12rem;
+  padding: .3rem;
+  background: var(--mh-bg);
+  border: 1px solid var(--mh-line);
+  border-radius: calc(var(--mh-radius) + 4px);
+  box-shadow: var(--mh-shadow);
+}
+:where(mh-toolbar > button) {                /* ghost icon button */
+  padding: .5rem .6rem;
+  border: none;
+  background: transparent;
+  color: var(--mh-fg);
+  font-size: 1.05rem;
+  line-height: 1;
+  border-radius: var(--mh-radius);
+}
+:where(mh-toolbar > button:hover) { background: var(--mh-hover); }
+:where(mh-toolbar > button[aria-pressed=true]) { background: var(--mh-accent); color: var(--mh-accent-fg); }
+:where(mh-toolbar > hr) {                     /* divider between tool groups */
+  width: 1px;
+  align-self: stretch;
+  margin: .2rem .2rem;
+  border: none;
+  background: var(--mh-line);
+}
+
+/* =========================================================================
+   ESCAPE HATCH — free-form canvas. <mh-canvas> + <mh-note> + connectors.
+   ---------------------------------------------------------------------------
+   This is where MaxHTML's "markup-only, no style=" rail genuinely DOESN'T
+   reach. A whiteboard's substance is per-element POSITION (x/y) and connector
+   GEOMETRY — that's DATA, unique per instance, so it can't live in an external
+   stylesheet. The sanctioned escape hatch: positions ride on the custom
+   properties --x/--y/--w (and colour on --note) set via style="…". The style
+   attribute carries ONLY data (numbers/a colour), never visual rules — all real
+   styling (paper, shadow, type, the dotted grid) stays in the sheet here. Even
+   so, this is an exception to the rail, recorded as a WALL in the experiment.
+   ========================================================================= */
+:where(mh-canvas) {
+  position: relative;
+  display: block;
+  height: 100%;
+  min-height: 30rem;
+  overflow: hidden;
+  background-color: var(--mh-bg);
+  background-image: radial-gradient(var(--mh-line) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+/* the floating toolbar's anchor IS reusable chrome, so it lives in the sheet */
+:where(mh-canvas > mh-toolbar) { position: absolute; top: 1rem; left: 50%; transform: translateX(-50%); z-index: 3; }
+/* connector layer: an <svg> sized to the canvas; the lines carry the geometry */
+:where(mh-canvas > svg) { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: visible; }
+:where(mh-canvas > svg line), :where(mh-canvas > svg path[d]) { stroke: var(--mh-muted); stroke-width: 2; fill: none; }
+:where(mh-canvas > svg marker path) { fill: var(--mh-muted); stroke: none; }
+
+/* a sticky note — the BOX is styled here; only --x/--y/--w/--note come in inline */
+:where(mh-note) {
+  position: absolute;
+  left: var(--x, 0);
+  top: var(--y, 0);
+  width: var(--w, 12rem);
+  z-index: 1;
+  padding: .7rem .8rem;
+  background: var(--note, #fde68a);
+  color: #1a1a1a;
+  border-radius: 4px;
+  box-shadow: var(--mh-shadow);
+  font-size: .9rem;
+  cursor: grab;
+}
+:where(mh-note:active) { cursor: grabbing; z-index: 2; }
+:where(mh-note > strong) { display: block; margin-bottom: .15rem; font-weight: var(--mh-weight-strong); }
+:where(mh-note > p) { margin: 0; }
+
+/* =========================================================================
+   CHARTS — data visualisation. Frame is reused <mh-card>; the marks sit on the
+   data-hook boundary found in app 5 (the canvas): a SINGLE scalar per mark
+   (a bar height, a donut slice) rides a narrow custom-property DATA hook (--v,
+   --p1…), the same sanctioned pattern as a note's --x/--y. MULTI-POINT geometry
+   (a line/area path) can't be a scalar, so it needs a raw <svg> of coordinates —
+   the full escape hatch. All colour/stroke/sizing still lives in the sheet.
+   ========================================================================= */
+
+/* ----- bar chart: <mh-bars> of <mh-bar style="--v:.62"> ------------------ */
+:where(mh-bars) {
+  display: flex;
+  align-items: flex-end;
+  gap: .5rem;
+  height: 12rem;
+  padding-bottom: 1.5rem;            /* room for x labels under the bars */
+}
+:where(mh-bar) {
+  position: relative;
+  flex: 1;
+  height: calc(var(--v, 0) * 100%);  /* --v is data: 0..1 */
+  min-height: 2px;
+  background: var(--mh-accent);
+  border-radius: 4px 4px 0 0;
+}
+:where(mh-bar:hover) { background: color-mix(in srgb, var(--mh-accent) 80%, #000); }
+:where(mh-bar > small) { position: absolute; top: 100%; left: 0; right: 0; text-align: center; padding-top: .35rem; }
+
+/* ----- donut: <mh-donut style="--p1:40; --p2:30; --p3:20; --p4:10"> ------ */
+/* Segment percentages are data on custom props; the conic-gradient is assembled
+   here from the categorical palette. The mask punches the hole. */
+:where(mh-donut) {
+  --p1: 0; --p2: 0; --p3: 0; --p4: 0;
+  display: inline-block;
+  width: 9rem; height: 9rem;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--mh-c1) 0 calc(var(--p1) * 1%),
+    var(--mh-c2) 0 calc((var(--p1) + var(--p2)) * 1%),
+    var(--mh-c3) 0 calc((var(--p1) + var(--p2) + var(--p3)) * 1%),
+    var(--mh-c4) 0 100%);
+  -webkit-mask: radial-gradient(closest-side, #0000 62%, #000 63%);
+          mask: radial-gradient(closest-side, #0000 62%, #000 63%);
+}
+
+/* ----- line / area chart: a styled inline <svg> (escape hatch geometry) --- */
+/* Style by SVG element type — no classes. Scoped to a chart card so it never
+   collides with the canvas connector <svg>. */
+/* chart svg fills the card width at a fixed height — use preserveAspectRatio="none"
+   in the markup so it stretches (non-scaling-stroke keeps the line crisp) */
+:where(mh-card svg) { display: block; width: 100%; height: 13rem; overflow: visible; }
+:where(mh-card svg polygon) { fill: var(--mh-accent); opacity: .12; }                 /* area fill */
+:where(mh-card svg polyline) { fill: none; stroke: var(--mh-accent); stroke-width: 2; vector-effect: non-scaling-stroke; }
+:where(mh-card svg circle)   { fill: var(--mh-accent); }                              /* data points */
+:where(mh-card svg line)     { stroke: var(--mh-line); stroke-width: 1; vector-effect: non-scaling-stroke; }  /* gridlines */
+
+/* ----- legend: a row of <small> swatches under a chart (in the card footer) - */
+:where(mh-card > footer small) { display: inline-flex; align-items: center; gap: .35rem; }
+
+/* ===== composite: <mh-thread> + <mh-bubble> (sender-aligned messaging) == */
+/* A messaging thread of bubbles aligned by SENDER: incoming bubbles sit left on
+   a surface fill; the current user's own bubbles — marked with the boolean
+   attribute `me` — sit right on the accent. `me` is a self-describing role (like
+   `type=button` on a secondary button), not a class, data attr, style, or position.
+   This is the bubble idiom (iMessage/WhatsApp); mh-message is the other one (the
+   avatar+author+body forum/chat row). Optional: a <small> timestamp in a bubble,
+   a <header> day-divider in the thread. */
+:where(mh-thread) {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  padding: 1.25rem;
+}
+:where(mh-bubble) {
+  align-self: flex-start;             /* incoming: left */
+  max-width: 72%;
+  padding: .5rem .75rem;
+  border-radius: 16px;
+  background: var(--mh-surface);
+  color: var(--mh-fg);
+  border: 1px solid var(--mh-line);
+}
+:where(mh-bubble[me]) {               /* outgoing: right, accent */
+  align-self: flex-end;
+  background: var(--mh-accent);
+  color: var(--mh-accent-fg);
+  border-color: var(--mh-accent);
+}
+:where(mh-bubble > small) { display: block; margin-top: .15rem; font-size: .7rem; opacity: .7; color: inherit; }
+:where(mh-thread > header) {          /* day divider */
+  align-self: center;
+  font-size: .72rem;
+  color: var(--mh-muted);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin: .5rem 0 .25rem;
+}
+
+/* a conversation pane: when a <main> holds the thread, lay it out as a column so
+   the thread scrolls and the composer pins to the bottom (structural, no hook) */
+:where(main:has(> mh-thread)) { display: flex; flex-direction: column; height: 100vh; min-height: 0; }
+:where(main:has(> mh-thread) > mh-thread) { flex: 1; overflow-y: auto; min-height: 0; }
+
+/* the active row in a conversation list (reused mh-list) — native attribute */
+:where(mh-item[aria-current]) { background: var(--mh-hover); border-radius: var(--mh-radius); }
+
+/* the composer: a <form> pinned at the bottom of the conversation pane becomes a
+   single inline bar (input grows, Send on the right) */
+:where(main:has(> mh-thread) > form) {
+  flex-direction: row;
+  align-items: center;
+  gap: .5rem;
+  padding: .85rem 1.25rem;
+  border-top: 1px solid var(--mh-line);
+}
+:where(main:has(> mh-thread) > form > label) { flex: 1; }
+:where(main:has(> mh-thread) > form > button) { align-self: auto; }
+
+/* ===== component: <mh-tooltip> (CSS-only floating hint, zero JS) ======== */
+/* Wrap a trigger + its tip; the tip is the child with role="tooltip" — a native,
+   self-describing slot (not sibling position). It shows on hover OR keyboard
+   focus (:focus-within), positioned a fixed offset above the trigger. The float
+   is CHROME — a constant offset relative to its own trigger — so it lives in the
+   sheet: no per-instance coordinates, no data hook, no JS. Wire accessibility
+   with aria-describedby (on the trigger) + matching id (on the tip).
+   Default placement is top; a tip inside an overflow:hidden ancestor will clip,
+   and edge-collision flipping needs CSS anchor positioning or a behavior layer —
+   that's the graduation path, same as mh-menu. For a plain unstyled hint, just
+   use the native `title` attribute instead. */
+:where(mh-tooltip) { position: relative; display: inline-flex; }
+:where(mh-tooltip > [role=tooltip]) {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  translate: -50% -.5rem;
+  z-index: 20;
+  width: max-content;
+  max-width: 16rem;
+  padding: .3rem .55rem;
+  border-radius: var(--mh-radius);
+  background: var(--mh-scrim);
+  color: var(--mh-scrim-fg);
+  box-shadow: var(--mh-shadow);
+  font-size: .8rem;
+  font-weight: var(--mh-weight);
+  line-height: 1.35;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .12s ease, translate .12s ease;
+}
+:where(mh-tooltip > [role=tooltip])::after {      /* the arrow */
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  translate: -50% 0;
+  border: 5px solid transparent;
+  border-top-color: var(--mh-scrim);
+}
+:where(mh-tooltip:hover > [role=tooltip]),
+:where(mh-tooltip:focus-within > [role=tooltip]) { opacity: 1; translate: -50% -.25rem; }

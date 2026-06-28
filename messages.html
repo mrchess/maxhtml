@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Messages — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-layout>
+<mh-sidemenu>
+<header>Messages</header>
+<label><input type=search placeholder="Search"></label>
+<mh-list>
+<mh-item aria-current=page>
+<mh-avatar>👩</mh-avatar>
+<header><strong>Ada Lovelace</strong><small>Let's do it 🚀</small></header>
+<footer><small>9:04</small></footer>
+</mh-item>
+<mh-item>
+<mh-avatar>🧔</mh-avatar>
+<header><strong>Alan Turing</strong><small>Does it change the class names?</small></header>
+<footer><small>9:04</small><mh-badge>2</mh-badge></footer>
+</mh-item>
+<mh-item>
+<mh-avatar>👨</mh-avatar>
+<header><strong>Grace Hopper</strong><small>Reviewing now 👀</small></header>
+<footer><small>8:51</small></footer>
+</mh-item>
+<mh-item>
+<mh-avatar>🧑</mh-avatar>
+<header><strong>Design team</strong><small>Katherine: new mocks up</small></header>
+<footer><small>Yest</small><mh-badge>5</mh-badge></footer>
+</mh-item>
+<mh-item>
+<mh-avatar>👵</mh-avatar>
+<header><strong>Edsger Dijkstra</strong><small>👍</small></header>
+<footer><small>Mon</small></footer>
+</mh-item>
+</mh-list>
+</mh-sidemenu>
+<main>
+<mh-navbar>
+<strong>Ada Lovelace</strong>
+<a href="#">📞</a>
+<a href="#">🎥</a>
+<a href="#">ⓘ</a>
+</mh-navbar>
+<mh-thread>
+<header>Today</header>
+<mh-bubble>Hey! Did you get a chance to look at the tokens PR?<small>9:01</small></mh-bubble>
+<mh-bubble me>Yeah — just approved it ✅<small>9:03</small></mh-bubble>
+<mh-bubble>🙌 the markup didn't change at all, right?</mh-bubble>
+<mh-bubble me>Zero diff. It's all in the token layer — that's the whole point.<small>9:04</small></mh-bubble>
+<mh-bubble>Perfect. Shipping today then.</mh-bubble>
+<mh-bubble me>Let's do it 🚀<small>9:04</small></mh-bubble>
+</mh-thread>
+<form>
+<label><input type=text placeholder="Message Ada…" aria-label="Message"></label>
+<button type=button>＋</button>
+<button>Send</button>
+</form>
+</main>
+</mh-layout>
+</body>
+</html>
