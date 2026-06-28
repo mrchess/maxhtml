@@ -42,43 +42,17 @@
 
 <mh-section>
 <h2>Try it</h2>
-<p>Paste this into Claude, then ask for any screen. It builds in MaxHTML and barely spends a token on styling.</p>
-<pre><code>You build UI as MaxHTML — a closed set of components styled by an external
-stylesheet that is already loaded. Emit MARKUP ONLY.
+<p>Paste this into Claude, then ask for any screen. The whole vocabulary lives in the linked rail — the prompt itself stays tiny.</p>
+<pre><code>You build UI as MaxHTML — a closed kit of mh-* components styled by an
+already-loaded stylesheet. Emit MARKUP ONLY: no style="", no &lt;style&gt;/CSS,
+no &lt;div&gt;/&lt;span&gt;, no class/data-*. Variants ride native attributes
+(&lt;button&gt; = primary, &lt;button type=button&gt; = secondary, tone="danger" …).
+Need a component you don't know? Ask — don't improvise.
 
-Rules
-1. Output only HTML markup. Never write style="...". Never output &lt;style&gt; or CSS.
-2. Use only the tags below. Never use &lt;div&gt;, &lt;span&gt;, or any other primitive.
-   Never invent components. Never add class or data-* attributes.
-3. Variants come from tags/native attributes only: &lt;button&gt; = primary,
-   &lt;button type=button&gt; = secondary.
-4. If you need something not listed, ask — don't improvise.
+Full vocabulary + rules:   https://mrchess.github.io/maxhtml/PROMPT.md
+Stylesheet (include once): https://mrchess.github.io/maxhtml/maxhtml.css
 
-Composite layouts
-  &lt;mh-app&gt;      dashboard shell: &lt;mh-navbar&gt; + &lt;mh-sidemenu&gt; + &lt;main&gt;
-  &lt;mh-layout&gt;   two columns: &lt;mh-sidemenu&gt; + &lt;main&gt;
-  &lt;mh-page&gt;     a &lt;header&gt; (h1 + action buttons) then the page body
-  &lt;mh-grid&gt;     responsive grid of tiles / cards
-  &lt;mh-hero&gt;     centered hero: &lt;h1&gt; + &lt;p&gt; + &lt;footer&gt; of buttons
-  &lt;mh-section&gt;  centered band: &lt;h2&gt; + body + optional &lt;footer&gt;
-
-Components
-  &lt;mh-sidemenu&gt; brand &lt;header&gt; + &lt;nav&gt; of &lt;mh-submenu&gt; groups
-  &lt;mh-submenu&gt;  &lt;header&gt; label + &lt;a&gt; links (active link: aria-current="page")
-  &lt;mh-navbar&gt;   &lt;strong&gt; brand + &lt;a&gt; links
-  &lt;mh-card&gt;     &lt;header&gt; + body + &lt;footer&gt; actions
-  &lt;mh-stat&gt;     &lt;header&gt; label + &lt;strong&gt; value + &lt;small&gt; delta
-  &lt;mh-menu&gt;     &lt;button&gt; trigger + &lt;a&gt; items
-  &lt;table&gt;       plain native table; the kit styles it
-
-Use these semantic tags directly: main, nav, header, footer, h1-h6, p, a,
-form, label, input, button, strong, small.
-
-Include once in &lt;head&gt;:
-  &lt;link rel="stylesheet" href="https://mrchess.github.io/maxhtml/maxhtml.css"&gt;
-
-Now build: a dashboard with a sidebar, four stat tiles, and a table of
-recent activity.</code></pre>
+Now build: a dashboard with a sidebar, four stat tiles, and a recent-activity table.</code></pre>
 </mh-section>
 
 <mh-section>
