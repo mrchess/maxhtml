@@ -65,6 +65,34 @@ Primitives: `button` `form` `label` `input` `textarea` `h1`–`h6` `p` `a`
 | 10 | Docs / help center (Acme Docs) — knowledge base | article, API reference, search, FAQ | **1** | `mh-pagination` | **mh-layout**, **mh-sidemenu/submenu** (nav tree), **mh-breadcrumb** (app 9), **mh-card** (TOC), **mh-alert** (callout, app 8), **table** (API params), **`<details>`** FAQ (app 8), **`<dialog>`** ⌘K palette refinement, **mh-list** (results), prose atoms (ul/ol/blockquote/kbd) | none — fully on-rails |
 | 11 | Live ops / monitoring (Beacon) — observability | overview (status + chart), services, live log, empty state | **2** | `mh-toasts`, `mh-empty` | mh-app/page/grid/**mh-stat**, mh-card, **table** + **mh-badge** (services/log), **mh-bars** (chart), **mh-alert** (toast content), native atoms **mh-skeleton**/**mh-spinner** | none — toasts are a behavior layer, not a wall (see notes) |
 
+**Cross-cutting resolution (post-app-11): the colour-variant wall → the `tone`
+primitive.** The one wall that recurred — semantic status/severity *colour* —
+showed up three times and was each time worked around with a leading **emoji**:
+app 3 (`mh-badge` 🟢/🟡/🔴 status), app 8 (`mh-alert` ✅/⚠️/🔴 severity), app 11
+(`mh-toasts`, inheriting the alert emoji). Three hits across unrelated app types
+is the saturation experiment *returning a verdict*: this axis is generative, so it
+earns a place in the vocabulary instead of a per-component hack.
+- **Fix:** one cross-component native attribute, `tone="success|warning|danger|
+  info"` (neutral = no attribute), backed by a `--mh-success/-warning/-danger/
+  -info` token quad, every rule in `:where()`. Badge consumes it as a colour dot +
+  tint; alert/toast as a tinted border + a severity **icon**. The model emits the
+  *meaning*; the sheet decides the *rendering* — fully on the north star.
+- **Precedent it cleaned up:** `input[aria-invalid=true]` already pulled
+  `--mh-danger` (colour-per-state on a native attribute), so the "kit forbids
+  variant hooks" caveat was already too strict; `tone` is the principled version.
+- **Companion:** a real `<mh-icon name="…">` (mask-based Lucide, in the sheet,
+  `currentColor`) replaced all *chrome* emoji (status, severity, avatars, labels,
+  toolbars). ~31 icons; the model emits only the name. Emoji now appear **only**
+  as genuine user content (a chat message, a reaction).
+- **Still deferred (honest):** *categorical* colour with no good/bad valence —
+  chart series, calendar event types, kanban-lane hues — is NOT `tone`. It stays
+  on the `--mh-c1…c5` palette; a dedicated `accent` axis is YAGNI until a real
+  wall demands it. Presence dots (online/offline) are likewise an unbuilt concept,
+  left as the one remaining chrome emoji and logged here rather than faked.
+- This is logged not as a *new app's* composite count but as the kit maturing: a
+  recurring wall converting into a single generative primitive is the strongest
+  possible saturation signal.
+
 **App 4 notes (Forum / chat — threads).** Five screens, **one** new composite,
 and it did double duty across both senses of "threads."
 - **`mh-message`** (new composite) — the comment/message unit: avatar top-left,
@@ -383,6 +411,8 @@ atom**, and the rest fell out of reuse + structural refinements (no new tags).
   MaxHTML doesn't offer" finding in CLAUDE.md. Worked around by carrying status
   colour on an **emoji dot** as content (🟢/🟡/🔴), consistent with the kit, but
   it's an at-a-glance dot, not a filled pill. Logged as the limitation it is.
+  **RESOLVED (post-app-11):** this wall recurred in apps 8 & 11 and was converted
+  into the cross-component `tone` attribute — see "Cross-cutting resolution" above.
 - Curve so far: **6 → 1 → 2 → 2.** Holding flat-low: a whole forms-and-tables app
   added just one composite + one atom, because tables/forms/dialogs absorbed the
   rest via structural refinements. That's the saturation signal — the new pieces

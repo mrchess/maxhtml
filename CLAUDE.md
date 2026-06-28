@@ -105,8 +105,11 @@ These were established by measurement and argument; respect them.
   cost is rigidity, relieved by the two exits + a sanctioned escape hatch.
 - The win is **concentrated where the design fits the opinions** (primary/
   secondary, the one fixed look) and **shrinks** the moment a design needs a
-  variant MaxHTML doesn't offer (pill, success/danger, sizes). A self-contained
-  widget like Shoelace's `<sl-rating>` (one tag) MaxHTML can only tie, not beat.
+  variant MaxHTML doesn't offer (pill shape, sizes). Semantic *severity* colour
+  used to be on this list but is now covered by the cross-component `tone` axis
+  (`success/warning/danger/info`) — a recurring wall that converted into a
+  primitive (see `experiments/saturation.md`). A self-contained widget like
+  Shoelace's `<sl-rating>` (one tag) MaxHTML can only tie, not beat.
 
 ## Saturation experiment (current focus)
 

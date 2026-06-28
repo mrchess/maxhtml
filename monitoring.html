@@ -12,7 +12,7 @@
 <strong>Beacon</strong>
 <a href="#">Docs</a>
 <a href="#">Status page</a>
-<mh-avatar>🧑</mh-avatar>
+<mh-avatar><mh-icon name="user"></mh-icon></mh-avatar>
 </mh-navbar>
 <mh-sidemenu>
 <header>Beacon</header>
@@ -49,11 +49,11 @@
 <table>
 <thead><tr><th>Service</th><th>Status</th><th>Latency</th><th>Last check</th></tr></thead>
 <tbody>
-<tr><td>api-us</td><td><mh-badge>🟢 Operational</mh-badge></td><td>180ms</td><td>3s ago</td></tr>
-<tr><td>api-eu</td><td><mh-badge>🟡 Degraded</mh-badge></td><td>620ms</td><td>2s ago</td></tr>
-<tr><td>web</td><td><mh-badge>🟢 Operational</mh-badge></td><td>90ms</td><td>4s ago</td></tr>
-<tr><td>workers</td><td><mh-badge>🔴 Down</mh-badge></td><td>—</td><td>1s ago</td></tr>
-<tr><td>database</td><td><mh-badge>🟢 Operational</mh-badge></td><td>12ms</td><td>2s ago</td></tr>
+<tr><td>api-us</td><td><mh-badge tone="success">Operational</mh-badge></td><td>180ms</td><td>3s ago</td></tr>
+<tr><td>api-eu</td><td><mh-badge tone="warning">Degraded</mh-badge></td><td>620ms</td><td>2s ago</td></tr>
+<tr><td>web</td><td><mh-badge tone="success">Operational</mh-badge></td><td>90ms</td><td>4s ago</td></tr>
+<tr><td>workers</td><td><mh-badge tone="danger">Down</mh-badge></td><td>—</td><td>1s ago</td></tr>
+<tr><td>database</td><td><mh-badge tone="success">Operational</mh-badge></td><td>12ms</td><td>2s ago</td></tr>
 </tbody>
 </table>
 </mh-card>
@@ -85,10 +85,10 @@
 <header>Live log <mh-spinner></mh-spinner></header>
 <table>
 <tbody>
-<tr><td>12:04:31</td><td><mh-badge>🔴 ERROR</mh-badge></td><td>api-eu request timed out after 5s</td></tr>
-<tr><td>12:04:29</td><td><mh-badge>🟡 WARN</mh-badge></td><td>api-eu p95 latency above 500ms threshold</td></tr>
-<tr><td>12:04:27</td><td><mh-badge>⚪ INFO</mh-badge></td><td>workers: restarting pool (3 replicas)</td></tr>
-<tr><td>12:04:21</td><td><mh-badge>🟢 INFO</mh-badge></td><td>deploy api-us v2.3.1 succeeded</td></tr>
+<tr><td>12:04:31</td><td><mh-badge tone="danger">ERROR</mh-badge></td><td>api-eu request timed out after 5s</td></tr>
+<tr><td>12:04:29</td><td><mh-badge tone="warning">WARN</mh-badge></td><td>api-eu p95 latency above 500ms threshold</td></tr>
+<tr><td>12:04:27</td><td><mh-badge tone="info">INFO</mh-badge></td><td>workers: restarting pool (3 replicas)</td></tr>
+<tr><td>12:04:21</td><td><mh-badge tone="success">INFO</mh-badge></td><td>deploy api-us v2.3.1 succeeded</td></tr>
 </tbody>
 </table>
 </mh-card>
@@ -96,7 +96,7 @@
 <mh-card>
 <header>Scheduled maintenance</header>
 <mh-empty>
-<strong>🌙</strong>
+<strong><mh-icon name="moon"></mh-icon></strong>
 <h2>Nothing scheduled</h2>
 <p>No maintenance windows in the next 30 days. Schedule one to notify subscribers in advance.</p>
 <footer><button type=button>Schedule window</button></footer>
@@ -107,8 +107,8 @@
 </mh-app>
 
 <mh-toasts>
-<mh-alert>✅ <strong>Deploy finished.</strong> api-us v2.3.1 is live.<button type=button>✕</button></mh-alert>
-<mh-alert>⚠️ <strong>High latency.</strong> api-eu p95 crossed 500ms.<button type=button>✕</button></mh-alert>
+<mh-alert tone="success"><strong>Deploy finished.</strong> api-us v2.3.1 is live.<button type=button>✕</button></mh-alert>
+<mh-alert tone="warning"><strong>High latency.</strong> api-eu p95 crossed 500ms.<button type=button>✕</button></mh-alert>
 </mh-toasts>
 </body>
 </html>

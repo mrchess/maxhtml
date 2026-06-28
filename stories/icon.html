@@ -1,0 +1,20 @@
+<h1>Icon</h1>
+<p><code>&lt;mh-icon name="…"&gt;</code> is a mask-based SVG icon. The artwork (Lucide, ISC) lives in <code>maxhtml.css</code> as a URL-encoded mask — the model emits only the tag and the <code>name</code>, never the SVG, so an icon costs about the same as an emoji while being themeable. <code>background</code> is <code>currentColor</code>, so an icon takes the colour of its surrounding text and is fully recolorable; it's sized <code>1em</code>, so it scales with the type around it.</p>
+<h2>The set</h2>
+<figure>
+<p><mh-icon name="success"></mh-icon> <mh-icon name="warning"></mh-icon> <mh-icon name="danger"></mh-icon> <mh-icon name="info"></mh-icon> <mh-icon name="message"></mh-icon> <mh-icon name="eye"></mh-icon> <mh-icon name="tag"></mh-icon> <mh-icon name="thumbs-up"></mh-icon> <mh-icon name="sparkles"></mh-icon> <mh-icon name="cart"></mh-icon> <mh-icon name="phone"></mh-icon> <mh-icon name="mail"></mh-icon> <mh-icon name="pencil"></mh-icon> <mh-icon name="map-pin"></mh-icon> <mh-icon name="star"></mh-icon> <mh-icon name="search"></mh-icon> <mh-icon name="user"></mh-icon> <mh-icon name="trash"></mh-icon> <mh-icon name="download"></mh-icon> <mh-icon name="attach"></mh-icon> <mh-icon name="video"></mh-icon> <mh-icon name="heart"></mh-icon> <mh-icon name="image"></mh-icon> <mh-icon name="inbox"></mh-icon> <mh-icon name="moon"></mh-icon> <mh-icon name="poke"></mh-icon> <mh-icon name="block"></mh-icon> <mh-icon name="user-minus"></mh-icon> <mh-icon name="note"></mh-icon> <mh-icon name="cursor"></mh-icon> <mh-icon name="connector"></mh-icon></p>
+</figure>
+<h2>Inherits text colour &amp; size</h2>
+<p>Because it's <code>currentColor</code> at <code>1em</code>, an icon just works inline in a button, a link, a heading, or a badge — no sizing or colour to emit:</p>
+<figure>
+<button><mh-icon name="download"></mh-icon> Download</button>
+<button type=button><mh-icon name="trash"></mh-icon> Delete</button>
+<a href="#"><mh-icon name="star"></mh-icon> Favorites</a>
+<mh-badge><mh-icon name="message"></mh-icon> 18</mh-badge>
+<mh-avatar><mh-icon name="user"></mh-icon></mh-avatar>
+</figure>
+<h2>Usage</h2>
+<pre><code>&lt;button&gt;&lt;mh-icon name="download"&gt;&lt;/mh-icon&gt; Download&lt;/button&gt;
+&lt;mh-badge&gt;&lt;mh-icon name="message"&gt;&lt;/mh-icon&gt; 18&lt;/mh-badge&gt;
+&lt;mh-avatar&gt;&lt;mh-icon name="user"&gt;&lt;/mh-icon&gt;&lt;/mh-avatar&gt;   &lt;!-- anonymous avatar --&gt;</code></pre>
+<p><small>Closed set — adding an icon means adding one mask rule in <code>maxhtml.css</code> (and logging it). Emoji are reserved for genuine user content (a chat message, a reaction), never UI chrome. Severity colour rides the separate <code>tone</code> attribute (see <a href="#badge">Badge</a> / <a href="#alert">Alert</a>).</small></p>

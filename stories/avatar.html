@@ -1,13 +1,13 @@
 <h1>Avatar</h1>
-<p>A round container for a user's face. Holds an emoji (for now), initials, or an <code>&lt;img&gt;</code>. The icon is <em>content</em>, not CSS — so swapping the emoji for <code>&lt;mh-icon&gt;</code> later never touches layout.</p>
-<h2>Examples — emoji, initials, image</h2>
+<p>A round container for a person. Holds, in order of preference: an <code>&lt;img&gt;</code> (photo), <strong>initials</strong> text when the name is known, or <code>&lt;mh-icon name="user"&gt;</code> for an anonymous/unknown person. No emoji faces — the fallbacks are real, themeable, and recolorable.</p>
+<h2>Examples — image, initials, anonymous</h2>
 <figure>
-<mh-avatar>🧑</mh-avatar>
-<mh-avatar>👩</mh-avatar>
-<mh-avatar>AL</mh-avatar>
 <mh-avatar><img src="https://i.pravatar.cc/80?img=12" alt=""></mh-avatar>
+<mh-avatar>AL</mh-avatar>
+<mh-avatar>GH</mh-avatar>
+<mh-avatar><mh-icon name="user"></mh-icon></mh-avatar>
 </figure>
 <h2>Usage</h2>
-<pre><code>&lt;mh-avatar&gt;🧑&lt;/mh-avatar&gt;                  &lt;!-- emoji --&gt;
-&lt;mh-avatar&gt;AL&lt;/mh-avatar&gt;                  &lt;!-- initials --&gt;
-&lt;mh-avatar&gt;&lt;img src="..." alt=""&gt;&lt;/mh-avatar&gt;  &lt;!-- photo --&gt;</code></pre>
+<pre><code>&lt;mh-avatar&gt;&lt;img src="..." alt=""&gt;&lt;/mh-avatar&gt;       &lt;!-- photo --&gt;
+&lt;mh-avatar&gt;AL&lt;/mh-avatar&gt;                          &lt;!-- initials (name known) --&gt;
+&lt;mh-avatar&gt;&lt;mh-icon name="user"&gt;&lt;/mh-icon&gt;&lt;/mh-avatar&gt;  &lt;!-- anonymous --&gt;</code></pre>

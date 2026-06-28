@@ -3,23 +3,23 @@
 <h2>Example</h2>
 <figure>
 <mh-toolbar>
-<button type=button aria-pressed=true aria-label="Select">↖</button>
-<button type=button aria-label="Sticky note">🗒</button>
-<button type=button aria-label="Connector">➜</button>
+<button type=button aria-pressed=true aria-label="Select"><mh-icon name="cursor"></mh-icon></button>
+<button type=button aria-label="Sticky note"><mh-icon name="note"></mh-icon></button>
+<button type=button aria-label="Connector"><mh-icon name="connector"></mh-icon></button>
 <button type=button aria-label="Shape">▢</button>
 <button type=button aria-label="Text">T</button>
-<button type=button aria-label="Draw">✎</button>
+<button type=button aria-label="Draw"><mh-icon name="pencil"></mh-icon></button>
 <hr>
-<button type=button aria-label="Image">🖼</button>
-<button type=button aria-label="Comment">💬</button>
+<button type=button aria-label="Image"><mh-icon name="image"></mh-icon></button>
+<button type=button aria-label="Comment"><mh-icon name="message"></mh-icon></button>
 </mh-toolbar>
 </figure>
 <h2>Anatomy</h2>
-<p>The selected tool is <code>aria-pressed="true"</code> (filled) — a native, edit-proof signal, never a class. Groups are separated by <code>&lt;hr&gt;</code>. Use emoji as the icons (held as content, swappable for a future <code>&lt;mh-icon&gt;</code>); add <code>aria-label</code> since the glyph is the only text.</p>
+<p>The selected tool is <code>aria-pressed="true"</code> (filled) — a native, edit-proof signal, never a class. Groups are separated by <code>&lt;hr&gt;</code>. Use <code>&lt;mh-icon&gt;</code> for the tool glyphs (held as content); add <code>aria-label</code> since the icon is the only text.</p>
 <h2>Usage</h2>
 <pre><code>&lt;mh-toolbar&gt;
-  &lt;button type=button aria-pressed="true" aria-label="Select"&gt;↖&lt;/button&gt;
-  &lt;button type=button aria-label="Sticky note"&gt;🗒&lt;/button&gt;
+  &lt;button type=button aria-pressed="true" aria-label="Select"&gt;&lt;mh-icon name="cursor"&gt;&lt;/mh-icon&gt;&lt;/button&gt;
+  &lt;button type=button aria-label="Sticky note"&gt;&lt;mh-icon name="note"&gt;&lt;/mh-icon&gt;&lt;/button&gt;
   &lt;hr&gt;
-  &lt;button type=button aria-label="Image"&gt;🖼&lt;/button&gt;
+  &lt;button type=button aria-label="Image"&gt;&lt;mh-icon name="image"&gt;&lt;/mh-icon&gt;&lt;/button&gt;
 &lt;/mh-toolbar&gt;</code></pre>

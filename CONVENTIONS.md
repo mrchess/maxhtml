@@ -112,12 +112,13 @@ Inside a slot, tell primitives apart by **context + role**, never by counting:
 | `mh-stat` | metric tile | `<header>` (label) + `<strong>` (value) + `<small>` (delta) |
 | `mh-menu` | dropdown (needs `mh-menu.js`) | `<button>` (trigger) + `<a>` items |
 | `mh-tooltip` | themed hover/focus hint | a trigger + `<small role="tooltip">` tip; a11y via `aria-describedby`+`id`. **Placement is automatic** (top + anchor-positioning auto-flip; no placement attribute to emit). Plain hints: use native `title` instead |
-| `mh-avatar` | round user image | an emoji, initials, or an `<img>` |
-| `mh-badge` | neutral status pill (atom) | a short label + leading emoji dot for status colour (`🟢 Customer`); no colour variant — colour rides on the emoji, never a class |
+| `mh-avatar` | round user image | an `<img>` (photo), initials when the name is known (`AL`), or `<mh-icon name="user">` when anonymous — never an emoji face |
+| `mh-icon` | icon (atom) | `<mh-icon name="…">` — a mask-based SVG that lives in `maxhtml.css`; `background: currentColor` so it takes the surrounding text colour and is fully themeable. Model emits only the tag + `name` (the artwork is amortised, ~emoji cost). Closed icon set; add one = add a mask rule |
+| `mh-badge` | status pill (atom) | a short label; status colour rides the native **`tone`** attribute (`tone="success\|warning\|danger\|info"`, no attribute = neutral) → a leading colour dot + faint tint. Label stays as text. Count/decorative badge → an `<mh-icon>` inside instead (`<mh-icon name="message"> 18`) |
 | `<dialog>` | modal (needs `mh-dialog.js`) | `<header>` + body/`<form>` + `<footer>`; open via `<button commandfor="id">`. **Image variant (lightbox):** content is an `<img>` → wide, dark photo viewer, keyed on structure (`dialog:has(> img)`), no new tag/hook |
 | `<table>` | data table | native — styled by the kit, no classes. **Property panel variant:** a row label as `<th scope="row">` in `<tbody>` → muted/narrow key column (keyed on structure, no hook) |
 | `mh-tabs` | horizontal in-page section nav (settings, profile, product detail) | `<a>` tabs; active = `aria-current="page"` (same model as `mh-submenu`). Each routes to its own URL — the content-level cousin of the vertical sidebar nav. In-page panel switching needs JS |
-| `mh-alert` | inline notice / banner | optional `<strong>` lead + body + trailing `<button>`; severity rides a **leading emoji** (`ℹ️`/`✅`/`⚠️`/`🔴`), no colour variant (same wall as `mh-badge`) |
+| `mh-alert` | inline notice / banner | optional `<strong>` lead + body + trailing `<button>`; severity rides the native **`tone`** attribute (same axis as `mh-badge`) → tinted left border + a matching severity icon, both from the stylesheet (no attribute = neutral accent notice) |
 | `<details>` / `<summary>` | accordion / disclosure | native — styled by the kit, zero JS. `<summary>` = header (with +/− affordance); the rest = panel. Stack for an accordion |
 | native form controls | checkbox · radio · switch · select · progress | native, styled by the kit (atoms, not new tags). A **switch** = `<input type=checkbox role=switch>` (self-describing role, no class). Field hint = `<small>` in the `<label>`; error = `aria-invalid="true"`. `<progress value max>` = determinate bar |
 | `mh-carousel` | horizontal scroll-snap strip (product images, featured row) | slides are `<img>` (full-bleed) or `<mh-card>`/`<figure>`; CSS scroll-snap, zero JS. Distinct from `mh-gallery` (wrapping grid) and `mh-board` (fixed lanes) |
@@ -126,12 +127,26 @@ Inside a slot, tell primitives apart by **context + role**, never by counting:
 | `mh-pagination` | numbered pager (search results, tables, index) | `<a>` page links (current = `aria-current="page"`) + prev/next (`aria-disabled="true"` to disable an end) + `<small>` ellipsis |
 | `<dialog>` command-palette variant | ⌘K palette | a `<dialog>` whose content leads with `<input type=search>` → top-anchored, search-first (results in `mh-list`, hints as `<kbd>`). Keyed on structure, like the lightbox — no new tag |
 | prose atoms | lists · blockquote · kbd · code | native `<ul>`/`<ol>`/`<li>`, `<blockquote>`, `<pre><code>`, inline `<code>`, `<kbd>` — styled by the kit for long-form docs |
-| `mh-toasts` | fixed transient-notification stack (bottom-right) | children are reused `<mh-alert>`s + a `<button>✕</button>`. Position is chrome (CSS, not a data hook); zero JS to render. `mh-toast.js` adds auto-dismiss + `mhToast()`/`[data-toast]` spawn |
+| `mh-toasts` | fixed transient-notification stack (bottom-right) | children are reused `<mh-alert tone>`s + a `<button>✕</button>`. Position is chrome (CSS, not a data hook); zero JS to render. `mh-toast.js` adds auto-dismiss + `mhToast(html, {tone})` / `[data-toast][data-tone]` spawn |
 | `mh-empty` | empty / zero state | optional big leading `<strong>` glyph + `<h2>` + `<p>` + optional `<footer>` actions |
 | `mh-skeleton` / `mh-spinner` | loading atoms | `<mh-skeleton>` = pulsing placeholder line (stack for paragraph/card); `<mh-spinner>` = indeterminate ring (determinate → `<progress>`) |
 
-**Icons:** emoji for now (`👋`, `❌`) — held as element *content*, never in CSS, so
-they swap to a future `<mh-icon name>` without touching layout.
+**Icons:** `<mh-icon name="…">` — mask-based SVGs (Lucide, ISC) that live in
+`maxhtml.css`; the model emits only the tag + `name`, never the artwork, so an
+icon costs ~the same as an emoji while being themeable and recolorable
+(`background: currentColor`). The set is closed; add an icon = add one mask rule
+(and log it). No emoji in chrome (status, severity, avatars, labels, toolbars);
+emoji remain only as genuine *user content* (a chat message, a reaction).
+
+**Severity — the `tone` axis:** semantic status colour is one cross-component
+native attribute, `tone="success|warning|danger|info"` (no attribute = neutral).
+It's the converged replacement for the old "leading emoji" status hack (logged
+3× as the colour-variant wall across badge/alert/toast). The model emits the
+*meaning* (`tone="danger"`); the stylesheet decides the *rendering* (the hue, the
+badge dot, the alert icon + border) from the `--mh-success/-warning/-danger/-info`
+tokens. Themeable, recolorable, and ejects to a `variant` prop. **Categorical**
+colour (chart series, calendar event types, kanban-lane hues — no good/bad
+valence) is a *separate* concern, served by the `--mh-c1…c5` palette, not `tone`.
 
 **Borrowed from Radix, collapsed:** MaxHTML takes the *anatomy* of established
 component libraries (what slots exist) but not their tag-per-part verbosity. A
@@ -181,6 +196,8 @@ you can also override any individual component's CSS without a specificity war.
 | `--mh-line` | borders / dividers |
 | `--mh-accent` | brand / active / primary |
 | `--mh-accent-fg` | text on accent |
+| `--mh-success` / `--mh-warning` / `--mh-danger` / `--mh-info` | the `tone` severity axis (badge dot, alert/toast icon + border) — override to reskin every tone'd component at once |
+| `--mh-c1`…`--mh-c5` | categorical chart palette (donut segments, multi-series) — no good/bad valence |
 | `--mh-scrim` / `--mh-scrim-fg` | immersive overlay surface + its text (lightbox) |
 | `--mh-hover` | hover tint (flip to translucent white on dark themes) |
 | `--mh-shadow` / `--mh-shadow-lg` | popover / dialog shadows |
@@ -225,6 +242,9 @@ semantic inner tags as-is.
 | `<header>` (in submenu) | `<header class="px-2 text-xs font-semibold uppercase tracking-wide text-gray-500">` |
 | `<a>` (in submenu) | `<a class="block px-2.5 py-2 rounded text-sm hover:bg-black/5">` |
 | `<main>` | `<main class="p-10 max-w-5xl">` |
+| `<mh-badge tone="success">Active</mh-badge>` | `<span class="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold text-green-700 border-green-200"><span class="size-2 rounded-full bg-green-600"></span>Active</span>` (map `tone` → the colour quad) |
+| `<mh-alert tone="danger">…</mh-alert>` | `<div role="alert" class="flex items-center gap-2 rounded border border-l-[3px] border-l-red-600 p-3"><LucideCircleX class="size-5 text-red-600"/>…</div>` |
+| `<mh-icon name="user">` | `<LucideUser class="size-[1em]"/>` (or `<i class="i-lucide-user">`) — the `name` maps 1:1 to the Lucide icon |
 
 Inner semantic tags (`<nav>`, `<button>`, `<a>`, `<h1>`) translate to themselves
 — they already carry the right meaning.

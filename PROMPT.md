@@ -18,8 +18,11 @@ only**.
    `<span>`, or any other primitive. Never invent component names. Never add
    `class` or `data-*` attributes.
 3. Variants come from the listed tags and native attributes only — e.g.
-   `<button>` is the primary action, `<button type=button>` is secondary. Do not
-   add styling hooks of any kind.
+   `<button>` is the primary action, `<button type=button>` is secondary,
+   `tone="danger"` is a badge/alert's severity, `me` is the sender's own bubble.
+   These sanctioned attributes are *meaning*, not styling — emit them where the
+   component lists them. Do not add `class`, `data-*` (except where the kit names
+   one, e.g. `data-toast`), or any other styling hook.
 4. If a design needs something the vocabulary can't express, **stop and ask** —
    do not improvise with inline styles, primitives, or invented tags.
 5. Do not choose or emit a theme. The host sets the theme via CSS tokens.
@@ -62,13 +65,14 @@ only**.
 - `<mh-card>` — titled container. Slots: `<header>` (title) + body content + `<footer>` (actions).
 - `<mh-stat>` — metric tile. Children: a `<header>` (label) + `<strong>` (value) + `<small>` (delta).
 - `<mh-menu>` — dropdown. Children: a `<button>` (trigger) + `<a>` items.
-- `<mh-avatar>` — round user image. Content: an emoji, initials, or an `<img>`.
-- `<mh-badge>` — small neutral status pill (table cells, record headers, board cards). Content: a short label, with a leading emoji dot for status colour (`🟢 Customer`, `🟡 Lead`, `🔴 Churned`). There is no colour variant — status colour rides on the emoji, never a class.
+- `<mh-icon name="…">` — an icon. Emit only the tag + `name`; the SVG is in the stylesheet. Closed set: `success warning danger info message eye tag thumbs-up sparkles cart phone mail pencil map-pin star search user trash download attach video heart image inbox moon poke block user-minus note cursor connector`. It inherits the surrounding text colour. If you need an icon not in this set, **stop and ask** — never invent a name or emit an `<svg>`.
+- `<mh-avatar>` — round user image. Content: an `<img>` (photo), **initials** when you know the name (`AL`), or `<mh-icon name="user">` when anonymous. Never an emoji face.
+- `<mh-badge>` — small status pill (table cells, record headers, board cards). Content: a short label. For a **status** badge, add `tone="success|warning|danger|info"` for colour (a leading dot + tint) — no attribute = neutral. The label stays text (`<mh-badge tone="success">Active</mh-badge>`). Use a tone only for genuine good/bad/health states; a plain stage/category (`Lead`, `New`, `Customer`) stays neutral. For a **count/decorative** badge put an `<mh-icon>` inside (`<mh-badge><mh-icon name="message"></mh-icon> 18</mh-badge>`). Never use an emoji for status colour.
 - `<dialog>` — modal. Slots: `<header>` + body or `<form>` + `<footer>` of buttons. Open it with a trigger `<button commandfor="dialogId">`. Closes on any dialog button, the backdrop, or Esc. **Lightbox variant:** make the dialog's content an `<img>` (plus optional `<p>` caption + `<footer>` actions) and it styles itself as a wide, dark photo viewer — same tag, same open/close wiring, no extra hooks.
 - `<mh-tooltip>` — themed hover/focus hint. Children: a trigger (a `<button>`/`<a>`) + the tip as `<small role="tooltip">`; a11y via `aria-describedby` on the trigger + a matching `id` on the tip. **Emit no placement** — the side is automatic. For a plain text hint, prefer the native `title` attribute (`<button title="…">`) and skip the component (fewest tokens).
 - `<table>` — data table. Plain native `<thead>`/`<tbody>`/`<tr>`/`<th>`/`<td>`; the kit styles it. **Property panel:** for a key/value record panel, drop the `<thead>` and make each row's label a `<th scope="row">` in `<tbody>` (`<tr><th scope=row>Email</th><td>…</td></tr>`) — the kit renders the label column muted + narrow automatically.
 - `<mh-tabs>` — horizontal in-page **section nav** (settings sections, profile tabs, a product page's description/reviews). Children: `<a>` tabs; mark the active one `aria-current="page"`. Each tab routes to its own URL (the content-level cousin of `<mh-sidemenu>`). In-page panel switching without navigation needs JS.
-- `<mh-alert>` — inline notice / banner (saved, verify email, a form-level error). Lead with an **emoji for severity** (`ℹ️`/`✅`/`⚠️`/`🔴`) — there is no colour variant, like `mh-badge`. Optional `<strong>` lead, body text, and a trailing `<button>` action.
+- `<mh-alert>` — inline notice / banner (saved, verify email, a form-level error). Add `tone="success|warning|danger|info"` for severity (tinted border + a severity icon, both from the stylesheet) — no attribute = a neutral notice. Never lead with an emoji. Optional `<strong>` lead, body text, and a trailing `<button>` action.
 - `<details>` / `<summary>` — native **accordion / disclosure** (FAQ, advanced settings, danger zone). `<summary>` is the clickable header; everything after it is the panel. Stack several. Zero JS.
 - `<mh-carousel>` — horizontal **scroll-snap strip** (product image gallery, featured-products row, testimonials). Children are slides: `<img>` (full-bleed, pages one at a time) or `<mh-card>`/`<figure>`. Zero JS.
 - `<mh-breadcrumb>` — **trail nav**. Children: `<a>` crumbs; mark the last (current page) `aria-current="page"`. Separators are inserted automatically — never type `/` into the markup.
@@ -76,11 +80,14 @@ only**.
 - `<progress value="40" max="100">` — native determinate **progress bar** (uploads, completion, goals). Omit `value` for an indeterminate bar.
 - `<mh-pagination>` — numbered **pager** for paged lists (search results, tables, an index). Children: `<a>` page links (current = `aria-current="page"`), prev/next `<a>` (disable an end with `aria-disabled="true"`), and a `<small>` for an `…` ellipsis.
 - **Command palette (⌘K):** a `<dialog>` whose content starts with `<input type=search>` renders as a top-anchored, search-first command palette (results in an `mh-list`, key hints as `<kbd>`). Same tag + open/close wiring as any dialog; keyed on structure, no new tag.
-- `<mh-toasts>` — fixed bottom-right **stack of transient notifications**. Children are `<mh-alert>`s (severity = leading emoji), each with an optional `<button>✕</button>`. Renders, positions, and stacks with **zero JS**. Auto-dismiss + spawn-on-event need `mh-toast.js` (load it, then `<button data-toast="…">` or `mhToast('…')`).
+- `<mh-toasts>` — fixed bottom-right **stack of transient notifications**. Children are `<mh-alert tone="…">`s, each with an optional `<button>✕</button>`. Renders, positions, and stacks with **zero JS**. Auto-dismiss + spawn-on-event need `mh-toast.js` (load it, then `<button data-toast="…" data-tone="success">` or `mhToast('…', {tone:'success'})`).
 - `<mh-empty>` — **empty / zero state** (no results, empty inbox, all-clear board). An optional big leading `<strong>` glyph + `<h2>` headline + `<p>` + optional `<footer>` of actions.
 - `<mh-skeleton>` — pulsing **loading placeholder** line; stack a few for a paragraph/card. `<mh-spinner>` — indeterminate **loading ring** (inline in a button or beside a "streaming…" label).
 
-Icons: use emoji as text (`👋`, `❌`, `🚫`) — never SVG or icon classes.
+Icons: use `<mh-icon name="…">` from the closed set above — never an emoji, an
+`<svg>`, or an icon class. Emoji are allowed **only** as genuine user content (the
+text of a chat message or a reaction a person sent), never as UI chrome (status,
+severity, avatars, labels, toolbar/nav icons).
 
 ## Allowed semantic tags
 

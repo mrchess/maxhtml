@@ -5,13 +5,15 @@
 // This layer adds only the *lifecycle* — the bit that's genuinely behavior:
 //   • auto-dismiss each toast after a timeout (skip with data-sticky)
 //   • dismiss on click of the toast's button
-//   • a push() API to spawn a toast on an app event:  mhToast('✅ <strong>Saved.</strong> …')
-//   • declarative trigger: <button data-toast="✅ Saved">  (no inline JS)
-// Positioning, stacking, and appearance stay in maxhtml.css — this is a
-// progressive-enhancement graduation, exactly like mh-menu / mh-dialog.
+//   • a push() API to spawn a toast on an app event:
+//       mhToast('<strong>Saved.</strong> …', {tone: 'success'})
+//   • declarative trigger: <button data-toast="Saved" data-tone="success">  (no inline JS)
+// Positioning, stacking, severity colour (the tone axis), and appearance stay in
+// maxhtml.css — this is a progressive-enhancement graduation, exactly like
+// mh-menu / mh-dialog.
 //
 //   <mh-toasts>
-//     <mh-alert>✅ <strong>Deploy finished.</strong> v2.3.1 is live.<button type=button>✕</button></mh-alert>
+//     <mh-alert tone="success"><strong>Deploy finished.</strong> v2.3.1 is live.<button type=button>✕</button></mh-alert>
 //   </mh-toasts>
 // ---------------------------------------------------------------------------
 
@@ -42,6 +44,7 @@
     if (!box) { box = document.createElement('mh-toasts'); document.body.appendChild(box); }
     var t = document.createElement('mh-alert');
     t.innerHTML = html;
+    if (opts && opts.tone) t.setAttribute('tone', opts.tone);
     if (opts && opts.sticky) t.setAttribute('data-sticky', '');
     box.appendChild(t);
     arm(t);
@@ -54,7 +57,7 @@
     if (btn) { dismiss(btn.closest('mh-alert')); return; }
     // declarative trigger
     var trig = e.target.closest('[data-toast]');
-    if (trig) { window.mhToast(trig.getAttribute('data-toast')); }
+    if (trig) { window.mhToast(trig.getAttribute('data-toast'), { tone: trig.getAttribute('data-tone') }); }
   });
 
   if (document.readyState !== 'loading') scan();
