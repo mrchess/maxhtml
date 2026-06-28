@@ -1,0 +1,39 @@
+<h1>Board</h1>
+<p><code>&lt;mh-board&gt;</code> is a kanban pipeline — fixed-width lanes side by side that scroll horizontally as a set. Each lane is a <code>&lt;section&gt;</code> with a <code>&lt;header&gt;</code> (stage name + count) and a stack of <code>&lt;mh-card&gt;</code> deal cards. Unlike <code>mh-grid</code> (cells wrap and reflow), a board keeps its columns in a row and scrolls when there are more stages than fit. The cards are just reused <code>mh-card</code>, tighter.</p>
+<h2>Example</h2>
+<figure>
+<mh-board>
+<section>
+<header>Lead <small>2 · $36k</small></header>
+<mh-card><header>Bletchley Co</header><p>$12k · 15 min intro</p><footer><mh-avatar>🧔</mh-avatar><mh-badge>🟡 New</mh-badge></footer></mh-card>
+<mh-card><header>Orbital Labs</header><p>$24k · website form</p><footer><mh-avatar>👨</mh-avatar><mh-badge>🟡 New</mh-badge></footer></mh-card>
+</section>
+<section>
+<header>Qualified <small>1 · $34k</small></header>
+<mh-card><header>Compiler Inc</header><p>$34k · demo booked</p><footer><mh-avatar>👩</mh-avatar><mh-badge>🟢 Active</mh-badge></footer></mh-card>
+</section>
+<section>
+<header>Proposal <small>1 · $48k</small></header>
+<mh-card><header>Analytical Engines</header><p>$48k · proposal sent</p><footer><mh-avatar>👩</mh-avatar><mh-badge>🟢 Active</mh-badge></footer></mh-card>
+</section>
+<section>
+<header>Won <small>1 · $96k</small></header>
+<mh-card><header>Compiler — renewal</header><p>$96k · annual</p><footer><mh-avatar>👩</mh-avatar><mh-badge>🟢 Closed</mh-badge></footer></mh-card>
+</section>
+</mh-board>
+</figure>
+<h2>Anatomy</h2>
+<p>A lane is a native <code>&lt;section&gt;</code> (a board column is a thematic grouping); its <code>&lt;header&gt;</code> carries the stage name and a <code>&lt;small&gt;</code> count. Deal cards are <code>&lt;mh-card&gt;</code> — title in the <code>&lt;header&gt;</code>, value in a <code>&lt;p&gt;</code>, owner <code>&lt;mh-avatar&gt;</code> + <code>&lt;mh-badge&gt;</code> in the <code>&lt;footer&gt;</code>. More lanes than fit → the board scrolls sideways.</p>
+<h2>Usage</h2>
+<pre><code>&lt;mh-board&gt;
+  &lt;section&gt;
+    &lt;header&gt;Lead &lt;small&gt;3 · $61k&lt;/small&gt;&lt;/header&gt;
+    &lt;mh-card&gt;
+      &lt;header&gt;Bletchley Co&lt;/header&gt;
+      &lt;p&gt;$12k · 15 min intro&lt;/p&gt;
+      &lt;footer&gt;&lt;mh-avatar&gt;🧔&lt;/mh-avatar&gt;&lt;mh-badge&gt;🟡 New&lt;/mh-badge&gt;&lt;/footer&gt;
+    &lt;/mh-card&gt;
+    ...
+  &lt;/section&gt;
+  ...
+&lt;/mh-board&gt;</code></pre>

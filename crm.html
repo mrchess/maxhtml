@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>CRM — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Relate</strong>
+<a href="#">Contacts</a>
+<a href="pipeline.html">Pipeline</a>
+<mh-avatar>🧑</mh-avatar>
+</mh-navbar>
+<mh-sidemenu>
+<header>Relate</header>
+<nav>
+<mh-submenu>
+<header>Workspace</header>
+<a href="#" aria-current=page>Contacts</a>
+<a href="#">Companies</a>
+<a href="pipeline.html">Deals</a>
+<a href="#">Tasks</a>
+<a href="#">Reports</a>
+</mh-submenu>
+<mh-submenu>
+<header>Lists</header>
+<a href="#">My contacts</a>
+<a href="#">Customers</a>
+<a href="#">Leads</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<header>
+<h1>Contacts</h1>
+<label><input type=search placeholder="Search contacts…"></label>
+<button commandfor=add>Add contact</button>
+</header>
+<mh-card>
+<table>
+<thead>
+<tr><th>Name</th><th>Company</th><th>Status</th><th>Owner</th><th>Last activity</th><th>Deals</th><th></th></tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="contact.html"><strong>Ada Lovelace</strong></a></td>
+<td>Analytical Engines</td>
+<td><mh-badge>🟢 Customer</mh-badge></td>
+<td>You</td>
+<td>2 hours ago</td>
+<td>$48k</td>
+<td><mh-menu><button>⋯</button><a href="contact.html">Open</a><a href="#">Log activity</a><a href="#">Delete</a></mh-menu></td>
+</tr>
+<tr>
+<td><a href="contact.html"><strong>Alan Turing</strong></a></td>
+<td>Bletchley Co</td>
+<td><mh-badge>🟡 Lead</mh-badge></td>
+<td>Grace H.</td>
+<td>Yesterday</td>
+<td>$12k</td>
+<td><mh-menu><button>⋯</button><a href="contact.html">Open</a><a href="#">Log activity</a><a href="#">Delete</a></mh-menu></td>
+</tr>
+<tr>
+<td><a href="contact.html"><strong>Grace Hopper</strong></a></td>
+<td>Compiler Inc</td>
+<td><mh-badge>🟢 Customer</mh-badge></td>
+<td>You</td>
+<td>3 days ago</td>
+<td>$96k</td>
+<td><mh-menu><button>⋯</button><a href="contact.html">Open</a><a href="#">Log activity</a><a href="#">Delete</a></mh-menu></td>
+</tr>
+<tr>
+<td><a href="contact.html"><strong>Katherine Johnson</strong></a></td>
+<td>Orbital Labs</td>
+<td><mh-badge>🟡 Lead</mh-badge></td>
+<td>Sam P.</td>
+<td>1 week ago</td>
+<td>—</td>
+<td><mh-menu><button>⋯</button><a href="contact.html">Open</a><a href="#">Log activity</a><a href="#">Delete</a></mh-menu></td>
+</tr>
+<tr>
+<td><a href="contact.html"><strong>Edsger Dijkstra</strong></a></td>
+<td>Shortest Path BV</td>
+<td><mh-badge>🔴 Churned</mh-badge></td>
+<td>Grace H.</td>
+<td>2 months ago</td>
+<td>$0</td>
+<td><mh-menu><button>⋯</button><a href="contact.html">Open</a><a href="#">Log activity</a><a href="#">Delete</a></mh-menu></td>
+</tr>
+</tbody>
+</table>
+</mh-card>
+</mh-page>
+</main>
+</mh-app>
+
+<dialog id=add>
+<header>Add contact</header>
+<form>
+<label>Full name
+<input type=text placeholder="Jane Doe">
+</label>
+<label>Email
+<input type=email placeholder="jane@company.com">
+</label>
+<label>Company
+<input type=text placeholder="Company">
+</label>
+<label>Owner
+<input type=text value="You">
+</label>
+</form>
+<footer>
+<button type=button>Cancel</button>
+<button>Save contact</button>
+</footer>
+</dialog>
+
+<script src="mh-menu.js"></script>
+<script src="mh-dialog.js"></script>
+</body>
+</html>

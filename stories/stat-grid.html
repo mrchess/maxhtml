@@ -1,0 +1,16 @@
+<h1>Stat tile + Grid</h1>
+<p><code>&lt;mh-grid&gt;</code> is a responsive auto-fit grid; <code>&lt;mh-stat&gt;</code> is a metric tile with slots <code>&lt;header&gt;</code> (label), <code>&lt;strong&gt;</code> (value), <code>&lt;small&gt;</code> (delta). Drop tiles into the grid and they wrap on their own.</p>
+<h2>Example</h2>
+<figure>
+<mh-grid>
+<mh-stat><header>Revenue</header><strong>$48.2k</strong><small>+12%</small></mh-stat>
+<mh-stat><header>Users</header><strong>1,204</strong><small>+3%</small></mh-stat>
+<mh-stat><header>Churn</header><strong>2.1%</strong><small>-0.4%</small></mh-stat>
+<mh-stat><header>NPS</header><strong>61</strong><small>+5</small></mh-stat>
+</mh-grid>
+</figure>
+<h2>Usage</h2>
+<pre><code>&lt;mh-grid&gt;
+  &lt;mh-stat&gt;&lt;header&gt;Revenue&lt;/header&gt;&lt;strong&gt;$48.2k&lt;/strong&gt;&lt;small&gt;+12%&lt;/small&gt;&lt;/mh-stat&gt;
+  ...
+&lt;/mh-grid&gt;</code></pre>

@@ -1,0 +1,33 @@
+<h1>Themes</h1>
+<p>A theme is just a block of <code>--mh-*</code> token overrides, applied by setting <code>data-theme</code> on <code>&lt;html&gt;</code> — a <strong>host concern</strong>, never emitted by the UI. Click one and the whole explorer (chrome + the sample below) re-skins live; your choice persists.</p>
+<h2>Switch</h2>
+<figure>
+<button name=theme value="">Default</button>
+<button name=theme value="shadcn" type=button>shadcn</button>
+<button name=theme value="shadcn-dark" type=button>shadcn dark</button>
+</figure>
+<h2>Live sample</h2>
+<figure>
+<mh-stat><header>Revenue</header><strong>$48.2k</strong><small>+12%</small></mh-stat>
+<mh-card>
+<header>Reservoir Logs</header>
+<p>Aggregated sensor logs, updated hourly.</p>
+<footer>
+<button>More info</button>
+<button type=button>Share</button>
+<mh-badge>🟢 Active</mh-badge>
+</footer>
+</mh-card>
+<label>Email<input type=email value="ada@example.com"></label>
+</figure>
+<h2>How it works</h2>
+<p>Every visual value in the kit comes from a token, and every rule is zero-specificity (<code>:where()</code>), so a theme overrides cleanly — no specificity fight, no touched markup. The dark theme also flips <code>--mh-hover</code> to a translucent white so hovers stay visible.</p>
+<h2>Add your own</h2>
+<p>Drop a block into <code>themes.css</code> (the file header has a copy-paste prompt to generate one from any palette):</p>
+<pre><code>:root[data-theme="midnight"] {
+  --mh-bg: #0f1115; --mh-surface: #161a20; --mh-fg: #e8eaed;
+  --mh-muted: #9aa4af; --mh-line: #262b33;
+  --mh-accent: #5aa6ff; --mh-accent-fg: #07101f;
+  --mh-hover: rgba(255,255,255,.08); --mh-radius: 12px;
+}</code></pre>
+<p><small>Note: the full-page <em>recipe</em> previews are separate documents (their own <code>&lt;iframe&gt;</code>, linking only <code>maxhtml.css</code>), so they stay on the default theme — only this explorer re-skins.</small></p>

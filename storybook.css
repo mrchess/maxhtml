@@ -1,0 +1,38 @@
+/* MaxHTML Storybook — chrome only.
+   Loaded by storybook.html ON TOP OF maxhtml.css. This is NOT part of the kit;
+   it styles the doc explorer (content area, story switching, example frames).
+   Because only the Storybook links it, its bare `main` rules never reach an app. */
+
+/* Fixed shell: the sidebar stays put and only the content area scrolls, so
+   switching stories never jumps the page. (min-height:0 lets the grid cells
+   shrink and scroll instead of growing the page.) */
+html, body { height: 100%; }
+body > mh-layout { height: 100vh; grid-template-rows: 1fr; }
+body > mh-layout > mh-sidemenu { min-height: 0; overflow-y: auto; }
+
+/* doc content area — scrolls internally */
+main { padding: 2.5rem 3rem; max-width: 64rem; min-height: 0; overflow-y: auto; }
+
+/* the router (storybook.html) swaps story fragments into <main> on hashchange */
+main h1 small { font-size: .9rem; font-weight: 400; color: var(--mh-muted); }
+
+/* live example canvases — only the top-level demo wrapper, not nested <figure>
+   tiles (e.g. mh-gallery tiles are figures too) */
+main > figure {
+  margin: 0 0 1.25rem;
+  padding: 1.25rem;
+  border: 1px solid var(--mh-line);
+  border-radius: var(--mh-radius);
+}
+main > figure mh-sidemenu { width: 250px; border-radius: var(--mh-radius); }
+
+/* full-page composites are previewed in an isolated iframe */
+main iframe {
+  display: block;
+  width: 100%;
+  height: 480px;
+  border: 1px solid var(--mh-line);
+  border-radius: var(--mh-radius);
+  background: var(--mh-bg);
+}
+

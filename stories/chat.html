@@ -1,0 +1,21 @@
+<h1>Chat <small>(recipe)</small></h1>
+<p>A chat channel — <code>mh-app</code> + <code>mh-page</code> + a flat stream of <code>mh-message</code>s (with <code>mh-badge</code> reactions) and a composer (<code>mh-card</code> + <code>&lt;form&gt;</code> + <code>&lt;textarea&gt;</code>, Send in the card footer). Same <code>mh-message</code> composite as the forum thread — flat here instead of nested. <strong>Zero styling</strong> emitted.</p>
+<h2>Live</h2>
+<iframe src="chat.html" title="Chat recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-page&gt;
+  &lt;header&gt;&lt;h1&gt;# general&lt;/h1&gt;&lt;button type=button&gt;＋ Invite&lt;/button&gt;&lt;/header&gt;
+
+  &lt;mh-message&gt;
+    &lt;mh-avatar&gt;👩&lt;/mh-avatar&gt;
+    &lt;header&gt;&lt;strong&gt;Ada Lovelace&lt;/strong&gt;&lt;small&gt;· 9:05&lt;/small&gt;&lt;/header&gt;
+    &lt;p&gt;Markup is untouched — it's all in the token layer 😄&lt;/p&gt;
+    &lt;footer&gt;&lt;mh-badge&gt;👍 3&lt;/mh-badge&gt;&lt;mh-badge&gt;🎉 1&lt;/mh-badge&gt;&lt;/footer&gt;
+  &lt;/mh-message&gt;
+  ...
+
+  &lt;mh-card&gt;
+    &lt;form&gt;&lt;label&gt;&lt;textarea placeholder="Message # general…"&gt;&lt;/textarea&gt;&lt;/label&gt;&lt;/form&gt;
+    &lt;footer&gt;&lt;button type=button&gt;📎 Attach&lt;/button&gt;&lt;button&gt;Send&lt;/button&gt;&lt;/footer&gt;
+  &lt;/mh-card&gt;
+&lt;/mh-page&gt;</code></pre>

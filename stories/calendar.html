@@ -1,0 +1,34 @@
+<h1>Calendar</h1>
+<p><code>&lt;mh-calendar&gt;</code> is a month grid built on a real <code>&lt;table&gt;</code> — a weekday <code>&lt;th&gt;</code> header row plus week rows of day <code>&lt;td&gt;</code>. The table keeps the calendar accessible and the weekday/column association free; the composite overrides the data-table look into equal day cells. Each cell holds a <code>&lt;strong&gt;</code> (the date) and <code>&lt;a&gt;</code> event chips. This is what <code>mh-grid</code> (wide auto-fit tracks) and the plain data <code>&lt;table&gt;</code> (left-aligned rows) can't be: a fixed 7-column day grid.</p>
+<h2>Example</h2>
+<figure>
+<mh-calendar>
+<table>
+<thead>
+<tr><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>1</strong></td><td><strong>2</strong><a href="#calendar">9:00 Standup</a></td><td><strong>3</strong></td><td><strong>4</strong><a href="#calendar">13:00 Dentist</a></td><td><strong>5</strong></td><td><strong>6</strong></td><td><strong>7</strong></td></tr>
+<tr><td><strong>8</strong></td><td><strong>9</strong></td><td><strong>10</strong><a href="#calendar">10:30 1:1 Sam</a></td><td><strong>11</strong></td><td><strong>12</strong><a href="#calendar">16:00 Demo</a></td><td><strong>13</strong></td><td><strong>14</strong></td></tr>
+<tr><td><strong>15</strong><a href="#calendar">All-day · Conf</a></td><td><strong>16</strong></td><td><strong>17</strong></td><td><strong>18</strong><a href="#calendar">19:00 Dinner</a></td><td><strong>19</strong></td><td><strong>20</strong></td><td><strong>21</strong></td></tr>
+<tr><td><strong>22</strong></td><td><strong>23</strong></td><td><strong>24</strong><a href="#calendar">15:00 Review</a></td><td><strong>25</strong></td><td><strong>26</strong></td><td><strong>27</strong></td><td aria-current=date><strong>28</strong><a href="#calendar">11:00 Brunch</a></td></tr>
+<tr><td><strong>29</strong></td><td><strong>30</strong></td><td></td><td></td><td></td><td></td><td></td></tr>
+</tbody>
+</table>
+</mh-calendar>
+</figure>
+<h2>Anatomy</h2>
+<p>Today is marked with <code>aria-current="date"</code> on its <code>&lt;td&gt;</code> — a native, self-describing signal, never a class. Out-of-month days are just empty <code>&lt;td&gt;</code>. Event chips are <code>&lt;a&gt;</code>; give one a <code>commandfor="id"</code> to open an event <code>&lt;dialog&gt;</code>.</p>
+<h2>Usage</h2>
+<pre><code>&lt;mh-calendar&gt;
+  &lt;table&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Mon&lt;/th&gt;…&lt;th&gt;Sun&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
+        &lt;td aria-current="date"&gt;&lt;strong&gt;2&lt;/strong&gt;&lt;a commandfor="event"&gt;9:00 Standup&lt;/a&gt;&lt;/td&gt;
+        ...
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/mh-calendar&gt;</code></pre>

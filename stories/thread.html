@@ -1,0 +1,19 @@
+<h1>Thread <small>(recipe)</small></h1>
+<p>A forum thread — <code>mh-app</code> + <code>mh-page</code> (topic title + <code>mh-badge</code> meta) + nested <code>mh-message</code> replies, with a reply composer (<code>mh-card</code> + <code>&lt;form&gt;</code> + <code>&lt;textarea&gt;</code>). The only new piece is <code>mh-message</code>; everything else is reuse. <strong>Zero styling</strong> emitted.</p>
+<h2>Live</h2>
+<iframe src="thread.html" title="Thread recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-page&gt;
+  &lt;header&gt;&lt;h1&gt;Does anyone still hand-write CSS in 2026?&lt;/h1&gt;&lt;button type=button&gt;Follow&lt;/button&gt;&lt;/header&gt;
+  &lt;p&gt;&lt;mh-badge&gt;💬 18 replies&lt;/mh-badge&gt; &lt;mh-badge&gt;👁 1.2k views&lt;/mh-badge&gt;&lt;/p&gt;
+
+  &lt;mh-message&gt;
+    &lt;mh-avatar&gt;👩&lt;/mh-avatar&gt;
+    &lt;header&gt;&lt;strong&gt;Ada Lovelace&lt;/strong&gt;&lt;small&gt;· 3h ago&lt;/small&gt;&lt;/header&gt;
+    &lt;p&gt;Genuine question…&lt;/p&gt;
+    &lt;footer&gt;&lt;button type=button&gt;↰ Reply&lt;/button&gt;&lt;button type=button&gt;▲ 24&lt;/button&gt;&lt;/footer&gt;
+    &lt;mh-message&gt;…threaded reply…&lt;/mh-message&gt;
+  &lt;/mh-message&gt;
+
+  &lt;mh-card&gt;&lt;header&gt;Write a reply&lt;/header&gt;&lt;form&gt;&lt;label&gt;&lt;textarea&gt;&lt;/textarea&gt;&lt;/label&gt;&lt;button&gt;Post reply&lt;/button&gt;&lt;/form&gt;&lt;/mh-card&gt;
+&lt;/mh-page&gt;</code></pre>

@@ -1,0 +1,25 @@
+<h1>Dashboard <small>(recipe)</small></h1>
+<p>A whole page assembled from composites — <code>mh-app</code> + <code>mh-page</code> + <code>mh-grid</code>/<code>mh-stat</code> + <code>mh-card</code>/<code>table</code>. The model emits this markup and <strong>zero styling</strong>; the kit does the rest. (~38% fewer tokens than the same dashboard in Pico, ~52% vs Tailwind.)</p>
+<h2>Live</h2>
+<iframe src="dashboard.html" title="Dashboard recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-app&gt;
+  &lt;mh-navbar&gt;&lt;strong&gt;Acme&lt;/strong&gt;&lt;a&gt;Docs&lt;/a&gt;&lt;a&gt;Account&lt;/a&gt;&lt;/mh-navbar&gt;
+  &lt;mh-sidemenu&gt;
+    &lt;header&gt;Acme&lt;/header&gt;
+    &lt;nav&gt;&lt;mh-submenu&gt;&lt;header&gt;Main&lt;/header&gt;
+      &lt;a href="/" aria-current="page"&gt;Dashboard&lt;/a&gt;
+      &lt;a href="/reports"&gt;Reports&lt;/a&gt;
+    &lt;/mh-submenu&gt;&lt;/nav&gt;
+  &lt;/mh-sidemenu&gt;
+  &lt;main&gt;
+    &lt;mh-page&gt;
+      &lt;header&gt;&lt;h1&gt;Dashboard&lt;/h1&gt;&lt;button&gt;New report&lt;/button&gt;&lt;/header&gt;
+      &lt;mh-grid&gt;
+        &lt;mh-stat&gt;&lt;header&gt;Revenue&lt;/header&gt;&lt;strong&gt;$48.2k&lt;/strong&gt;&lt;small&gt;+12%&lt;/small&gt;&lt;/mh-stat&gt;
+        ...
+      &lt;/mh-grid&gt;
+      &lt;mh-card&gt;&lt;header&gt;Recent reports&lt;/header&gt;&lt;table&gt;...&lt;/table&gt;&lt;/mh-card&gt;
+    &lt;/mh-page&gt;
+  &lt;/main&gt;
+&lt;/mh-app&gt;</code></pre>

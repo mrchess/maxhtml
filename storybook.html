@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>MaxHTML</title>
+<link rel=stylesheet href=maxhtml.css>
+<link rel=stylesheet href=themes.css>
+<link rel=stylesheet href=storybook.css>
+</head>
+<body>
+<mh-layout>
+<mh-sidemenu>
+<header>MaxHTML</header>
+<nav>
+<mh-submenu>
+<a href="#themes">Themes</a>
+</mh-submenu>
+<mh-submenu>
+<header>Layouts</header>
+<a href="#two-column">2 column design</a>
+<a href="#app-shell">App shell</a>
+</mh-submenu>
+<mh-submenu>
+<header>Components</header>
+<a href="#sidebar">Sidebar</a>
+<a href="#navbar">Navbar</a>
+<a href="#avatar">Avatar</a>
+<a href="#badge">Badge</a>
+<a href="#menu">Menu (JS)</a>
+<a href="#dialog">Dialog (JS)</a>
+</mh-submenu>
+<mh-submenu>
+<header>Composites</header>
+<a href="#stat-grid">Stat + grid</a>
+<a href="#table">Table</a>
+<a href="#list">List</a>
+<a href="#gallery">Gallery</a>
+<a href="#calendar">Calendar</a>
+<a href="#slots">Slots</a>
+<a href="#board">Board</a>
+<a href="#message">Message</a>
+</mh-submenu>
+<mh-submenu>
+<header>Recipes</header>
+<a href="#login">Login</a>
+<a href="#dashboard">Dashboard</a>
+<a href="#friends">Friends</a>
+<a href="#profile">Profile</a>
+<a href="#landing">Landing page</a>
+<a href="#albums">Albums</a>
+<a href="#photos">Photos</a>
+<a href="#cal-app">Calendar app</a>
+<a href="#booking">Booking</a>
+<a href="#crm">CRM contacts</a>
+<a href="#contact">Contact record</a>
+<a href="#pipeline">Pipeline</a>
+<a href="#forum">Forum</a>
+<a href="#thread">Thread</a>
+<a href="#chat">Chat</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<p>Select a component from the menu to see its documentation.</p>
+</main>
+</mh-layout>
+
+<script src="mh-menu.js"></script>
+<script src="mh-dialog.js"></script>
+<script>
+// Storybook router — loads stories/<hash>.html into <main> on navigation.
+// Static fetch, so serve over http (not file://). The sidebar + chrome stay in
+// this shell; each story is its own file under stories/.
+var stage = document.querySelector('main');
+var INTRO = stage.innerHTML;
+
+function syncActiveNav() {
+  document.querySelectorAll('mh-sidemenu a[href^="#"]').forEach(function (a) {
+    if (a.getAttribute('href') === location.hash) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
+  });
+}
+
+function showStory() {
+  var id = location.hash.slice(1);
+  if (!id) { stage.innerHTML = INTRO; syncActiveNav(); return; }
+  fetch('stories/' + id + '.html')
+    .then(function (r) { if (!r.ok) throw r.status; return r.text(); })
+    .then(function (html) { stage.innerHTML = html; stage.scrollTop = 0; syncActiveNav(); })
+    .catch(function () {
+      stage.innerHTML = '<p>Story not found: <code>' + id + '</code></p>';
+      syncActiveNav();
+    });
+}
+
+addEventListener('hashchange', showStory);
+showStory();
+
+// Theme switcher (host/chrome concern — sets data-theme on <html>, persisted).
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('button[name="theme"]');
+  if (!b) return;
+  if (b.value) document.documentElement.setAttribute('data-theme', b.value);
+  else document.documentElement.removeAttribute('data-theme');
+  try { localStorage.setItem('mh-theme', b.value); } catch (_) {}
+});
+try {
+  var saved = localStorage.getItem('mh-theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+} catch (_) {}
+</script>
+</body>
+</html>

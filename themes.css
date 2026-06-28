@@ -1,0 +1,44 @@
+/* MaxHTML — theme presets.
+   A theme is just a block of --mh-* token overrides. Apply one by setting
+   data-theme on <html> (a HOST concern — the Storybook switcher does this; the
+   emitted UI never picks a theme). Link this AFTER maxhtml.css.
+
+   ── Prompt to generate a new theme ──────────────────────────────────────────
+   Paste into any model:
+
+     Generate a MaxHTML theme called "<name>" from this palette: <hexes, or
+     "match shadcn", or a brand>. Output ONLY a CSS block of the form
+       :root[data-theme="<name>"] { --mh-…: …; }
+     overriding these tokens: --mh-bg, --mh-surface, --mh-fg, --mh-muted,
+     --mh-line, --mh-accent, --mh-accent-fg, --mh-radius. For a DARK theme also
+     set --mh-hover to a translucent WHITE (e.g. rgba(255,255,255,.08)),
+     --mh-shadow / --mh-shadow-lg (stronger), and --mh-scrim. Output nothing else.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* shadcn — light (zinc neutrals, near-black primary) */
+:root[data-theme="shadcn"] {
+  --mh-bg:        #ffffff;
+  --mh-surface:   #f4f4f5;
+  --mh-fg:        #09090b;
+  --mh-muted:     #71717a;
+  --mh-line:      #e4e4e7;
+  --mh-accent:    #18181b;
+  --mh-accent-fg: #fafafa;
+  --mh-radius:    8px;
+}
+
+/* shadcn — dark (zinc-950, light primary) */
+:root[data-theme="shadcn-dark"] {
+  --mh-bg:        #09090b;
+  --mh-surface:   #18181b;
+  --mh-fg:        #fafafa;
+  --mh-muted:     #a1a1aa;
+  --mh-line:      #27272a;
+  --mh-accent:    #fafafa;
+  --mh-accent-fg: #18181b;
+  --mh-hover:     rgba(255, 255, 255, .08);   /* the themeability fix: white hover on dark */
+  --mh-shadow:    0 10px 28px rgba(0, 0, 0, .5);
+  --mh-shadow-lg: 0 24px 64px rgba(0, 0, 0, .6);
+  --mh-scrim:     #000000;
+  --mh-radius:    8px;
+}

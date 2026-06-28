@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Dashboard — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Acme</strong>
+<a href="#">Docs</a>
+<a href="#">Account</a>
+</mh-navbar>
+<mh-sidemenu>
+<header>Acme</header>
+<nav>
+<mh-submenu>
+<header>Main</header>
+<a href="#" aria-current=page>Dashboard</a>
+<a href="#">Reports</a>
+<a href="#">Settings</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<header>
+<h1>Dashboard</h1>
+<button>New report</button>
+</header>
+<mh-grid>
+<mh-stat><header>Revenue</header><strong>$48.2k</strong><small>+12%</small></mh-stat>
+<mh-stat><header>Users</header><strong>1,204</strong><small>+3%</small></mh-stat>
+<mh-stat><header>Churn</header><strong>2.1%</strong><small>-0.4%</small></mh-stat>
+<mh-stat><header>NPS</header><strong>61</strong><small>+5</small></mh-stat>
+</mh-grid>
+<mh-card>
+<header>Recent reports</header>
+<table>
+<thead><tr><th>Name</th><th>Owner</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Q3 revenue</td><td>Ada</td><td>Ready</td></tr>
+<tr><td>Churn cohort</td><td>Lin</td><td>Draft</td></tr>
+<tr><td>Onboarding funnel</td><td>Sam</td><td>Ready</td></tr>
+</tbody>
+</table>
+</mh-card>
+</mh-page>
+</main>
+</mh-app>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<h1>Menu <small>(behavior layer)</small></h1>
+<p>A dropdown — the first component that needs JavaScript. CSS can fake a hover/focus reveal, but it can't <em>close on outside click</em>, <em>close on Escape</em>, or expose <code>aria-expanded</code> state. So <code>mh-menu</code> is a real Web Component, loaded via <code>&lt;script src="mh-menu.js"&gt;</code>.</p>
+<h2>Example — try it</h2>
+<figure>
+<mh-menu>
+<button>Account</button>
+<a href="#menu">Profile</a>
+<a href="#menu">Billing</a>
+<a href="#menu">Sign out</a>
+</mh-menu>
+</figure>
+<h2>What the JS adds</h2>
+<p>Click the trigger to toggle; click outside or press <kbd>Esc</kbd> to close. The button carries <code>aria-haspopup</code> and a live <code>aria-expanded</code>. The JS also <em>restructures</em> the DOM — it wraps the authored <code>&lt;a&gt;</code> items in a generated <code>&lt;menu&gt;</code> popup, something CSS cannot do.</p>
+<h2>Progressive enhancement</h2>
+<p>The authored markup is just a <code>&lt;button&gt;</code> followed by <code>&lt;a&gt;</code> links. With the script loaded it's a dropdown; with no JS it degrades to a visible button and a plain list of links — still usable.</p>
+<h2>Usage</h2>
+<pre><code>&lt;mh-menu&gt;
+  &lt;button&gt;Account&lt;/button&gt;
+  &lt;a href="/profile"&gt;Profile&lt;/a&gt;
+  &lt;a href="/billing"&gt;Billing&lt;/a&gt;
+  &lt;a href="/signout"&gt;Sign out&lt;/a&gt;
+&lt;/mh-menu&gt;
+
+&lt;script src="mh-menu.js"&gt;&lt;/script&gt;</code></pre>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Albums — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Aperture</strong>
+<a href="#">Library</a>
+<a href="#">Shared</a>
+<mh-avatar>🧑</mh-avatar>
+</mh-navbar>
+<mh-sidemenu>
+<header>Aperture</header>
+<nav>
+<mh-submenu>
+<header>Library</header>
+<a href="#">All photos</a>
+<a href="albums.html" aria-current=page>Albums</a>
+<a href="#">Favorites</a>
+<a href="#">Recently added</a>
+</mh-submenu>
+<mh-submenu>
+<header>More</header>
+<a href="#">Shared</a>
+<a href="#">Trash</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<header>
+<h1>Albums</h1>
+<button commandfor=upload>Upload</button>
+</header>
+<mh-gallery>
+<figure>
+<a href="photos.html"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23e8746b'/%3E%3C/svg%3E" alt="Iceland 2026 cover"></a>
+<figcaption><strong>Iceland 2026</strong><small>248 photos</small></figcaption>
+</figure>
+<figure>
+<a href="photos.html"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%235b8def'/%3E%3C/svg%3E" alt="Family cover"></a>
+<figcaption><strong>Family</strong><small>1,032 photos</small></figcaption>
+</figure>
+<figure>
+<a href="photos.html"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23f4b942'/%3E%3C/svg%3E" alt="Food cover"></a>
+<figcaption><strong>Food</strong><small>87 photos</small></figcaption>
+</figure>
+<figure>
+<a href="photos.html"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%2348a17a'/%3E%3C/svg%3E" alt="Hikes cover"></a>
+<figcaption><strong>Hikes</strong><small>156 photos</small></figcaption>
+</figure>
+<figure>
+<a href="photos.html"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%239b6bdf'/%3E%3C/svg%3E" alt="Concerts cover"></a>
+<figcaption><strong>Concerts</strong><small>43 photos</small></figcaption>
+</figure>
+<figure>
+<a href="photos.html"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23e86ba6'/%3E%3C/svg%3E" alt="Pets cover"></a>
+<figcaption><strong>Pets</strong><small>514 photos</small></figcaption>
+</figure>
+<figure>
+<a href="photos.html"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%234ec3c9'/%3E%3C/svg%3E" alt="Beach cover"></a>
+<figcaption><strong>Beach trips</strong><small>320 photos</small></figcaption>
+</figure>
+<figure>
+<a href="photos.html"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23d98c4a'/%3E%3C/svg%3E" alt="Work cover"></a>
+<figcaption><strong>Work</strong><small>61 photos</small></figcaption>
+</figure>
+</mh-gallery>
+</mh-page>
+</main>
+</mh-app>
+
+<dialog id=upload>
+<header>Upload photos</header>
+<form>
+<label>Photos
+<input type=file multiple accept="image/*">
+</label>
+<label>Add to album
+<input type=text value="Iceland 2026">
+</label>
+<label>Caption
+<textarea placeholder="Say something about these photos…"></textarea>
+</label>
+</form>
+<footer>
+<button type=button>Cancel</button>
+<button>Upload 4 photos</button>
+</footer>
+</dialog>
+
+<script src="mh-dialog.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<h1>Login <small>(recipe)</small></h1>
+<p>An auth screen: <code>mh-center</code> centers a single <code>mh-card</code> holding a <code>form</code>. No shell, no nav — just the card, vertically and horizontally centered. Signup, forgot-password, and empty states are the same shape.</p>
+<h2>Live</h2>
+<iframe src="login.html" title="Login recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-center&gt;
+  &lt;mh-card&gt;
+    &lt;header&gt;Sign in to Acme&lt;/header&gt;
+    &lt;form&gt;
+      &lt;label&gt;Email&lt;input type=email&gt;&lt;/label&gt;
+      &lt;label&gt;Password&lt;input type=password&gt;&lt;/label&gt;
+      &lt;button&gt;Sign in&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;footer&gt;
+      &lt;a&gt;Create account&lt;/a&gt;
+      &lt;a&gt;Forgot password?&lt;/a&gt;
+    &lt;/footer&gt;
+  &lt;/mh-card&gt;
+&lt;/mh-center&gt;</code></pre>

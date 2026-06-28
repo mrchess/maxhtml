@@ -1,0 +1,52 @@
+<h1>Message</h1>
+<p><code>&lt;mh-message&gt;</code> is one comment in a forum thread or one message in a chat stream: a leading <code>&lt;mh-avatar&gt;</code>, a <code>&lt;header&gt;</code> (author <code>&lt;strong&gt;</code> + <code>&lt;small&gt;</code> timestamp), the body (one or more <code>&lt;p&gt;</code>), and an optional <code>&lt;footer&gt;</code> of quiet actions. <strong>Nest a <code>&lt;mh-message&gt;</code> inside another</strong> for threaded replies — they indent under their parent with a thread line. It's the rich, multi-line, nestable cousin of <code>mh-item</code> (which is a centred single-line row, right for flat <em>lists</em>, not conversations).</p>
+<h2>Thread — nested replies</h2>
+<figure>
+<mh-message>
+<mh-avatar>👩</mh-avatar>
+<header><strong>Ada Lovelace</strong><small>· 3h ago · original post</small></header>
+<p>Does anyone still hand-write CSS by hand for production in 2026?</p>
+<footer><button type=button>↰ Reply</button><button type=button>▲ 24</button></footer>
+<mh-message>
+<mh-avatar>🧔</mh-avatar>
+<header><strong>Alan Turing</strong><small>· 2h ago</small></header>
+<p>Mostly tokens + a closed component set now. A bespoke rule is usually a smell.</p>
+<footer><button type=button>↰ Reply</button><button type=button>▲ 11</button></footer>
+<mh-message>
+<mh-avatar>👩</mh-avatar>
+<header><strong>Ada Lovelace</strong><small>· 2h ago</small></header>
+<p>Matches my experience — though the escape hatch still matters.</p>
+<footer><button type=button>↰ Reply</button><button type=button>▲ 6</button></footer>
+</mh-message>
+</mh-message>
+</mh-message>
+</figure>
+<h2>Chat — flat stream with reactions</h2>
+<figure>
+<mh-message>
+<mh-avatar>👩</mh-avatar>
+<header><strong>Ada Lovelace</strong><small>· 9:05</small></header>
+<p>Markup is untouched — it's all in the token layer. That's the whole point 😄</p>
+<footer><mh-badge>👍 3</mh-badge><mh-badge>🎉 1</mh-badge></footer>
+</mh-message>
+<mh-message>
+<mh-avatar>🧔</mh-avatar>
+<header><strong>Alan Turing</strong><small>· 9:12</small></header>
+<p>Love it. Exactly why we stopped re-emitting CSS every turn.</p>
+</mh-message>
+</figure>
+<h2>Anatomy</h2>
+<p>The avatar sits top-left; author, body, actions, and any nested replies stack beside it (a 2-column grid, no wrapper element). Footer actions are quiet text buttons in a thread (<code>Reply</code>, <code>▲ votes</code>) or <code>mh-badge</code> reactions in chat. The flat <strong>thread list</strong> (topic + author + reply count) is a separate screen — that's just <code>mh-list</code>/<code>mh-item</code>, reused, not this.</p>
+<h2>Usage</h2>
+<pre><code>&lt;mh-message&gt;
+  &lt;mh-avatar&gt;👩&lt;/mh-avatar&gt;
+  &lt;header&gt;&lt;strong&gt;Ada Lovelace&lt;/strong&gt;&lt;small&gt;· 3h ago&lt;/small&gt;&lt;/header&gt;
+  &lt;p&gt;Does anyone still hand-write CSS in 2026?&lt;/p&gt;
+  &lt;footer&gt;&lt;button type=button&gt;↰ Reply&lt;/button&gt;&lt;button type=button&gt;▲ 24&lt;/button&gt;&lt;/footer&gt;
+
+  &lt;mh-message&gt;                          &lt;!-- nested = threaded reply --&gt;
+    &lt;mh-avatar&gt;🧔&lt;/mh-avatar&gt;
+    &lt;header&gt;&lt;strong&gt;Alan Turing&lt;/strong&gt;&lt;small&gt;· 2h ago&lt;/small&gt;&lt;/header&gt;
+    &lt;p&gt;Mostly tokens + a closed component set now.&lt;/p&gt;
+  &lt;/mh-message&gt;
+&lt;/mh-message&gt;</code></pre>

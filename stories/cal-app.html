@@ -1,0 +1,23 @@
+<h1>Calendar app <small>(recipe)</small></h1>
+<p>A whole calendar — <code>mh-app</code> + <code>mh-page</code> (month + ‹ › Today / New event) + <code>mh-calendar</code>, with an event-detail <code>&lt;dialog&gt;</code> and a new-event form <code>&lt;dialog&gt;</code> (both reused, not new). Markup only, <strong>zero styling</strong>.</p>
+<h2>Live</h2>
+<iframe src="calendar.html" title="Calendar recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-app&gt;
+  &lt;mh-navbar&gt;…&lt;/mh-navbar&gt;
+  &lt;mh-sidemenu&gt;…&lt;/mh-sidemenu&gt;
+  &lt;main&gt;
+    &lt;mh-page&gt;
+      &lt;header&gt;
+        &lt;h1&gt;June 2026&lt;/h1&gt;
+        &lt;button type=button&gt;‹&lt;/button&gt;&lt;button type=button&gt;Today&lt;/button&gt;&lt;button type=button&gt;›&lt;/button&gt;
+        &lt;button commandfor="newevent"&gt;New event&lt;/button&gt;
+      &lt;/header&gt;
+      &lt;mh-calendar&gt;&lt;table&gt;…&lt;/table&gt;&lt;/mh-calendar&gt;
+    &lt;/mh-page&gt;
+  &lt;/main&gt;
+&lt;/mh-app&gt;
+
+&lt;dialog id="event"&gt;…&lt;/dialog&gt;
+&lt;dialog id="newevent"&gt;&lt;form&gt;…&lt;/form&gt;&lt;/dialog&gt;
+&lt;script src="mh-dialog.js"&gt;&lt;/script&gt;</code></pre>

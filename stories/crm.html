@@ -1,0 +1,24 @@
+<h1>CRM — contacts <small>(recipe)</small></h1>
+<p>A dense contacts table — <code>mh-app</code> + <code>mh-page</code> + a plain <code>&lt;table&gt;</code> inside an <code>mh-card</code>, with <code>mh-badge</code> status cells, a row <code>mh-menu</code>, and an <code>&lt;dialog&gt;</code> add-contact form. Tables and dialogs are pure reuse; the only new piece on this screen is the <code>mh-badge</code> atom. <strong>Zero styling</strong> emitted.</p>
+<h2>Live</h2>
+<iframe src="crm.html" title="CRM contacts recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-page&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Contacts&lt;/h1&gt;
+    &lt;label&gt;&lt;input type=search placeholder="Search…"&gt;&lt;/label&gt;
+    &lt;button commandfor="add"&gt;Add contact&lt;/button&gt;
+  &lt;/header&gt;
+  &lt;mh-card&gt;&lt;table&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;…&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;a href="…"&gt;&lt;strong&gt;Ada Lovelace&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;mh-badge&gt;🟢 Customer&lt;/mh-badge&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;mh-menu&gt;&lt;button&gt;⋯&lt;/button&gt;&lt;a&gt;Open&lt;/a&gt;…&lt;/mh-menu&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;&lt;/mh-card&gt;
+&lt;/mh-page&gt;
+
+&lt;dialog id="add"&gt;&lt;form&gt;&lt;label&gt;Full name&lt;input&gt;&lt;/label&gt;…&lt;/form&gt;…&lt;/dialog&gt;</code></pre>

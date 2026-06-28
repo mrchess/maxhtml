@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Profile — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Acme Social</strong>
+<a href="#">Home</a>
+<a href="#">Friends</a>
+<mh-avatar>🧑</mh-avatar>
+</mh-navbar>
+<mh-sidemenu>
+<header>Acme Social</header>
+<nav>
+<mh-submenu>
+<header>You</header>
+<a href="#">Friends</a>
+<a href="#" aria-current=page>Profile</a>
+<a href="#">Messages</a>
+<a href="#">Settings</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<mh-profile>
+<mh-avatar>👩</mh-avatar>
+<header>
+<h1>Ada Lovelace</h1>
+<p>Mathematician · 1,204 friends · 12 mutual</p>
+</header>
+<footer>
+<button>Add friend</button>
+<button type=button commandfor="msg">Message</button>
+<mh-menu>
+<button>⋯</button>
+<a href="#" commandfor="remove">❌ Remove friend</a>
+<a href="#">🚫 Block</a>
+</mh-menu>
+</footer>
+</mh-profile>
+<mh-card>
+<header>About</header>
+<p>Mathematician and writer, chiefly known for work on Charles Babbage's Analytical Engine. Wrote what is recognised as the first algorithm intended to be carried out by a machine.</p>
+</mh-card>
+<h2>Mutual friends</h2>
+<mh-list>
+<mh-item>
+<mh-avatar>🧔</mh-avatar>
+<header><strong>Alan Turing</strong><small>Computer scientist</small></header>
+<footer><button type=button>Message</button></footer>
+</mh-item>
+<mh-item>
+<mh-avatar>👨</mh-avatar>
+<header><strong>Charles Babbage</strong><small>Inventor</small></header>
+<footer><button type=button>Message</button></footer>
+</mh-item>
+</mh-list>
+</mh-page>
+</main>
+</mh-app>
+
+<dialog id="msg">
+<header>Message Ada</header>
+<form>
+<label>Message<textarea placeholder="Write something…"></textarea></label>
+</form>
+<footer>
+<button type=button>Cancel</button>
+<button>Send</button>
+</footer>
+</dialog>
+
+<dialog id="remove">
+<header>Remove friend?</header>
+<p>Ada Lovelace will be removed from your friends. You can add them again later.</p>
+<footer>
+<button type=button>Cancel</button>
+<button>Remove</button>
+</footer>
+</dialog>
+
+<script src="mh-menu.js"></script>
+<script src="mh-dialog.js"></script>
+</body>
+</html>

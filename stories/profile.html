@@ -1,0 +1,20 @@
+<h1>Profile <small>(recipe)</small></h1>
+<p>A user profile: <code>mh-app</code> shell + an <code>mh-profile</code> header (a big avatar — same <code>mh-avatar</code>, slot-scoped larger — plus name, meta, and actions) + an <code>mh-card</code> "About" + an <code>mh-list</code> of mutual friends. <strong>Message</strong> and <strong>Remove friend</strong> open native <code>&lt;dialog&gt;</code>s.</p>
+<h2>Live</h2>
+<iframe src="profile.html" title="Profile recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-profile&gt;
+  &lt;mh-avatar&gt;👩&lt;/mh-avatar&gt;
+  &lt;header&gt;&lt;h1&gt;Ada Lovelace&lt;/h1&gt;&lt;p&gt;Mathematician · 1,204 friends&lt;/p&gt;&lt;/header&gt;
+  &lt;footer&gt;
+    &lt;button&gt;Add friend&lt;/button&gt;
+    &lt;button type=button commandfor="msg"&gt;Message&lt;/button&gt;
+    &lt;mh-menu&gt;&lt;button&gt;⋯&lt;/button&gt;&lt;a commandfor="remove"&gt;❌ Remove friend&lt;/a&gt;&lt;/mh-menu&gt;
+  &lt;/footer&gt;
+&lt;/mh-profile&gt;
+
+&lt;dialog id="remove"&gt;
+  &lt;header&gt;Remove friend?&lt;/header&gt;
+  &lt;p&gt;...&lt;/p&gt;
+  &lt;footer&gt;&lt;button type=button&gt;Cancel&lt;/button&gt;&lt;button&gt;Remove&lt;/button&gt;&lt;/footer&gt;
+&lt;/dialog&gt;</code></pre>

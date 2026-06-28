@@ -1,0 +1,16 @@
+<h1>Badge</h1>
+<p><code>&lt;mh-badge&gt;</code> is a small neutral status pill — a building block for table cells, record headers, and board cards. It's an <em>atom</em>, not where MaxHTML competes: it exists so composites have a pill to drop in.</p>
+<h2>Example</h2>
+<figure>
+<mh-badge>🟢 Customer</mh-badge>
+<mh-badge>🟡 Lead</mh-badge>
+<mh-badge>🟠 At risk</mh-badge>
+<mh-badge>🔴 Churned</mh-badge>
+<mh-badge>Newsletter</mh-badge>
+</figure>
+<h2>Colour rides on an emoji, not a class</h2>
+<p>MaxHTML deliberately has no colour-per-variant (a danger badge, a success badge) — that would need a <code>class</code> or <code>data-*</code> hook the kit forbids. Instead the badge is one neutral pill and the status colour is carried by a leading <strong>emoji dot</strong> as content (🟢 / 🟡 / 🟠 / 🔴), the same convention the calendar uses for <code>🟢 Personal</code>. Honest limitation: you get an at-a-glance dot, not a fully colour-filled pill background.</p>
+<h2>Usage</h2>
+<pre><code>&lt;mh-badge&gt;🟢 Customer&lt;/mh-badge&gt;
+&lt;td&gt;…&lt;mh-badge&gt;🔴 Churned&lt;/mh-badge&gt;…&lt;/td&gt;     &lt;!-- in a table cell --&gt;
+&lt;h1&gt;Ada Lovelace &lt;mh-badge&gt;🟢 Customer&lt;/mh-badge&gt;&lt;/h1&gt;  &lt;!-- in a record header --&gt;</code></pre>

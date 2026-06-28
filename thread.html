@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Thread — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Commons</strong>
+<a href="forum.html">Forum</a>
+<a href="chat.html">Chat</a>
+<mh-avatar>🧑</mh-avatar>
+</mh-navbar>
+<mh-sidemenu>
+<header>Commons</header>
+<nav>
+<mh-submenu>
+<header>Categories</header>
+<a href="forum.html" aria-current=page>General</a>
+<a href="#">Show &amp; tell</a>
+<a href="#">Help</a>
+<a href="#">Off-topic</a>
+</mh-submenu>
+<mh-submenu>
+<header>Channels</header>
+<a href="chat.html"># general</a>
+<a href="#"># random</a>
+<a href="#"># dev</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<header>
+<h1>Does anyone still hand-write CSS in 2026?</h1>
+<button type=button>Follow</button>
+</header>
+<p><mh-badge>💬 18 replies</mh-badge> <mh-badge>👁 1.2k views</mh-badge> <mh-badge>General</mh-badge></p>
+
+<mh-message>
+<mh-avatar>👩</mh-avatar>
+<header><strong>Ada Lovelace</strong><small>· 3 hours ago · original post</small></header>
+<p>Genuine question — with all the component kits and AI tooling, do people still write raw CSS by hand for production apps? Or is everyone on a design system now?</p>
+<p>I keep going back and forth. Curious what this crowd does.</p>
+<footer>
+<button type=button>↰ Reply</button>
+<button type=button>▲ 24</button>
+<mh-menu><button>⋯</button><a href="#">Share</a><a href="#">Report</a></mh-menu>
+</footer>
+
+<mh-message>
+<mh-avatar>🧔</mh-avatar>
+<header><strong>Alan Turing</strong><small>· 2 hours ago</small></header>
+<p>Mostly tokens + a closed component set these days. I almost never write a bespoke rule anymore — if I need one, that's usually a smell that the design drifted.</p>
+<footer>
+<button type=button>↰ Reply</button>
+<button type=button>▲ 11</button>
+</footer>
+
+<mh-message>
+<mh-avatar>👩</mh-avatar>
+<header><strong>Ada Lovelace</strong><small>· 2 hours ago</small></header>
+<p>That matches my experience. The escape hatch matters though — there's always one screen that needs the bespoke rule.</p>
+<footer>
+<button type=button>↰ Reply</button>
+<button type=button>▲ 6</button>
+</footer>
+</mh-message>
+</mh-message>
+
+<mh-message>
+<mh-avatar>👨</mh-avatar>
+<header><strong>Grace Hopper</strong><small>· 1 hour ago</small></header>
+<p>Hand-writing CSS for a whole app in 2026 feels like assembling furniture with raw lumber. Fine for a workshop, slow for a house.</p>
+<footer>
+<button type=button>↰ Reply</button>
+<button type=button>▲ 19</button>
+</footer>
+</mh-message>
+</mh-message>
+
+<mh-card>
+<header>Write a reply</header>
+<form>
+<label><textarea placeholder="Share your thoughts…"></textarea></label>
+<button>Post reply</button>
+</form>
+</mh-card>
+</mh-page>
+</main>
+</mh-app>
+
+<script src="mh-menu.js"></script>
+</body>
+</html>

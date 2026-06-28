@@ -1,0 +1,7 @@
+# OS / editor
+.DS_Store
+
+# tooling / transient
+.playwright-mcp/
+*.log
+node_modules/

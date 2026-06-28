@@ -1,0 +1,27 @@
+<h1>Slots</h1>
+<p><code>&lt;mh-slots&gt;</code> is a dense, equal grid of selectable chips — booking time slots, and just as well filters, sizes, or seats. Children are <code>&lt;button type=button&gt;</code> chips: mark the chosen one with <code>aria-pressed="true"</code> and unavailable ones with <code>disabled</code> — both native and edit-proof. Unlike <code>mh-grid</code> (wide 180px tracks) the cells are tight and uniform, sized to short labels.</p>
+<h2>Example</h2>
+<figure>
+<mh-slots>
+<button type=button>9:00</button>
+<button type=button>9:30</button>
+<button type=button disabled>10:00</button>
+<button type=button>10:30</button>
+<button type=button aria-pressed=true>11:00</button>
+<button type=button>11:30</button>
+<button type=button disabled>13:00</button>
+<button type=button>13:30</button>
+<button type=button>14:00</button>
+<button type=button>14:30</button>
+<button type=button>15:00</button>
+<button type=button>16:30</button>
+</mh-slots>
+</figure>
+<h2>Anatomy</h2>
+<p>State rides on native attributes only: <code>aria-pressed="true"</code> = the chosen slot (filled), <code>disabled</code> = taken (dimmed, not clickable). No <code>class</code>, no position counting — reorder or edit freely.</p>
+<h2>Usage</h2>
+<pre><code>&lt;mh-slots&gt;
+  &lt;button type=button&gt;9:00&lt;/button&gt;
+  &lt;button type=button disabled&gt;10:00&lt;/button&gt;        &lt;!-- taken --&gt;
+  &lt;button type=button aria-pressed="true"&gt;11:00&lt;/button&gt; &lt;!-- chosen --&gt;
+&lt;/mh-slots&gt;</code></pre>

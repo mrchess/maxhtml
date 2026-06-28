@@ -1,0 +1,61 @@
+<h1>Gallery</h1>
+<p><code>&lt;mh-gallery&gt;</code> is an image-dominant tile grid — the unit of both an <strong>album browser</strong> and a <strong>photo grid</strong>. Each tile is a <code>&lt;figure&gt;</code> with an <code>&lt;img&gt;</code> cropped square to fill the cell, plus an <em>optional</em> <code>&lt;figcaption&gt;</code> (title + meta). Caption present = album cover; absent = a bare photo. This is what <code>mh-card</code> (padded, text-first) and <code>mh-grid</code> (no image cropping) can't do: an edge-to-edge image as the hero of the tile.</p>
+<h2>Album browser — tiles with captions</h2>
+<figure>
+<mh-gallery>
+<figure>
+<a href="#gallery"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23e8746b'/%3E%3C/svg%3E" alt="Iceland cover"></a>
+<figcaption><strong>Iceland 2026</strong><small>248 photos</small></figcaption>
+</figure>
+<figure>
+<a href="#gallery"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%235b8def'/%3E%3C/svg%3E" alt="Family cover"></a>
+<figcaption><strong>Family</strong><small>1,032 photos</small></figcaption>
+</figure>
+<figure>
+<a href="#gallery"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23f4b942'/%3E%3C/svg%3E" alt="Food cover"></a>
+<figcaption><strong>Food</strong><small>87 photos</small></figcaption>
+</figure>
+<figure>
+<a href="#gallery"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%2348a17a'/%3E%3C/svg%3E" alt="Hikes cover"></a>
+<figcaption><strong>Hikes</strong><small>156 photos</small></figcaption>
+</figure>
+</mh-gallery>
+</figure>
+<h2>Photo grid — bare tiles, each opens a lightbox</h2>
+<p>Drop the <code>&lt;figcaption&gt;</code> and the same composite is a dense photo grid. Wrap each <code>&lt;img&gt;</code> in a <code>&lt;button commandfor="id"&gt;</code> to open the lightbox below.</p>
+<figure>
+<mh-gallery>
+<figure><button commandfor=lb-demo><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23e8746b'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lb-demo><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%235b8def'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lb-demo><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23f4b942'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lb-demo><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%2348a17a'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lb-demo><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%239b6bdf'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lb-demo><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23e86ba6'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+</mh-gallery>
+</figure>
+<h2>Lightbox — a <code>&lt;dialog&gt;</code> with an image</h2>
+<p>The photo viewer isn't a new tag: a native <code>&lt;dialog&gt;</code> whose content is an <code>&lt;img&gt;</code> styles itself as a wide, dark lightbox. It reuses <code>mh-dialog.js</code> verbatim — open with <code>commandfor</code>, close on the backdrop, Esc, or a footer button. The variant is keyed on <strong>structure</strong> (the dialog has an image), never a class.</p>
+<dialog id=lb-demo>
+<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='3'%20height='2'%3E%3Crect%20width='3'%20height='2'%20fill='%23e8746b'/%3E%3C/svg%3E" alt="Glacier lagoon">
+<p>Jökulsárlón glacier lagoon · 28 Jun 2026</p>
+<footer>
+<button type=button>⭐ Favorite</button>
+<button type=button>⬇ Download</button>
+<button>Close</button>
+</footer>
+</dialog>
+<h2>Usage</h2>
+<pre><code>&lt;mh-gallery&gt;
+  &lt;figure&gt;                                  &lt;!-- album cover: captioned --&gt;
+    &lt;a href="/album/iceland"&gt;&lt;img src="…" alt="Iceland"&gt;&lt;/a&gt;
+    &lt;figcaption&gt;&lt;strong&gt;Iceland 2026&lt;/strong&gt;&lt;small&gt;248 photos&lt;/small&gt;&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;figure&gt;&lt;button commandfor="lb"&gt;&lt;img src="…" alt="Photo"&gt;&lt;/button&gt;&lt;/figure&gt;  &lt;!-- bare photo --&gt;
+&lt;/mh-gallery&gt;
+
+&lt;dialog id="lb"&gt;                              &lt;!-- lightbox = dialog + img --&gt;
+  &lt;img src="…" alt="Glacier lagoon"&gt;
+  &lt;p&gt;Jökulsárlón · 28 Jun 2026&lt;/p&gt;
+  &lt;footer&gt;&lt;button type=button&gt;⬇ Download&lt;/button&gt;&lt;button&gt;Close&lt;/button&gt;&lt;/footer&gt;
+&lt;/dialog&gt;
+&lt;script src="mh-dialog.js"&gt;&lt;/script&gt;</code></pre>

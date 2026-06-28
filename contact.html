@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Contact record — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Relate</strong>
+<a href="crm.html">Contacts</a>
+<a href="pipeline.html">Pipeline</a>
+<mh-avatar>🧑</mh-avatar>
+</mh-navbar>
+<mh-sidemenu>
+<header>Relate</header>
+<nav>
+<mh-submenu>
+<header>Workspace</header>
+<a href="crm.html" aria-current=page>Contacts</a>
+<a href="#">Companies</a>
+<a href="pipeline.html">Deals</a>
+<a href="#">Tasks</a>
+<a href="#">Reports</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<header>
+<h1>Contact</h1>
+<button type=button>Log activity</button>
+<button commandfor=edit>Edit</button>
+</header>
+<mh-profile>
+<mh-avatar>👩</mh-avatar>
+<header>
+<h1>Ada Lovelace <mh-badge>🟢 Customer</mh-badge></h1>
+<p>Lead engineer · Analytical Engines · London</p>
+</header>
+<footer>
+<button>Email</button>
+<button type=button>Call</button>
+<mh-menu><button>More</button><a href="#">Add to list</a><a href="#">Merge</a><a href="#">Delete</a></mh-menu>
+</footer>
+</mh-profile>
+<mh-grid>
+<mh-stat><header>Open deals</header><strong>$48k</strong><small>2 deals</small></mh-stat>
+<mh-stat><header>Lifetime value</header><strong>$214k</strong><small>since 2021</small></mh-stat>
+<mh-stat><header>Last contacted</header><strong>2h ago</strong><small>by you</small></mh-stat>
+</mh-grid>
+<mh-card>
+<header>Details</header>
+<table>
+<tbody>
+<tr><th scope=row>Email</th><td>ada@analyticalengines.com</td></tr>
+<tr><th scope=row>Phone</th><td>+44 20 7946 0958</td></tr>
+<tr><th scope=row>Company</th><td>Analytical Engines</td></tr>
+<tr><th scope=row>Title</th><td>Lead engineer</td></tr>
+<tr><th scope=row>Owner</th><td>You</td></tr>
+<tr><th scope=row>Status</th><td><mh-badge>🟢 Customer</mh-badge></td></tr>
+<tr><th scope=row>Tags</th><td>VIP · Newsletter · Beta</td></tr>
+</tbody>
+</table>
+</mh-card>
+<mh-card>
+<header>Recent activity</header>
+<mh-list>
+<mh-item>
+<mh-avatar>📞</mh-avatar>
+<header><strong>Call · discovery follow-up</strong><small>You · 2 hours ago</small></header>
+</mh-item>
+<mh-item>
+<mh-avatar>✉️</mh-avatar>
+<header><strong>Email · sent proposal v2</strong><small>You · yesterday</small></header>
+</mh-item>
+<mh-item>
+<mh-avatar>📝</mh-avatar>
+<header><strong>Note · wants annual billing</strong><small>Grace H. · 3 days ago</small></header>
+</mh-item>
+</mh-list>
+</mh-card>
+</mh-page>
+</main>
+</mh-app>
+
+<dialog id=edit>
+<header>Edit contact</header>
+<form>
+<mh-grid>
+<label>First name<input type=text value="Ada"></label>
+<label>Last name<input type=text value="Lovelace"></label>
+<label>Email<input type=email value="ada@analyticalengines.com"></label>
+<label>Phone<input type=tel value="+44 20 7946 0958"></label>
+<label>Company<input type=text value="Analytical Engines"></label>
+<label>Title<input type=text value="Lead engineer"></label>
+<label>Owner<input type=text value="You"></label>
+<label>Status<input type=text value="Customer"></label>
+</mh-grid>
+<label>Notes<textarea>Prefers annual billing. Decision by end of quarter.</textarea></label>
+</form>
+<footer>
+<button type=button>Cancel</button>
+<button>Save changes</button>
+</footer>
+</dialog>
+
+<script src="mh-menu.js"></script>
+<script src="mh-dialog.js"></script>
+</body>
+</html>

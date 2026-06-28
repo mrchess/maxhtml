@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Forum — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Commons</strong>
+<a href="#">Forum</a>
+<a href="chat.html">Chat</a>
+<mh-avatar>🧑</mh-avatar>
+</mh-navbar>
+<mh-sidemenu>
+<header>Commons</header>
+<nav>
+<mh-submenu>
+<header>Categories</header>
+<a href="#" aria-current=page>General</a>
+<a href="#">Show &amp; tell</a>
+<a href="#">Help</a>
+<a href="#">Off-topic</a>
+</mh-submenu>
+<mh-submenu>
+<header>Channels</header>
+<a href="chat.html"># general</a>
+<a href="#"># random</a>
+<a href="#"># dev</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<header>
+<h1>General</h1>
+<button commandfor=newtopic>New topic</button>
+</header>
+<mh-list>
+<mh-item>
+<mh-avatar>👩</mh-avatar>
+<header><strong><a href="thread.html">Does anyone still hand-write CSS in 2026?</a></strong><small>Ada Lovelace · 3h ago</small></header>
+<footer><mh-badge>💬 18</mh-badge></footer>
+</mh-item>
+<mh-item>
+<mh-avatar>🧔</mh-avatar>
+<header><strong><a href="thread.html">Show & tell: my token-only design system</a></strong><small>Alan Turing · 5h ago</small></header>
+<footer><mh-badge>💬 42</mh-badge></footer>
+</mh-item>
+<mh-item>
+<mh-avatar>👨</mh-avatar>
+<header><strong><a href="thread.html">Best way to eject MaxHTML to Tailwind?</a></strong><small>Grace Hopper · yesterday</small></header>
+<footer><mh-badge>💬 7</mh-badge></footer>
+</mh-item>
+<mh-item>
+<mh-avatar>👩</mh-avatar>
+<header><strong><a href="thread.html">Weekly thread: what are you shipping?</a></strong><small>Katherine Johnson · 2 days ago</small></header>
+<footer><mh-badge>💬 96</mh-badge></footer>
+</mh-item>
+<mh-item>
+<mh-avatar>🧑</mh-avatar>
+<header><strong><a href="thread.html">Poll: dark mode by default?</a></strong><small>Edsger Dijkstra · 3 days ago</small></header>
+<footer><mh-badge>💬 31</mh-badge></footer>
+</mh-item>
+</mh-list>
+</mh-page>
+</main>
+</mh-app>
+
+<dialog id=newtopic>
+<header>New topic</header>
+<form>
+<label>Title
+<input type=text placeholder="What's on your mind?">
+</label>
+<label>Category
+<input type=text value="General">
+</label>
+<label>Body
+<textarea placeholder="Write your post…"></textarea>
+</label>
+</form>
+<footer>
+<button type=button>Cancel</button>
+<button>Post topic</button>
+</footer>
+</dialog>
+
+<script src="mh-dialog.js"></script>
+</body>
+</html>

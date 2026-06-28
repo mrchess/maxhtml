@@ -1,0 +1,26 @@
+<h1>Friends <small>(recipe)</small></h1>
+<p>The friends-management screen from a social app: <code>mh-app</code> shell + <code>mh-page</code> + an <code>mh-list</code> of <code>mh-item</code>s. Each row carries an avatar, identity, a primary action, and an overflow <code>mh-menu</code> for the long tail (poke, remove, block) — so "I might want more actions later" never touches the layout. Friend requests are the same item with <code>Add friend</code> / <code>Decline</code> instead.</p>
+<h2>Live</h2>
+<iframe src="friends.html" title="Friends recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-app&gt;
+  &lt;mh-navbar&gt;&lt;strong&gt;Acme Social&lt;/strong&gt;&lt;a&gt;Home&lt;/a&gt;&lt;a&gt;Friends&lt;/a&gt;&lt;mh-avatar&gt;🧑&lt;/mh-avatar&gt;&lt;/mh-navbar&gt;
+  &lt;mh-sidemenu&gt;...&lt;/mh-sidemenu&gt;
+  &lt;main&gt;
+    &lt;mh-page&gt;
+      &lt;header&gt;&lt;h1&gt;Friends&lt;/h1&gt;&lt;button&gt;Find friends&lt;/button&gt;&lt;/header&gt;
+      &lt;mh-list&gt;
+        &lt;mh-item&gt;
+          &lt;mh-avatar&gt;👩&lt;/mh-avatar&gt;
+          &lt;header&gt;&lt;strong&gt;Ada Lovelace&lt;/strong&gt;&lt;small&gt;12 mutual friends&lt;/small&gt;&lt;/header&gt;
+          &lt;footer&gt;
+            &lt;button type=button&gt;Message&lt;/button&gt;
+            &lt;mh-menu&gt;&lt;button&gt;⋯&lt;/button&gt;&lt;a&gt;👋 Poke&lt;/a&gt;&lt;a&gt;❌ Remove friend&lt;/a&gt;&lt;a&gt;🚫 Block&lt;/a&gt;&lt;/mh-menu&gt;
+          &lt;/footer&gt;
+        &lt;/mh-item&gt;
+        ...
+      &lt;/mh-list&gt;
+    &lt;/mh-page&gt;
+  &lt;/main&gt;
+&lt;/mh-app&gt;
+&lt;script src="mh-menu.js"&gt;&lt;/script&gt;</code></pre>

@@ -1,0 +1,46 @@
+<h1>Sidebar</h1>
+<p>A vertical navigation menu. Slots: a brand <code>&lt;header&gt;</code>, then a <code>&lt;nav&gt;</code> landmark holding one or more <code>&lt;mh-submenu&gt;</code> groups. Each group is a <code>&lt;header&gt;</code> label + <code>&lt;a&gt;</code> links. Mark the active link with <code>aria-current="page"</code>.</p>
+<h2>Example — one group, three items</h2>
+<figure>
+<mh-sidemenu>
+<header>Acme</header>
+<nav>
+<mh-submenu>
+<header>Main</header>
+<a aria-current="page">Dashboard</a>
+<a>Projects</a>
+<a>Settings</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+</figure>
+<h2>Example — two groups</h2>
+<figure>
+<mh-sidemenu>
+<header>Acme</header>
+<nav>
+<mh-submenu>
+<header>Main</header>
+<a aria-current="page">Dashboard</a>
+<a>Projects</a>
+</mh-submenu>
+<mh-submenu>
+<header>Account</header>
+<a>Profile</a>
+<a>Billing</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+</figure>
+<h2>Usage</h2>
+<pre><code>&lt;mh-sidemenu&gt;
+  &lt;header&gt;Acme&lt;/header&gt;
+  &lt;nav&gt;
+    &lt;mh-submenu&gt;
+      &lt;header&gt;Main&lt;/header&gt;
+      &lt;a aria-current="page"&gt;Dashboard&lt;/a&gt;
+      &lt;a&gt;Projects&lt;/a&gt;
+      &lt;a&gt;Settings&lt;/a&gt;
+    &lt;/mh-submenu&gt;
+  &lt;/nav&gt;
+&lt;/mh-sidemenu&gt;</code></pre>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Calendar — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Cadence</strong>
+<a href="#">Calendar</a>
+<a href="booking.html">Booking</a>
+<mh-avatar>🧑</mh-avatar>
+</mh-navbar>
+<mh-sidemenu>
+<header>Cadence</header>
+<nav>
+<mh-submenu>
+<header>Views</header>
+<a href="#" aria-current=page>Month</a>
+<a href="#">Week</a>
+<a href="#">Day</a>
+<a href="#">Upcoming</a>
+</mh-submenu>
+<mh-submenu>
+<header>My calendars</header>
+<a href="#">🟢 Personal</a>
+<a href="#">🔵 Work</a>
+<a href="#">🟣 Family</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<header>
+<h1>June 2026</h1>
+<button type=button>‹</button>
+<button type=button>Today</button>
+<button type=button>›</button>
+<button commandfor=newevent>New event</button>
+</header>
+<mh-calendar>
+<table>
+<thead>
+<tr><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>2</strong><a href="#" commandfor=event>9:00 Standup</a></td>
+<td><strong>3</strong></td>
+<td><strong>4</strong><a href="#" commandfor=event>13:00 Dentist</a></td>
+<td><strong>5</strong></td>
+<td><strong>6</strong></td>
+<td><strong>7</strong></td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td><strong>9</strong></td>
+<td><strong>10</strong><a href="#" commandfor=event>10:30 1:1 Sam</a></td>
+<td><strong>11</strong></td>
+<td><strong>12</strong><a href="#" commandfor=event>16:00 Demo</a></td>
+<td><strong>13</strong></td>
+<td><strong>14</strong></td>
+</tr>
+<tr>
+<td><strong>15</strong><a href="#" commandfor=event>All-day · Conf</a></td>
+<td><strong>16</strong><a href="#" commandfor=event>All-day · Conf</a></td>
+<td><strong>17</strong></td>
+<td><strong>18</strong><a href="#" commandfor=event>19:00 Dinner</a></td>
+<td><strong>19</strong></td>
+<td><strong>20</strong></td>
+<td><strong>21</strong></td>
+</tr>
+<tr>
+<td><strong>22</strong></td>
+<td><strong>23</strong></td>
+<td><strong>24</strong><a href="#" commandfor=event>15:00 Review</a></td>
+<td><strong>25</strong></td>
+<td><strong>26</strong><a href="#" commandfor=event>9:00 Standup</a></td>
+<td><strong>27</strong></td>
+<td aria-current=date><strong>28</strong><a href="#" commandfor=event>11:00 Brunch</a></td>
+</tr>
+<tr>
+<td><strong>29</strong><a href="#" commandfor=event>9:00 Standup</a></td>
+<td><strong>30</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</mh-calendar>
+</mh-page>
+</main>
+</mh-app>
+
+<dialog id=event>
+<header>Brunch with Grace</header>
+<p>Sunday, 28 June 2026 · 11:00–12:30</p>
+<p>📍 Café Lola · 🟢 Personal</p>
+<footer>
+<button type=button>Edit</button>
+<button>Done</button>
+</footer>
+</dialog>
+
+<dialog id=newevent>
+<header>New event</header>
+<form>
+<label>Title
+<input type=text placeholder="Add a title">
+</label>
+<label>Date &amp; time
+<input type=datetime-local value="2026-06-28T11:00">
+</label>
+<label>Calendar
+<input type=text value="Personal">
+</label>
+<label>Notes
+<textarea placeholder="Add notes, a location, or a link…"></textarea>
+</label>
+</form>
+<footer>
+<button type=button>Cancel</button>
+<button>Save event</button>
+</footer>
+</dialog>
+
+<script src="mh-dialog.js"></script>
+</body>
+</html>

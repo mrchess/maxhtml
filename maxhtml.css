@@ -1,0 +1,721 @@
+/* MaxHTML — component library (dual-exit design).
+   ---------------------------------------------------------------------------
+   Build your whole app in MaxHTML, then either:
+     EXIT A (handoff) — translate the stable vocabulary into Tailwind/your kit.
+     EXIT B (stay)    — theme it via the token layer and ship it as-is.
+   See CONVENTIONS.md for the vocabulary, tokens, and translation table.
+
+   Design rules that make both exits work:
+     1. Components are PREFIXED custom elements (mh-*) — valid W3C custom-element
+        names, work with zero JS, can't collide with future HTML.
+     2. Semantic tags (<nav> <main> <header> <a> <button>) are used inside —
+        accessibility for EXIT B, translation hints for EXIT A.
+     3. Every rule is wrapped in :where() (zero specificity) so themers can
+        override any component without a specificity fight.
+     4. All visual values come from the token layer below — reskin from one place.
+   --------------------------------------------------------------------------- */
+
+/* ===== token layer — override these to theme (EXIT B) ==================== */
+:root {
+  --mh-bg:        #ffffff;   /* page background */
+  --mh-surface:   #f7f8fa;   /* raised/recessed surfaces (sidemenu, code) */
+  --mh-fg:        #1a1a1a;   /* primary text */
+  --mh-muted:     #5f6b76;   /* secondary text */
+  --mh-line:      #e3e6ea;   /* borders / dividers */
+  --mh-accent:    #2d7a4b;   /* brand / active / primary */
+  --mh-accent-fg: #ffffff;   /* text on accent */
+  --mh-scrim:     #0e1116;   /* immersive overlay surface (lightbox frame) */
+  --mh-scrim-fg:  #f2f4f7;   /* text on the scrim */
+  --mh-hover:     rgba(0, 0, 0, .05);              /* hover tint — flip to white on dark themes */
+  --mh-shadow:    0 10px 28px rgba(0, 0, 0, .14);  /* menu / popover shadow */
+  --mh-shadow-lg: 0 24px 64px rgba(0, 0, 0, .28);  /* dialog shadow */
+  --mh-backdrop:  rgba(0, 0, 0, .45);              /* modal backdrop */
+  /* type & density — theme these for a tighter/looser "shape" (e.g. shadcn) */
+  --mh-text-base:     1rem;     /* body + control text */
+  --mh-h1:            1.6rem;
+  --mh-h2:            1.25rem;
+  --mh-weight:        500;      /* medium — labels, secondary emphasis */
+  --mh-weight-strong: 600;      /* semibold — buttons, titles, headers */
+  --mh-weight-bold:   700;      /* bold — h1, brand */
+  --mh-control-py:    .55rem;   /* control vertical padding (the tightness lever) */
+  --mh-control-px:    1rem;     /* control horizontal padding */
+  --mh-radius:    8px;
+  --mh-gap:       1rem;
+  --mh-side-w:    250px;     /* sidemenu width */
+  --mh-font:      system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mh-mono:      ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:where(body) {
+  margin: 0;
+  font: var(--mh-text-base)/1.5 var(--mh-font);
+  color: var(--mh-fg);
+  background: var(--mh-bg);
+}
+
+/* ===== primitives: styled bare semantic tags (zero hooks) =============== */
+/* Primary vs secondary is self-describing via the native type attr, not by   */
+/* position — see CONVENTIONS.md.                                             */
+:where(button) {
+  font: inherit;
+  font-weight: var(--mh-weight-strong);
+  cursor: pointer;
+  padding: var(--mh-control-py) var(--mh-control-px);
+  border: 1px solid var(--mh-accent);
+  border-radius: var(--mh-radius);
+  background: var(--mh-accent);
+  color: var(--mh-accent-fg);
+}
+:where(button[type=button]) { background: transparent; color: var(--mh-accent); }  /* secondary */
+:where(button:disabled) { opacity: .5; cursor: not-allowed; }
+
+:where(form) { display: flex; flex-direction: column; gap: .85rem; }
+:where(form > button) { align-self: start; }
+:where(label) { display: flex; flex-direction: column; gap: .3rem; font-size: .9rem; font-weight: var(--mh-weight); }
+:where(input) {
+  font: inherit;
+  padding: var(--mh-control-py) .7rem;
+  border: 1px solid var(--mh-line);
+  border-radius: var(--mh-radius);
+  background: var(--mh-surface);
+  color: var(--mh-fg);
+}
+:where(input:focus) { outline: 2px solid var(--mh-accent); outline-offset: 1px; border-color: var(--mh-accent); }
+:where(textarea) {
+  font: inherit;
+  width: 100%;
+  min-height: 5rem;
+  padding: var(--mh-control-py) .7rem;
+  border: 1px solid var(--mh-line);
+  border-radius: var(--mh-radius);
+  background: var(--mh-surface);
+  color: var(--mh-fg);
+  resize: vertical;
+}
+:where(textarea:focus) { outline: 2px solid var(--mh-accent); outline-offset: 1px; border-color: var(--mh-accent); }
+
+/* ===== typography (global base — component rules below override per slot) = */
+:where(h1) { font-size: var(--mh-h1); font-weight: var(--mh-weight-bold); line-height: 1.2;  margin: 0 0 .75rem; }
+:where(h2) { font-size: var(--mh-h2); font-weight: var(--mh-weight-bold); line-height: 1.25; margin: 1.5rem 0 .5rem; }
+:where(h3) { font-size: 1.05rem; font-weight: var(--mh-weight-bold); line-height: 1.3;  margin: 1.25rem 0 .5rem; }
+:where(p)  { margin: 0 0 1rem; }
+:where(a)  { color: var(--mh-accent); }
+:where(small) { color: var(--mh-muted); }
+:where(code)  { font: .85em var(--mh-mono); }
+:where(pre)   {
+  background: var(--mh-surface);
+  border: 1px solid var(--mh-line);
+  border-radius: var(--mh-radius);
+  padding: 1rem 1.1rem;
+  overflow: auto;
+}
+:where(pre code) { font-size: 13px; line-height: 1.5; }
+
+/* ===== component: <mh-layout> =========================================== */
+/* Two-column app shell: fixed <mh-sidemenu> left, fluid <main> right.       */
+:where(mh-layout) {
+  display: grid;
+  grid-template-columns: var(--mh-side-w) 1fr;
+  min-height: 100vh;
+}
+
+/* ===== component: <mh-sidemenu> ========================================= */
+/* Slots: <header> (brand) + <nav> (the navigation landmark) of submenus.    */
+:where(mh-sidemenu) {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.25rem 1rem;
+  background: var(--mh-surface);
+  border-right: 1px solid var(--mh-line);
+}
+:where(mh-sidemenu > header) {           /* brand header */
+  font-size: 1.15rem;
+  font-weight: var(--mh-weight-bold);
+  letter-spacing: -0.01em;
+  padding: 0 .5rem;
+}
+:where(mh-sidemenu > nav) {              /* navigation landmark wraps submenus */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ===== component: <mh-submenu> ========================================== */
+/* Slots: <header> (group label) + <a> links.                                */
+:where(mh-submenu) {
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+}
+:where(mh-submenu > header) {            /* group label */
+  font-size: .72rem;
+  font-weight: var(--mh-weight-strong);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--mh-muted);
+  padding: .35rem .5rem;
+}
+:where(mh-submenu > a) {                 /* submenu link */
+  display: block;
+  padding: .45rem .6rem;
+  border-radius: var(--mh-radius);
+  color: var(--mh-fg);
+  text-decoration: none;
+  font-size: .95rem;
+}
+:where(mh-submenu > a:hover) { background: var(--mh-hover); }
+:where(mh-submenu > a:focus-visible) {   /* keyboard focus ring (accessibility) */
+  outline: 2px solid var(--mh-accent);
+  outline-offset: 2px;
+}
+:where(mh-submenu > a[aria-current]) {   /* active item — set by the storybook JS */
+  background: var(--mh-accent);
+  color: var(--mh-accent-fg);
+}
+
+/* ===== component: <mh-navbar> =========================================== */
+/* Horizontal top bar: <strong> brand on the left, links pushed right.       */
+:where(mh-navbar) {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: .85rem 1.25rem;
+  border-bottom: 1px solid var(--mh-line);
+}
+:where(mh-navbar > strong) {             /* brand; floats everything after it right */
+  font-size: 1.1rem;
+  font-weight: var(--mh-weight-bold);
+  margin-right: auto;
+}
+:where(mh-navbar a) {
+  color: var(--mh-muted);
+  text-decoration: none;
+  font-size: .9rem;
+}
+:where(mh-navbar a:hover) { color: var(--mh-fg); }
+
+/* ===== component: <mh-menu> (behavior layer — needs mh-menu.js) ========== */
+/* Authored as <button> + <a> items. The JS wraps the items in a <menu> popup
+   and toggles [open]. With no JS, the items just show as a static list.       */
+:where(mh-menu) { position: relative; display: inline-block; }
+:where(mh-menu > button) {
+  font: inherit;
+  font-weight: var(--mh-weight-strong);
+  cursor: pointer;
+  padding: .5rem .9rem;
+  border: 1px solid var(--mh-line);
+  border-radius: var(--mh-radius);
+  background: var(--mh-bg);
+  color: var(--mh-fg);
+}
+:where(mh-menu > button:hover) { background: var(--mh-surface); }
+:where(mh-menu[open] > button) { border-color: var(--mh-accent); }
+:where(mh-menu > button)::after { content: " ▾"; color: var(--mh-muted); }
+
+:where(mh-menu menu) {                   /* the popup (generated by the JS) */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  min-width: 170px;
+  margin: .35rem 0 0;
+  padding: .25rem;
+  list-style: none;
+  background: var(--mh-bg);
+  border: 1px solid var(--mh-line);
+  border-radius: var(--mh-radius);
+  box-shadow: var(--mh-shadow);
+  display: none;
+}
+:where(mh-menu[open] menu) { display: block; }
+:where(mh-menu menu a) {
+  display: block;
+  padding: .5rem .6rem;
+  border-radius: 6px;
+  color: var(--mh-fg);
+  text-decoration: none;
+  font-size: .9rem;
+  white-space: nowrap;
+}
+:where(mh-menu menu a:hover) { background: var(--mh-hover); }
+
+/* ===== component: <mh-card> ============================================= */
+/* Slots: <header> (title) + free content + <footer> (actions).              */
+:where(mh-card) {
+  display: block;
+  padding: 1.25rem;
+  border: 1px solid var(--mh-line);
+  border-radius: var(--mh-radius);
+  background: var(--mh-bg);
+}
+:where(mh-card > header) { font-size: 1.1rem; font-weight: var(--mh-weight-strong); margin: 0 0 .5rem; }
+:where(mh-card > p) { margin: 0 0 1rem; color: var(--mh-muted); }
+:where(mh-card > p:last-child) { margin-bottom: 0; }
+:where(mh-card > footer) { display: flex; gap: .6rem; margin-top: 1rem; }
+
+/* =========================================================================
+   COMPOSITES — region arrangers. The focus of MaxHTML. Each owns a layout and
+   exposes named slots; you fill the slots with components/primitives.
+   ========================================================================= */
+
+/* ===== composite: <mh-app> (full dashboard shell) ======================= */
+/* Topbar spans the top; sidebar left; content right. Children claim regions. */
+:where(mh-app) {
+  display: grid;
+  grid-template-columns: var(--mh-side-w) 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "nav nav" "side main";
+  min-height: 100vh;
+}
+:where(mh-app > mh-navbar)   { grid-area: nav; }
+:where(mh-app > mh-sidemenu) { grid-area: side; }
+:where(mh-app > main)        { grid-area: main; min-width: 0; }  /* min-width:0 lets tables scroll, not blow out the grid */
+
+/* ===== composite: <mh-page> (page header + body) ======================== */
+/* Slots: a <header> (title + actions) followed by the page body.            */
+:where(mh-page) { display: block; padding: 1.75rem 2rem; }
+:where(mh-page > header) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 1.5rem;
+}
+:where(mh-page > header h1) { margin: 0; }
+
+/* ===== composite: <mh-grid> (responsive auto-fit grid) ================== */
+:where(mh-grid) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--mh-gap);
+  margin: 0 0 1.5rem;
+}
+
+/* ===== composite: <mh-stat> (metric tile) ============================== */
+/* Slots: <header> (label) + <strong> (value) + <small> (delta).             */
+:where(mh-stat) {
+  display: block;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--mh-line);
+  border-radius: var(--mh-radius);
+  background: var(--mh-bg);
+}
+:where(mh-stat > header) { font-size: .8rem; color: var(--mh-muted); margin: 0 0 .35rem; }
+:where(mh-stat > strong) { display: block; font-size: 1.7rem; line-height: 1.1; }
+:where(mh-stat > small)  { color: var(--mh-muted); }
+
+/* ===== native element: <table> ========================================= */
+:where(table) { width: 100%; border-collapse: collapse; font-size: .92rem; }
+:where(th) {
+  text-align: left;
+  font-weight: var(--mh-weight-strong);
+  color: var(--mh-muted);
+  padding: .6rem .5rem;
+  border-bottom: 1px solid var(--mh-line);
+}
+:where(td) { padding: .6rem .5rem; border-bottom: 1px solid var(--mh-line); }
+:where(tbody tr:last-child td) { border-bottom: 0; }
+
+/* ===== composite: <mh-hero> (centered hero band) ======================= */
+/* Slots: <h1> (headline) + <p> (subhead) + <footer> (action buttons).       */
+:where(mh-hero) {
+  display: block;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 3.5rem;
+  text-align: center;
+}
+:where(mh-hero > h1) { font-size: 2.6rem; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 1rem; }
+:where(mh-hero > p)  { font-size: 1.15rem; color: var(--mh-muted); max-width: 34rem; margin: 0 auto 1.75rem; }
+:where(mh-hero > footer) { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+
+/* ===== composite: <mh-section> (centered content band) ================= */
+/* Slots: an <h2> (section title) + body, centered with a comfortable width.  */
+:where(mh-section) {
+  display: block;
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+:where(mh-section > h2) { text-align: center; font-size: 1.7rem; margin: 0 0 1.25rem; }
+:where(mh-section > p)  { text-align: center; max-width: 40rem; margin: 0 auto 1.5rem; color: var(--mh-muted); }
+:where(mh-section > footer) { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; margin-top: 1.75rem; }
+
+/* ===== component: <mh-avatar> ========================================== */
+/* Round container for a face. Holds an emoji, initials, or an <img>. Swap the
+   emoji for <mh-icon> later without touching layout. */
+:where(mh-avatar) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--mh-surface);
+  font-size: 1.15rem;
+  font-weight: var(--mh-weight-strong);
+  user-select: none;
+}
+:where(mh-avatar img) { width: 100%; height: 100%; object-fit: cover; }
+
+/* ===== composite: <mh-list> + <mh-item> ================================ */
+/* A vertical list of rows. Item slots: leading <mh-avatar>, a <header>
+   (name + meta), and a trailing <footer> of actions. Open-ended actions go in
+   an overflow <mh-menu> so the row stays clean no matter how many you add. */
+:where(mh-list) { display: flex; flex-direction: column; }
+:where(mh-item) {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  padding: .75rem .25rem;
+  border-bottom: 1px solid var(--mh-line);
+}
+:where(mh-list > mh-item:last-child) { border-bottom: 0; }
+:where(mh-item > header) { display: flex; flex-direction: column; gap: .05rem; flex: 1; min-width: 0; }
+:where(mh-item > header > strong) { font-weight: var(--mh-weight-strong); }
+:where(mh-item > header > small)  { color: var(--mh-muted); }
+:where(mh-item > footer) { display: flex; align-items: center; gap: .5rem; }
+
+/* slot-scoped: a menu inside a list item is an overflow (kebab) trigger —
+   ghost button, no caret, right-aligned popup */
+:where(mh-item mh-menu > button) { border: none; background: transparent; padding: .35rem .55rem; font-size: 1.1rem; }
+:where(mh-item mh-menu > button)::after { content: none; }
+:where(mh-item mh-menu > button:hover) { background: var(--mh-hover); }
+:where(mh-item mh-menu menu) { left: auto; right: 0; }
+
+/* ===== composite: <mh-center> (centered single-column shell) =========== */
+/* Centers one child in the viewport — auth pages, empty states. */
+:where(mh-center) {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 1.5rem;
+}
+:where(mh-center > mh-card) { width: 24rem; max-width: 100%; }
+:where(mh-center form > button) { align-self: stretch; }            /* full-width submit */
+:where(mh-center > mh-card > footer) { justify-content: space-between; flex-wrap: wrap; }
+
+/* ===== composite: <mh-profile> (profile header) ======================== */
+/* Slots: a big <mh-avatar> + <header> (name + meta) + <footer> (actions).    */
+:where(mh-profile) {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding: .5rem 0 1.75rem;
+  margin: 0 0 1.5rem;
+  border-bottom: 1px solid var(--mh-line);
+}
+:where(mh-profile > mh-avatar) { width: 88px; height: 88px; font-size: 2.6rem; }  /* slot-scoped big */
+:where(mh-profile > header) { flex: 1; min-width: 12rem; }
+:where(mh-profile > header > h1) { margin: 0 0 .15rem; }
+:where(mh-profile > header > p)  { margin: 0; color: var(--mh-muted); }
+:where(mh-profile > footer) { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+
+/* ===== component: <dialog> (modal — needs mh-dialog.js to open) ========= */
+/* Trigger with <button commandfor="dlgId">. Closes on any dialog button, the
+   backdrop, or Esc (native). Slots: <header> + body/<form> + <footer>.        */
+:where(dialog) {
+  padding: 0;
+  width: 26rem;
+  max-width: calc(100% - 2rem);
+  border: 1px solid var(--mh-line);
+  border-radius: var(--mh-radius);
+  background: var(--mh-bg);
+  color: var(--mh-fg);
+  box-shadow: var(--mh-shadow-lg);
+}
+:where(dialog)::backdrop { background: var(--mh-backdrop); }
+:where(dialog > header) { font-size: 1.15rem; font-weight: var(--mh-weight-strong); padding: 1.1rem 1.25rem .25rem; }
+:where(dialog > p) { padding: 0 1.25rem; margin: .5rem 0 1rem; color: var(--mh-muted); }
+:where(dialog > form) { padding: 0 1.25rem; }
+:where(dialog > footer) { display: flex; gap: .6rem; justify-content: flex-end; padding: .75rem 1.25rem 1.1rem; }
+
+/* ===== composite: <mh-gallery> (image tile grid) ======================= */
+/* A grid of image-dominant tiles — the unit of both an album browser and a
+   photo grid. Each tile is a <figure>: an <img> cropped square to fill the
+   cell, plus an OPTIONAL <figcaption> (title + meta). Caption present = album
+   cover; absent = a bare photo thumb. The <img> may sit directly in the figure
+   or be wrapped in an <a> (route) or a <button commandfor> (open a lightbox).
+   This is what mh-card (padded, text-first) and mh-grid (no img cropping) can't
+   do: an edge-to-edge image as the hero of the tile. */
+:where(mh-gallery) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: .75rem;
+  margin: 0 0 1.5rem;
+}
+:where(mh-gallery > figure) { display: flex; flex-direction: column; gap: .5rem; margin: 0; min-width: 0; }
+/* the image hero — square-cropped, fills the cell, whether bare or wrapped */
+:where(mh-gallery img) {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--mh-radius);
+  background: var(--mh-surface);
+  cursor: pointer;
+}
+:where(mh-gallery img):hover { opacity: .9; }
+/* a wrapping <a>/<button> is a transparent click target, not a styled control */
+:where(mh-gallery > figure > a),
+:where(mh-gallery > figure > button) {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: var(--mh-radius);
+  cursor: pointer;
+}
+:where(mh-gallery > figure > figcaption) { display: flex; flex-direction: column; gap: .1rem; padding: 0 .15rem; }
+:where(mh-gallery > figure > figcaption > strong) { font-weight: var(--mh-weight-strong); font-size: .95rem; }
+:where(mh-gallery > figure > figcaption > small)  { color: var(--mh-muted); }
+
+/* ===== <dialog> image variant (lightbox — behavior reused from <dialog>) = */
+/* A <dialog> whose direct content is an <img> becomes an image-hero lightbox:
+   wide, dark, the photo centered. It reuses the native <dialog> and
+   mh-dialog.js verbatim — open with <button commandfor>, close on the backdrop,
+   Esc, or any footer button. No new tag, no new JS; the variant is keyed on
+   STRUCTURE (the dialog contains an image), never a class/data hook. */
+:where(dialog:has(> img)),
+:where(dialog:has(> a > img)) {
+  width: min(92vw, 64rem);
+  max-width: 92vw;
+  padding: .5rem;
+  background: var(--mh-scrim);
+  border-color: var(--mh-scrim);
+  color: var(--mh-scrim-fg);
+}
+:where(dialog:has(> img) > img),
+:where(dialog:has(> a > img) > a > img) {
+  display: block;
+  width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: var(--mh-radius);
+}
+:where(dialog:has(> img) > header) { color: var(--mh-scrim-fg); }
+:where(dialog:has(> img) > p)      { color: var(--mh-muted); padding: 0 .5rem; }
+:where(dialog:has(> img) > footer) { justify-content: center; padding: .6rem .5rem .5rem; }
+
+/* ===== composite: <mh-calendar> (month grid) =========================== */
+/* A month view built on a real <table> — a weekday <th> header row + week rows
+   of day <td>. The table keeps the calendar accessible and the weekday/column
+   association free; mh-calendar overrides the data-table look into equal day
+   cells. A day cell holds a <strong> (the date number) + <a> event chips. Mark
+   today with aria-current="date" (native, not a class); leave out-of-month days
+   as empty <td>. This is what mh-grid (wide auto-fit tracks) and the plain data
+   <table> (left-aligned rows) can't be: a fixed 7-column day grid. */
+:where(mh-calendar) { display: block; margin: 0 0 1.5rem; }
+:where(mh-calendar table) { table-layout: fixed; }
+:where(mh-calendar th) {
+  text-align: center;
+  font-size: .72rem;
+  font-weight: var(--mh-weight-strong);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--mh-muted);
+  padding: .5rem .25rem;
+  border: 1px solid var(--mh-line);
+}
+:where(mh-calendar td) {
+  vertical-align: top;
+  height: 6.5rem;
+  padding: .3rem .35rem;
+  border: 1px solid var(--mh-line);
+}
+:where(mh-calendar td > strong) {           /* the date number */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  font-size: .85rem;
+  font-weight: var(--mh-weight-strong);
+  color: var(--mh-muted);
+}
+:where(mh-calendar td[aria-current] > strong) {  /* today */
+  background: var(--mh-accent);
+  color: var(--mh-accent-fg);
+  border-radius: 50%;
+}
+:where(mh-calendar td > a) {                 /* event chip */
+  display: block;
+  margin-top: .2rem;
+  padding: .12rem .35rem;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--mh-accent) 16%, transparent);
+  color: var(--mh-fg);
+  font-size: .72rem;
+  line-height: 1.5;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+:where(mh-calendar td > a:hover) { background: color-mix(in srgb, var(--mh-accent) 28%, transparent); }
+
+/* ===== composite: <mh-slots> (selectable chip grid) ==================== */
+/* A dense, equal grid of selectable options — booking time slots, also filters,
+   sizes, or seats. Children are <button type=button> chips: mark the chosen one
+   with aria-pressed="true" and unavailable ones with `disabled` (both native,
+   edit-proof). Unlike mh-grid (wide 180px tracks) the cells are tight and
+   uniform, sized to short labels. */
+:where(mh-slots) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+  gap: .5rem;
+  margin: 0 0 1.5rem;
+}
+:where(mh-slots > button) {                  /* outline chip (overrides the filled base button) */
+  width: 100%;
+  padding: .55rem .4rem;
+  background: var(--mh-bg);
+  color: var(--mh-accent);
+  border: 1px solid var(--mh-line);
+  font-weight: var(--mh-weight-strong);
+}
+:where(mh-slots > button:hover:not(:disabled)) { border-color: var(--mh-accent); }
+:where(mh-slots > button[aria-pressed=true]) {   /* the chosen slot */
+  background: var(--mh-accent);
+  color: var(--mh-accent-fg);
+  border-color: var(--mh-accent);
+}
+
+/* ===== <table> property-panel refinement (row-header tables) =========== */
+/* A <table> whose row label is a <th scope="row"> in <tbody> reads as a
+   key/value property panel — common on CRM record pages. Keyed on STRUCTURE
+   (a th inside tbody), not a class: the label column goes muted + narrow while
+   column-header data tables (th only in thead) are untouched. Pure reuse. */
+:where(tbody th) {
+  width: 1%;
+  white-space: nowrap;
+  font-weight: var(--mh-weight-strong);
+  color: var(--mh-muted);
+  padding-right: 1.5rem;
+  vertical-align: top;
+}
+
+/* A <dialog> whose form lays its fields out in an <mh-grid> is a denser, wider
+   form (e.g. an edit-record modal) — widen it so the columns have room. Keyed on
+   structure, not a class. */
+:where(dialog:has(form mh-grid)) { width: min(42rem, calc(100% - 2rem)); }
+
+/* ===== atom: <mh-badge> (status pill) ================================= */
+/* A small neutral pill — a building block for table status cells, record
+   headers, and board cards. MaxHTML doesn't do colour-per-variant (that needs a
+   styling hook the kit forbids); convey status with a leading emoji dot as
+   content (🟢 active · 🟡 lead · 🔴 churned), matching the kit's icon convention. */
+:where(mh-badge) {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  padding: .15rem .55rem;
+  border: 1px solid var(--mh-line);
+  border-radius: 999px;
+  background: var(--mh-surface);
+  font-size: .78rem;
+  font-weight: var(--mh-weight-strong);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* ===== composite: <mh-board> (kanban pipeline) ======================== */
+/* Fixed-width lanes side by side that scroll horizontally as a set — a deal
+   pipeline, a task board. Each lane is a <section> with a <header> (stage name +
+   count) and a stack of <mh-card> deal cards. Unlike mh-grid (cells wrap and
+   reflow), a board keeps its columns in a row and scrolls when there are more
+   stages than fit. Cards reuse <mh-card>, just tighter. */
+:where(mh-board) {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(15rem, 1fr);
+  gap: var(--mh-gap);
+  overflow-x: auto;
+  padding-bottom: .5rem;
+  margin: 0 0 1.5rem;
+}
+:where(mh-board > section) {                 /* a lane */
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  min-width: 0;
+  padding: .75rem;
+  background: var(--mh-surface);
+  border: 1px solid var(--mh-line);
+  border-radius: var(--mh-radius);
+}
+:where(mh-board > section > header) {        /* lane title + count */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: .78rem;
+  font-weight: var(--mh-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: var(--mh-muted);
+}
+:where(mh-board > section > mh-card) { padding: .75rem .85rem; background: var(--mh-bg); }
+:where(mh-board > section > mh-card > header) { font-size: .95rem; margin-bottom: .35rem; }
+:where(mh-board > section > mh-card > footer) { margin-top: .6rem; align-items: center; }
+
+/* ===== composite: <mh-message> (comment / chat message, nestable) ====== */
+/* One message in a forum thread or chat stream: a leading <mh-avatar>, a
+   <header> (author <strong> + <small> timestamp), the body (one or more <p>),
+   and an optional <footer> of actions (Reply, Like, an overflow <mh-menu>).
+   Stack them directly; nest a <mh-message> inside another for threaded replies —
+   nested messages indent under their parent with a thread line. This is the
+   rich, multi-line, nestable unit that mh-item (a centred single-line row)
+   isn't; mh-list/mh-item remains the cousin for flat thread *lists*.
+
+   Layout: a 2-column grid — avatar in col 1 (top-aligned), every other slot
+   forced into col 2 so author/body/actions/replies stack beside the avatar. */
+:where(mh-message) {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: .85rem;
+  row-gap: .15rem;
+  padding: .9rem 0;
+  border-bottom: 1px solid var(--mh-line);
+}
+:where(mh-message > mh-avatar) { grid-column: 1; }
+:where(mh-message > header) {
+  grid-column: 2;
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+:where(mh-message > header > strong) { font-weight: var(--mh-weight-strong); }
+:where(mh-message > header > small)  { color: var(--mh-muted); }
+:where(mh-message > p) { grid-column: 2; margin: .1rem 0; }
+:where(mh-message > footer) {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: .3rem;
+}
+/* footer actions are quiet text buttons, not filled buttons */
+:where(mh-message > footer button) {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--mh-muted);
+  font-size: .85rem;
+  font-weight: var(--mh-weight-strong);
+}
+:where(mh-message > footer button:hover) { color: var(--mh-accent); }
+/* a message nested inside another = a threaded reply: indented with a thread line */
+:where(mh-message > mh-message) {
+  grid-column: 2;
+  border-bottom: none;
+  border-left: 2px solid var(--mh-line);
+  padding-left: .9rem;
+  margin-top: .2rem;
+}

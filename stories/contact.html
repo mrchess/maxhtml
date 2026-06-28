@@ -1,0 +1,22 @@
+<h1>Contact record <small>(recipe)</small></h1>
+<p>A record page — <code>mh-profile</code> header + <code>mh-stat</code> row + a <strong>property panel</strong> and an activity <code>mh-list</code>, plus a dense multi-column <strong>edit form</strong> in a <code>&lt;dialog&gt;</code>. Two patterns worth noting, both pure reuse:</p>
+<p><strong>Property panel</strong> = a plain <code>&lt;table&gt;</code> whose row label is a <code>&lt;th scope="row"&gt;</code>. The kit detects the row-header structurally (a <code>&lt;th&gt;</code> in <code>&lt;tbody&gt;</code>) and renders the label column muted + narrow — no new component.</p>
+<p><strong>Dense form</strong> = a <code>&lt;form&gt;</code> whose fields sit in an <code>mh-grid</code> of <code>&lt;label&gt;</code>s, so they flow into 2–3 columns; the dialog widens itself because it contains a field grid.</p>
+<h2>Live</h2>
+<iframe src="contact.html" title="Contact record recipe"></iframe>
+<h2>Property panel</h2>
+<pre><code>&lt;mh-card&gt;&lt;header&gt;Details&lt;/header&gt;
+  &lt;table&gt;&lt;tbody&gt;
+    &lt;tr&gt;&lt;th scope=row&gt;Email&lt;/th&gt;&lt;td&gt;ada@…&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;th scope=row&gt;Status&lt;/th&gt;&lt;td&gt;&lt;mh-badge&gt;🟢 Customer&lt;/mh-badge&gt;&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;&lt;/table&gt;
+&lt;/mh-card&gt;</code></pre>
+<h2>Dense form</h2>
+<pre><code>&lt;dialog id="edit"&gt;&lt;form&gt;
+  &lt;mh-grid&gt;
+    &lt;label&gt;First name&lt;input value="Ada"&gt;&lt;/label&gt;
+    &lt;label&gt;Last name&lt;input value="Lovelace"&gt;&lt;/label&gt;
+    ...
+  &lt;/mh-grid&gt;
+  &lt;label&gt;Notes&lt;textarea&gt;…&lt;/textarea&gt;&lt;/label&gt;
+&lt;/form&gt;…&lt;/dialog&gt;</code></pre>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Chat — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Commons</strong>
+<a href="forum.html">Forum</a>
+<a href="#">Chat</a>
+<mh-avatar>🧑</mh-avatar>
+</mh-navbar>
+<mh-sidemenu>
+<header>Commons</header>
+<nav>
+<mh-submenu>
+<header>Channels</header>
+<a href="#" aria-current=page># general</a>
+<a href="#"># random</a>
+<a href="#"># dev</a>
+<a href="#"># design</a>
+</mh-submenu>
+<mh-submenu>
+<header>Direct messages</header>
+<a href="#">🟢 Ada Lovelace</a>
+<a href="#">⚪ Alan Turing</a>
+<a href="#">🟢 Grace Hopper</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<header>
+<h1># general</h1>
+<button type=button>＋ Invite</button>
+</header>
+
+<mh-message>
+<mh-avatar>👩</mh-avatar>
+<header><strong>Ada Lovelace</strong><small>· 9:02</small></header>
+<p>Morning all 👋 shipping the tokens refactor today — heads up if you're touching the stylesheet.</p>
+</mh-message>
+
+<mh-message>
+<mh-avatar>🧔</mh-avatar>
+<header><strong>Alan Turing</strong><small>· 9:04</small></header>
+<p>Nice. Does it change any of the component class names?</p>
+</mh-message>
+
+<mh-message>
+<mh-avatar>👩</mh-avatar>
+<header><strong>Ada Lovelace</strong><small>· 9:05</small></header>
+<p>Nope — markup is untouched, it's all in the token layer. That's the whole point 😄</p>
+<footer><mh-badge>👍 3</mh-badge><mh-badge>🎉 1</mh-badge></footer>
+</mh-message>
+
+<mh-message>
+<mh-avatar>👨</mh-avatar>
+<header><strong>Grace Hopper</strong><small>· 9:11</small></header>
+<p>Confirmed on my branch, zero markup diff. Reviewing now.</p>
+</mh-message>
+
+<mh-message>
+<mh-avatar>🧔</mh-avatar>
+<header><strong>Alan Turing</strong><small>· 9:12</small></header>
+<p>Love it. This is exactly why we stopped re-emitting CSS every turn.</p>
+<footer><mh-badge>💯 2</mh-badge></footer>
+</mh-message>
+
+<mh-card>
+<form>
+<label><textarea placeholder="Message # general…"></textarea></label>
+</form>
+<footer>
+<button type=button>📎 Attach</button>
+<button>Send</button>
+</footer>
+</mh-card>
+</mh-page>
+</main>
+</mh-app>
+</body>
+</html>

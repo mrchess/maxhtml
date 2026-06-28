@@ -1,0 +1,41 @@
+<h1>List</h1>
+<p>A vertical list of rows. Each <code>&lt;mh-item&gt;</code> has a leading <code>&lt;mh-avatar&gt;</code>, a <code>&lt;header&gt;</code> (name + meta), and a trailing <code>&lt;footer&gt;</code> of actions. The key move: <strong>open-ended actions go in an overflow <code>&lt;mh-menu&gt;</code></strong>, so "I might want more actions later" costs nothing and the row never gets crowded.</p>
+<h2>Example</h2>
+<figure>
+<mh-list>
+<mh-item>
+<mh-avatar>👩</mh-avatar>
+<header><strong>Ada Lovelace</strong><small>12 mutual friends</small></header>
+<footer>
+<button type=button>Message</button>
+<mh-menu>
+<button>⋯</button>
+<a href="#list">👋 Poke</a>
+<a href="#list">❌ Remove</a>
+<a href="#list">🚫 Block</a>
+</mh-menu>
+</footer>
+</mh-item>
+<mh-item>
+<mh-avatar>🧔</mh-avatar>
+<header><strong>Alan Turing</strong><small>Sent you a friend request</small></header>
+<footer>
+<button>Add friend</button>
+<button type=button>Decline</button>
+</footer>
+</mh-item>
+</mh-list>
+</figure>
+<h2>Anatomy</h2>
+<p>Primary action vs secondary is self-describing (<code>&lt;button&gt;</code> vs <code>&lt;button type=button&gt;</code>) — never by position. The kebab menu is a slot-scoped <code>&lt;mh-menu&gt;</code>: ghost button, no caret.</p>
+<h2>Usage</h2>
+<pre><code>&lt;mh-list&gt;
+  &lt;mh-item&gt;
+    &lt;mh-avatar&gt;👩&lt;/mh-avatar&gt;
+    &lt;header&gt;&lt;strong&gt;Ada Lovelace&lt;/strong&gt;&lt;small&gt;12 mutual friends&lt;/small&gt;&lt;/header&gt;
+    &lt;footer&gt;
+      &lt;button type=button&gt;Message&lt;/button&gt;
+      &lt;mh-menu&gt;&lt;button&gt;⋯&lt;/button&gt;&lt;a&gt;👋 Poke&lt;/a&gt;&lt;a&gt;❌ Remove&lt;/a&gt;&lt;/mh-menu&gt;
+    &lt;/footer&gt;
+  &lt;/mh-item&gt;
+&lt;/mh-list&gt;</code></pre>

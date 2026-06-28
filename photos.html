@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Photos — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Aperture</strong>
+<a href="#">Library</a>
+<a href="#">Shared</a>
+<mh-avatar>🧑</mh-avatar>
+</mh-navbar>
+<mh-sidemenu>
+<header>Aperture</header>
+<nav>
+<mh-submenu>
+<header>Library</header>
+<a href="#">All photos</a>
+<a href="albums.html" aria-current=page>Albums</a>
+<a href="#">Favorites</a>
+<a href="#">Recently added</a>
+</mh-submenu>
+<mh-submenu>
+<header>More</header>
+<a href="#">Shared</a>
+<a href="#">Trash</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<header>
+<h1>Iceland 2026 <small>248 photos</small></h1>
+<button commandfor=upload>Upload</button>
+</header>
+<mh-gallery>
+<figure><button commandfor=lightbox><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23e8746b'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lightbox><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%235b8def'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lightbox><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23f4b942'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lightbox><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%2348a17a'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lightbox><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%239b6bdf'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lightbox><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23e86ba6'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lightbox><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%234ec3c9'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lightbox><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23d98c4a'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lightbox><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23c0506b'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lightbox><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23357ae8'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lightbox><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%2362a87a'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+<figure><button commandfor=lightbox><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3Crect%20width='1'%20height='1'%20fill='%23b07fe0'/%3E%3C/svg%3E" alt="Photo"></button></figure>
+</mh-gallery>
+</mh-page>
+</main>
+</mh-app>
+
+<dialog id=lightbox>
+<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='3'%20height='2'%3E%3Crect%20width='3'%20height='2'%20fill='%23e8746b'/%3E%3C/svg%3E" alt="Glacier lagoon, Iceland">
+<p>Jökulsárlón glacier lagoon · 28 Jun 2026</p>
+<footer>
+<button type=button>⭐ Favorite</button>
+<button type=button>⬇ Download</button>
+<button>Close</button>
+</footer>
+</dialog>
+
+<dialog id=upload>
+<header>Upload photos</header>
+<form>
+<label>Photos
+<input type=file multiple accept="image/*">
+</label>
+<label>Add to album
+<input type=text value="Iceland 2026">
+</label>
+<label>Caption
+<textarea placeholder="Say something about these photos…"></textarea>
+</label>
+</form>
+<footer>
+<button type=button>Cancel</button>
+<button>Upload 4 photos</button>
+</footer>
+</dialog>
+
+<script src="mh-dialog.js"></script>
+</body>
+</html>

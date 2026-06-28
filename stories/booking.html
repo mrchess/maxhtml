@@ -1,0 +1,20 @@
+<h1>Booking <small>(recipe)</small></h1>
+<p>A Calendly-style booking flow — <code>mh-app</code> + <code>mh-page</code> + <code>mh-calendar</code> (pick a day) + <code>mh-slots</code> (pick a time) + a confirm <code>&lt;dialog&gt;</code> with a form (reused). Both new composites in one screen. <strong>Zero styling</strong> emitted.</p>
+<h2>Live</h2>
+<iframe src="booking.html" title="Booking recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-page&gt;
+  &lt;header&gt;&lt;h1&gt;Book a meeting&lt;/h1&gt;&lt;small&gt;30 min · with Ada&lt;/small&gt;&lt;/header&gt;
+  &lt;mh-calendar&gt;&lt;table&gt;…&lt;td aria-current="date"&gt;&lt;strong&gt;28&lt;/strong&gt;&lt;/td&gt;…&lt;/table&gt;&lt;/mh-calendar&gt;
+  &lt;h2&gt;Sunday, 28 June&lt;/h2&gt;
+  &lt;mh-slots&gt;
+    &lt;button type=button&gt;9:00&lt;/button&gt;
+    &lt;button type=button disabled&gt;10:00&lt;/button&gt;
+    &lt;button type=button aria-pressed="true"&gt;11:00&lt;/button&gt;
+    ...
+  &lt;/mh-slots&gt;
+  &lt;button commandfor="confirm"&gt;Confirm 11:00&lt;/button&gt;
+&lt;/mh-page&gt;
+
+&lt;dialog id="confirm"&gt;&lt;form&gt;…&lt;/form&gt;&lt;/dialog&gt;
+&lt;script src="mh-dialog.js"&gt;&lt;/script&gt;</code></pre>
