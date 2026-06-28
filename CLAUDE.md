@@ -75,9 +75,14 @@ sibling position**. Full rules: the slot model in CONVENTIONS.md.
 
 These were established by measurement and argument; respect them.
 
-- **Token edge over Pico/Shoelace is modest (~10–15%) and uneven** — it shrinks
-  or reverses on simple content (Pico's `<article>` is already a card) and
-  ad-hoc layout. **Tokens alone do not justify the kit.**
+- **The token edge scales with how verbose the baseline is by default.**
+  Measured on two real app screens (dashboard + CRM), emitted markup only,
+  framework CSS amortized: **~69% vs Tailwind** (utility-class soup), **~27% vs
+  Pico/Shoelace** at the app/dashboard level (where they have no shell
+  composite). On **atoms and simple content** the Pico/Shoelace edge shrinks to
+  **~10–15% and can reverse** — Pico's classless `<article>` is already a card.
+  **Tokens alone do not justify the kit.** (Hand-authored first-order signal;
+  see the Token benchmark story. Model-generated run pending.)
 - **Real differentiators:** consistency (closed vocab, no drift), coverage of
   app-shell/dashboard components Pico/Shoelace lack, no-JS rendering, and
   ejectability.

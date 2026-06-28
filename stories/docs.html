@@ -1,0 +1,22 @@
+<h1>Docs / help center <small>(recipe)</small></h1>
+<p>A documentation article — almost entirely <strong>reuse</strong>: <code>mh-layout</code> + <code>mh-sidemenu</code> nav tree, <code>mh-breadcrumb</code> (from E-commerce), an <code>mh-card</code> "on this page" TOC, prose (<code>&lt;ul&gt;</code>/<code>&lt;blockquote&gt;</code>/<code>&lt;pre&gt;</code>/<code>&lt;kbd&gt;</code>), an <code>mh-alert</code> note, an API params <code>&lt;table&gt;</code>, a <code>&lt;details&gt;</code> FAQ (from Settings), and a <code>⌘K</code> command palette (a <code>&lt;dialog&gt;</code> refinement). The one new composite is <code>mh-pagination</code>.</p>
+<h2>Live</h2>
+<iframe src="docs.html" title="Docs recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-layout&gt;
+  &lt;mh-sidemenu&gt;&lt;header&gt;Acme Docs&lt;/header&gt;&lt;nav&gt;&lt;mh-submenu&gt;…&lt;/mh-submenu&gt;&lt;/nav&gt;&lt;/mh-sidemenu&gt;
+  &lt;main&gt;&lt;mh-page&gt;
+    &lt;header&gt;&lt;h1&gt;Installation&lt;/h1&gt;&lt;button type=button commandfor=cmdk&gt;Search &lt;kbd&gt;⌘K&lt;/kbd&gt;&lt;/button&gt;&lt;/header&gt;
+    &lt;mh-breadcrumb&gt;&lt;a&gt;Docs&lt;/a&gt;&lt;a&gt;Getting started&lt;/a&gt;&lt;a aria-current="page"&gt;Installation&lt;/a&gt;&lt;/mh-breadcrumb&gt;
+    &lt;mh-card&gt;&lt;header&gt;On this page&lt;/header&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="#req"&gt;Requirements&lt;/a&gt;&lt;/li&gt;…&lt;/ul&gt;&lt;/mh-card&gt;
+    &lt;h2 id="req"&gt;Requirements&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Node 18+&lt;/li&gt;…&lt;/ul&gt;
+    &lt;mh-alert&gt;ℹ️ &lt;strong&gt;Note.&lt;/strong&gt; …&lt;/mh-alert&gt;
+    &lt;pre&gt;&lt;code&gt;npm install @acme/sdk&lt;/code&gt;&lt;/pre&gt;
+    &lt;blockquote&gt;Tip: pin the version in CI.&lt;/blockquote&gt;
+    &lt;table&gt;…API params…&lt;/table&gt;
+    &lt;details&gt;&lt;summary&gt;Where's my API key?&lt;/summary&gt;&lt;p&gt;…&lt;/p&gt;&lt;/details&gt;
+    &lt;mh-pagination&gt;&lt;a aria-disabled=true&gt;← Prev&lt;/a&gt;&lt;a aria-current=page&gt;1&lt;/a&gt;…&lt;/mh-pagination&gt;
+  &lt;/mh-page&gt;&lt;/main&gt;
+&lt;/mh-layout&gt;
+
+&lt;dialog id=cmdk&gt;&lt;input type=search&gt;&lt;mh-list&gt;…&lt;/mh-list&gt;&lt;/dialog&gt;  &lt;!-- ⌘K palette --&gt;</code></pre>

@@ -1,0 +1,24 @@
+<h1>Steps + Progress</h1>
+<p><code>&lt;mh-steps&gt;</code> is an ordered step indicator for a multi-step flow (checkout, onboarding, a wizard). Markup is an <code>&lt;ol&gt;</code> of <code>&lt;li&gt;</code> — ordered, so the numbers come free. Mark the current step <code>aria-current="step"</code>; <strong>done</strong> steps derive from structure (a step with a later current sibling is complete), so one marker drives done/current/upcoming with no per-step class. Determinate <code>&lt;progress&gt;</code> is the native bar, styled by the kit.</p>
+<h2>Example</h2>
+<figure>
+<mh-steps>
+<ol>
+<li>Cart</li>
+<li aria-current=step>Shipping</li>
+<li>Payment</li>
+<li>Review</li>
+</ol>
+</mh-steps>
+<progress value="40" max="100"></progress>
+</figure>
+<h2>Usage</h2>
+<pre><code>&lt;mh-steps&gt;
+  &lt;ol&gt;
+    &lt;li&gt;Cart&lt;/li&gt;
+    &lt;li aria-current="step"&gt;Shipping&lt;/li&gt;   &lt;!-- current; earlier = done --&gt;
+    &lt;li&gt;Payment&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/mh-steps&gt;
+
+&lt;progress value="40" max="100"&gt;&lt;/progress&gt;</code></pre>

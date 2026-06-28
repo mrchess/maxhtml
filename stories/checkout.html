@@ -1,0 +1,29 @@
+<h1>Checkout <small>(recipe)</small></h1>
+<p>A multi-step checkout: <code>mh-steps</code> (Cart done · Shipping current · Payment · Review), an <code>mh-alert</code>, a <code>&lt;form&gt;</code> whose fields use <code>mh-grid</code> for the dense address block, a delivery-method radio group, and an order-summary property-panel <code>&lt;table&gt;</code>. Done/current/upcoming all come from one <code>aria-current="step"</code> marker.</p>
+<h2>Live</h2>
+<iframe src="checkout.html" title="Checkout recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-steps&gt;
+  &lt;ol&gt;
+    &lt;li&gt;Cart&lt;/li&gt;
+    &lt;li aria-current="step"&gt;Shipping&lt;/li&gt;
+    &lt;li&gt;Payment&lt;/li&gt;
+    &lt;li&gt;Review&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/mh-steps&gt;
+&lt;mh-alert&gt;🎁 &lt;strong&gt;Free shipping unlocked.&lt;/strong&gt; …&lt;/mh-alert&gt;
+&lt;mh-card&gt;&lt;header&gt;Shipping address&lt;/header&gt;
+  &lt;form&gt;
+    &lt;mh-grid&gt;
+      &lt;label&gt;First name&lt;input&gt;&lt;/label&gt;
+      &lt;label&gt;Last name&lt;input&gt;&lt;/label&gt;
+    &lt;/mh-grid&gt;
+    &lt;label&gt;Country&lt;select&gt;…&lt;/select&gt;&lt;/label&gt;
+  &lt;/form&gt;
+&lt;/mh-card&gt;
+&lt;mh-card&gt;&lt;header&gt;Order summary&lt;/header&gt;
+  &lt;table&gt;&lt;tbody&gt;
+    &lt;tr&gt;&lt;th scope=row&gt;Total&lt;/th&gt;&lt;td&gt;&lt;strong&gt;$182.00&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;&lt;/table&gt;
+  &lt;footer&gt;&lt;button&gt;Continue to payment&lt;/button&gt;&lt;/footer&gt;
+&lt;/mh-card&gt;</code></pre>

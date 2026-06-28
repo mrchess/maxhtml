@@ -1,0 +1,23 @@
+<h1>Pagination</h1>
+<p><code>&lt;mh-pagination&gt;</code> is a one-row boxed pager for paged lists — search results, a data table, a blog index. Children are <code>&lt;a&gt;</code> page links (current = <code>aria-current="page"</code>) plus prev/next links (disabled end = <code>aria-disabled="true"</code>); an ellipsis is a <code>&lt;small&gt;</code>. Distinct from <code>mh-tabs</code> (underline section nav) and <code>mh-slots</code> (wrapping chip grid).</p>
+<h2>Example</h2>
+<figure>
+<mh-pagination>
+<a href="#" aria-disabled=true>← Prev</a>
+<a href="#" aria-current=page>1</a>
+<a href="#">2</a>
+<a href="#">3</a>
+<small>…</small>
+<a href="#">9</a>
+<a href="#">Next →</a>
+</mh-pagination>
+</figure>
+<h2>Usage</h2>
+<pre><code>&lt;mh-pagination&gt;
+  &lt;a href="?p=0" aria-disabled="true"&gt;← Prev&lt;/a&gt;
+  &lt;a href="?p=1" aria-current="page"&gt;1&lt;/a&gt;
+  &lt;a href="?p=2"&gt;2&lt;/a&gt;
+  &lt;small&gt;…&lt;/small&gt;
+  &lt;a href="?p=9"&gt;9&lt;/a&gt;
+  &lt;a href="?p=2"&gt;Next →&lt;/a&gt;
+&lt;/mh-pagination&gt;</code></pre>

@@ -1,0 +1,37 @@
+<h1>Settings <small>(recipe)</small></h1>
+<p>A whole settings page from reused composites + the new pieces: <code>mh-app</code> + <code>mh-page</code> shell, <code>mh-tabs</code> section nav, <code>mh-alert</code> notice, a profile <code>&lt;form&gt;</code> (with <code>&lt;select&gt;</code> + field hints), a notifications <code>mh-list</code> of <strong>switch</strong> rows, an inline radio group, and a <code>&lt;details&gt;</code> danger zone. The model emits markup and <strong>zero styling</strong>.</p>
+<h2>Live</h2>
+<iframe src="settings.html" title="Settings recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-app&gt;
+  &lt;mh-navbar&gt;…&lt;/mh-navbar&gt;
+  &lt;mh-sidemenu&gt;…&lt;/mh-sidemenu&gt;
+  &lt;main&gt;&lt;mh-page&gt;
+    &lt;header&gt;&lt;h1&gt;Settings&lt;/h1&gt;&lt;/header&gt;
+    &lt;mh-tabs&gt;
+      &lt;a href="/settings" aria-current="page"&gt;Account&lt;/a&gt;
+      &lt;a href="/settings/notifications"&gt;Notifications&lt;/a&gt;
+      &lt;a href="/settings/billing"&gt;Billing&lt;/a&gt;
+      &lt;a href="/settings/security"&gt;Security&lt;/a&gt;
+    &lt;/mh-tabs&gt;
+    &lt;mh-alert&gt;⚠️ &lt;strong&gt;Verify your email.&lt;/strong&gt; …&lt;button type=button&gt;Resend&lt;/button&gt;&lt;/mh-alert&gt;
+    &lt;mh-card&gt;&lt;header&gt;Profile&lt;/header&gt;
+      &lt;form&gt;
+        &lt;label&gt;Full name&lt;input value="Ada Lovelace"&gt;&lt;/label&gt;
+        &lt;label&gt;Role&lt;select&gt;&lt;option&gt;Member&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+        &lt;button&gt;Save changes&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/mh-card&gt;
+    &lt;mh-card&gt;&lt;header&gt;Notifications&lt;/header&gt;
+      &lt;mh-list&gt;
+        &lt;mh-item&gt;
+          &lt;header&gt;&lt;strong&gt;Product updates&lt;/strong&gt;&lt;small&gt;…&lt;/small&gt;&lt;/header&gt;
+          &lt;footer&gt;&lt;input type=checkbox role=switch checked&gt;&lt;/footer&gt;
+        &lt;/mh-item&gt;
+      &lt;/mh-list&gt;
+    &lt;/mh-card&gt;
+    &lt;mh-card&gt;&lt;header&gt;Danger zone&lt;/header&gt;
+      &lt;details&gt;&lt;summary&gt;Delete account&lt;/summary&gt;&lt;p&gt;…&lt;/p&gt;&lt;button&gt;Delete&lt;/button&gt;&lt;/details&gt;
+    &lt;/mh-card&gt;
+  &lt;/mh-page&gt;&lt;/main&gt;
+&lt;/mh-app&gt;</code></pre>

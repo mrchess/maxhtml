@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Docs — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-layout>
+<mh-sidemenu>
+<header>Acme Docs</header>
+<nav>
+<mh-submenu>
+<header>Getting started</header>
+<a href="#">Introduction</a>
+<a href="docs.html" aria-current=page>Installation</a>
+<a href="#">Quickstart</a>
+</mh-submenu>
+<mh-submenu>
+<header>Guides</header>
+<a href="#">Authentication</a>
+<a href="#">Webhooks</a>
+<a href="#">Rate limits</a>
+</mh-submenu>
+<mh-submenu>
+<header>API reference</header>
+<a href="#">Users</a>
+<a href="#">Orders</a>
+<a href="#">Events</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<header>
+<h1>Installation</h1>
+<button type=button commandfor=cmdk>Search <kbd>⌘K</kbd></button>
+</header>
+<mh-breadcrumb>
+<a href="#">Docs</a>
+<a href="#">Getting started</a>
+<a href="#" aria-current=page>Installation</a>
+</mh-breadcrumb>
+
+<mh-card>
+<header>On this page</header>
+<ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#install">Install the SDK</a></li>
+<li><a href="#config">Configuration</a></li>
+<li><a href="#faq">FAQ</a></li>
+</ul>
+</mh-card>
+
+<p>The Acme SDK gives you typed access to the Acme API in a few lines. This guide
+covers installing it and making your first authenticated request.</p>
+
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>Node 18 or later (LTS recommended)</li>
+<li>An Acme account and an API key</li>
+<li>A package manager — npm, pnpm, or yarn</li>
+</ul>
+<mh-alert>ℹ️ <strong>Note.</strong> Use the current LTS release of Node for production deployments.</mh-alert>
+
+<h2 id="install">Install the SDK</h2>
+<p>Install from npm, then import the client:</p>
+<pre><code>npm install @acme/sdk</code></pre>
+<p>Verify the install with <kbd>npx acme --version</kbd>.</p>
+<blockquote>Tip: pin the SDK version in CI so builds are reproducible.</blockquote>
+
+<h2 id="config">Configuration</h2>
+<p>The client accepts these options:</p>
+<table>
+<thead><tr><th>Option</th><th>Type</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>apiKey</code></td><td>string</td><td>Your secret API key. Required.</td></tr>
+<tr><td><code>baseUrl</code></td><td>string</td><td>Override the API host. Defaults to <code>api.acme.com</code>.</td></tr>
+<tr><td><code>timeout</code></td><td>number</td><td>Request timeout in ms. Defaults to <code>10000</code>.</td></tr>
+</tbody>
+</table>
+
+<h2 id="faq">FAQ</h2>
+<details>
+<summary>Where do I find my API key?</summary>
+<p>In the dashboard under Settings → API keys. Keep it secret; rotate it if exposed.</p>
+</details>
+<details>
+<summary>Does the SDK work in the browser?</summary>
+<p>Yes, but never ship your secret key to the browser — proxy requests through your server.</p>
+</details>
+
+<mh-pagination>
+<a href="#" aria-disabled=true>← Prev</a>
+<a href="#" aria-current=page>1</a>
+<a href="#">2</a>
+<a href="#">3</a>
+<small>…</small>
+<a href="#">9</a>
+<a href="#">Next →</a>
+</mh-pagination>
+</mh-page>
+</main>
+</mh-layout>
+
+<dialog id=cmdk>
+<input type=search placeholder="Search docs…">
+<mh-list>
+<mh-item><header><strong>Installation</strong><small>Getting started</small></header><footer><kbd>↵</kbd></footer></mh-item>
+<mh-item><header><strong>Authentication</strong><small>Guides</small></header><footer><kbd>↵</kbd></footer></mh-item>
+<mh-item><header><strong>Rate limits</strong><small>Guides</small></header><footer><kbd>↵</kbd></footer></mh-item>
+<mh-item><header><strong>Users API</strong><small>API reference</small></header><footer><kbd>↵</kbd></footer></mh-item>
+</mh-list>
+</dialog>
+
+<script src="mh-dialog.js"></script>
+</body>
+</html>

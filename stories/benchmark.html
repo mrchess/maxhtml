@@ -1,0 +1,33 @@
+<h1>Token benchmark</h1>
+<p>How many <strong>markup tokens</strong> does a model emit to build the same screen across kits? Styling lives outside the markup in every kit here (one <code>&lt;link&gt;</code>ed stylesheet, amortized to zero), so this measures only the per-screen cost the model pays each turn.</p>
+
+<h2>MaxHTML savings vs each baseline</h2>
+<mh-grid>
+<mh-stat><header>vs Tailwind</header><strong>−69%</strong><small>utility-class soup</small></mh-stat>
+<mh-stat><header>vs Pico</header><strong>−27%</strong><small>classless</small></mh-stat>
+<mh-stat><header>vs Shoelace</header><strong>−27%</strong><small>web components</small></mh-stat>
+</mh-grid>
+
+<h2>Per-screen breakdown</h2>
+<mh-card>
+<header>Emitted body markup, in tokens (framework CSS amortized, <code>o200k_base</code>)</header>
+<table>
+<thead>
+<tr><th>Screen</th><th>MaxHTML</th><th>Tailwind</th><th>Pico</th><th>Shoelace</th></tr>
+</thead>
+<tbody>
+<tr><td>Dashboard</td><td>378</td><td>1,107</td><td>489</td><td>489</td></tr>
+<tr><td>CRM contacts</td><td>955</td><td>3,239</td><td>1,346</td><td>1,335</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>1,333</strong></td><td><strong>4,346</strong></td><td><strong>1,835</strong></td><td><strong>1,824</strong></td></tr>
+</tbody>
+</table>
+<footer><small>MaxHTML vs: Tailwind −69.3%, Pico −27.4%, Shoelace −26.9%.</small></footer>
+</mh-card>
+
+<h2>How to read this</h2>
+<p>The win <strong>scales with how verbose the baseline is by default</strong>. Against <strong>Tailwind</strong> — a wrapper <code>&lt;div&gt;</code> plus a dozen re-emitted utility classes per element — MaxHTML cuts ~69%. Against <strong>Pico</strong> (classless; <code>&lt;article&gt;</code> is already a card) and <strong>Shoelace</strong> (one component tag per widget), both already markup-terse, the edge is ~27%.</p>
+<p>That ~27% is <strong>real but concentrated at the app level</strong>, where MaxHTML's composite layouts (<code>mh-app</code>, <code>mh-sidemenu</code>, <code>mh-page</code>) replace hand-assembled shells that Pico and Shoelace have no component for. On <strong>atoms and simple content</strong> the edge shrinks to ~10–15% and can <em>reverse</em> — Pico's classless <code>&lt;article&gt;</code> beats an <code>mh-card</code> when there's no layout to arrange. Tokens alone don't justify the kit; consistency, app-shell coverage, no-JS rendering, and ejectability do.</p>
+
+<h2>Method &amp; honesty notes</h2>
+<p>All four kits build the <em>identical, content-locked</em> screen (same stats, same rows, same dialog), so none inflates its count with extra content. Counted with <code>tiktoken</code> over the emitted body only — <code>&lt;!doctype&gt;</code>, <code>&lt;head&gt;</code>, the <code>&lt;link&gt;</code> stylesheet, and behavior scripts excluded for every kit. The MaxHTML side is verified clean: zero <code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>, <code>class=</code>, <code>style=</code>, or <code>&lt;style&gt;</code>. <code>cl100k_base</code> gives the same picture.</p>
+<p><small><strong>Caveat:</strong> these are <em>hand-authored</em> equivalents, so absolute numbers are a first-order signal — one author wrote all sides, and the Pico/Shoelace idiom is more opinionated than Tailwind's, so their numbers are softer. The credible settler is model-generated: emit each screen four ways (each kit's default prompt vs. MaxHTML given <code>PROMPT.md</code>) in any chat, then count what the model actually emits. That removes authoring bias and doubles as a compliance test — no API required.</small></p>

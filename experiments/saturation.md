@@ -60,6 +60,9 @@ Primitives: `button` `form` `label` `input` `textarea` `h1`–`h6` `p` `a`
 | 5 | Whiteboard / diagram (Canvas) | canvas, sticky notes, connectors, toolbar | **1** on-rails (`mh-toolbar`) **+ escape hatch** (`mh-canvas`/`mh-note`/svg) | `mh-toolbar`; `mh-canvas`, `mh-note` (+`mh-canvas.js`) | mh-app, mh-navbar, mh-sidemenu, mh-avatar, button (`aria-pressed`) | **YES — free positioning + connectors (the headline)** |
 | 6 | Analytics dashboard (Pulse) — real charts | range filter, KPI tiles, line, bar, donut, table | **2** (`mh-bars`, `mh-donut`) **+ svg line** (data hook / escape hatch) | `mh-bars`/`mh-bar`, `mh-donut`; styled `<svg>` line | mh-app, mh-page, mh-grid, **mh-stat**, **mh-card** (chart frames), **mh-slots** (range), table, button | partial — chart *marks* are data (see notes) |
 | 7 | Messaging (Messages) — bubble thread | conversation list, bubble thread, composer | **1** | `mh-thread`/`mh-bubble` | **mh-layout**, mh-sidemenu, **mh-list/item** (convo list, `aria-current`), mh-avatar, mh-badge (unread), **mh-navbar** (thread header), form/input/button (composer) | none — fully on-rails |
+| 8 | Settings (Console) — preferences | account, notifications, billing, security | **2** | `mh-tabs`, `mh-alert` | mh-app, mh-page, **mh-card**, **mh-list/item** (switch rows), form/label/input/textarea, table, mh-stat, mh-avatar, mh-submenu | partial — severity/danger **colour** (see notes) |
+| 9 | E-commerce (Mercantile) — storefront + checkout | product detail, cart, multi-step checkout, confirmation | **3** | `mh-carousel`, `mh-breadcrumb`, `mh-steps` | **mh-tabs** (app 8 — desc/reviews), mh-navbar, mh-page, **mh-grid** (dense address), mh-card, **table** (property-panel summary), **mh-alert** (app 8), mh-badge, select/radio + `<input type=number>` qty, native `<progress>` | none — uptick is real, not a wall (see notes) |
+| 10 | Docs / help center (Acme Docs) — knowledge base | article, API reference, search, FAQ | **1** | `mh-pagination` | **mh-layout**, **mh-sidemenu/submenu** (nav tree), **mh-breadcrumb** (app 9), **mh-card** (TOC), **mh-alert** (callout, app 8), **table** (API params), **`<details>`** FAQ (app 8), **`<dialog>`** ⌘K palette refinement, **mh-list** (results), prose atoms (ul/ol/blockquote/kbd) | none — fully on-rails |
 
 **App 4 notes (Forum / chat — threads).** Five screens, **one** new composite,
 and it did double duty across both senses of "threads."
@@ -144,6 +147,132 @@ distinct converged idiom. The interesting bit is how "mine vs theirs" is encoded
 - **Walls:** none. (Build note: a `*/` buried in a CSS comment — `data-*/style` —
   closed the comment early and silently dropped the `mh-thread` rule; caught it
   on verify when the bubbles wouldn't stack. Evidence before assertions.)
+
+**App 8 notes (Settings — the form-control cluster).** Four sections; **two new
+composites** and the rest fell out of reuse + styling native atoms. This app
+tested a different edge than 1–7 (document shapes / data geometry): the converged
+**interactive form-control** cluster (tabs, switches, selects, accordions) the
+kit had deliberately left alone.
+- **`mh-tabs`** (new composite) — a horizontal in-page section-nav strip. It's
+  the content-level cousin of `mh-sidemenu`'s vertical nav (same `aria-current`
+  active model, each tab an `<a>` to its own URL), but neither `mh-navbar` (top
+  app bar, links pushed right) nor `mh-slots` (a chip grid) is a left-aligned
+  underline tab bar under a page title — a real, broadly-reusable gap.
+- **`mh-alert`** (new composite) — an inline notice. Small but genuinely absent:
+  `mh-card` is a padded titled box, not a one-line banner with a lead icon + a
+  trailing action. Hit the **colour-variant wall** (below).
+- **Most controls were just native atoms the kit hadn't styled yet — NOT
+  composites.** A **switch** is the cleanest result of the run: it's
+  `<input type=checkbox role=switch>` — a native, self-describing *role*, no
+  class, no new tag (the same shape as `type=button` for a secondary button or
+  `me` for an outgoing bubble). Plain checkbox/radio take `accent-color`; `<select>`
+  gets a chevron; the accordion is **native `<details>`/`<summary>`** (styled like
+  `<dialog>`/`<table>`, zero JS). Per the kit's tenet ("we style atoms, don't
+  innovate"), styling natives is baseline work, not a saturation signal.
+- **Reuse + structural refinements did the rest, no hooks:** a switch-beside-a-label
+  row is an `mh-list`/`mh-item` (name in `<header>`, switch in `<footer>`); a
+  `<label>` that *wraps* a checkbox/radio flips to an inline row via
+  `label:has(> input[type=checkbox])`; a field hint is a `<small>` in the label.
+- **Wall — severity / destructive colour (the known one).** A field *error* got a
+  real fix: a new `--mh-danger` token + the native `aria-invalid="true"` attribute
+  → red border, fully on-rails (native attribute, no class). But **multi-severity
+  alert fills** (info/success/warning/error as coloured banners) and a **danger
+  button** ("Delete account") have no native attribute to ride, so they hit the
+  same colour-variant wall as `mh-badge` — conveyed by a leading emoji, logged as
+  the limitation it is. Curve: **… → 1 → 2.** Still saturating-low; the new edge
+  (interactive atoms) mostly resolved to native elements + roles, not composites.
+
+**App 9 notes (E-commerce — the first honest uptick).** Four screens, **three new
+composites** — the highest since the app-0 baseline, and worth being honest
+about: a new *domain* (commerce) introduced several converged idioms at once that
+none of apps 1–8 had reason to need. This is real saturation data, not a failure:
+the question is whether the additions are *broadly reusable* (generative) or
+*one-off* (bespoke). All three are reusable.
+- **`mh-carousel`** — a scroll-snap strip (CSS-only). Product galleries and
+  "featured" rows are everywhere; neither `mh-gallery` (wrapping grid) nor
+  `mh-board` (fixed lanes) is a single snapping viewport. Real gap.
+- **`mh-steps`** — an ordered stepper. The nicest result of the run: done /
+  current / upcoming all derive from a **single `aria-current="step"` marker** +
+  structure (`li:has(~ li[aria-current])` = done), so no per-step class — the same
+  "one native marker drives all states" pattern as `mh-tabs`/`aria-current`. Reused
+  by any wizard/onboarding flow.
+- **`mh-breadcrumb`** — the borderline one. It's nearly a styled `<nav>`; it earned
+  a tag only to scope the CSS-inserted `/` separators and the current-crumb style.
+  Small, but reused immediately by the docs app (#10).
+- **The big story is REUSE, which is the saturation signal working.** A whole
+  storefront leaned on app-8's `mh-tabs` (product description/reviews) and
+  `mh-alert` (free-shipping notice) with zero changes, plus `mh-grid` (dense
+  address form), the property-panel `<table>` (order summary), `mh-badge`, and
+  native `<select>`/`<input type=number>` for the quantity stepper — so no
+  input-group composite was needed (resisted: native number input covers it).
+  `<progress>` was styled as a native atom.
+- **No wall.** A product page's gallery|info split was handled by *stacking*
+  (carousel over info) rather than inventing a generic two-column `split` — the
+  honest call (don't add a composite you can avoid). Curve: **… → 1 → 2 → 3.**
+
+**App 10 notes (Docs / help center — the payoff).** Four screens, **one new
+composite**, after the commerce uptick — and the strongest reuse showing in the
+whole experiment. A complete content domain (article, API reference, search, FAQ)
+leaned almost entirely on what apps 1–9 already built:
+- **Reused, unchanged:** `mh-layout` + `mh-sidemenu`/`mh-submenu` (the nav tree),
+  `mh-breadcrumb` (from app 9), `mh-card` (the "on this page" TOC), `mh-alert`
+  (doc callouts, from app 8), `<table>` (API params), `<details>` (the FAQ, from
+  app 8), `mh-list` (search results). Five+ prior composites, one new app.
+- **The ⌘K command palette is NOT a new composite** — it's a structural
+  refinement of `<dialog>`, exactly like the lightbox: `dialog:has(> input[type=search])`
+  → top-anchored, search-first, results in an `mh-list`, key hints as `<kbd>`.
+  Reuses the native dialog + `mh-dialog.js` verbatim. This is the experiment's
+  cleanest "looks like a new component, is actually a refinement" result.
+- **`mh-pagination`** (the one new composite) — a boxed numbered pager. It earned
+  a tag because it's neither `mh-tabs` (underline section nav) nor `mh-slots`
+  (wrapping chip grid): a one-row pager with prev/next and `aria-current`/
+  `aria-disabled` states. Reusable by any paged list/table.
+- **Prose was native atoms:** the kit hadn't styled `<ul>`/`<ol>`/`<blockquote>`/
+  `<h4>`/`<kbd>` — added as baseline typography, not composites.
+- **Walls:** none. Curve: **… → 3 → 1.** A brand-new domain dropping back to one
+  composite via heavy reuse is the saturation signal doing exactly its job.
+
+## Reading the curve after 10 apps (saturation re-run, apps 8–10)
+
+The original 7 apps probed *document shapes* and *data geometry*. This re-run
+(Settings, E-commerce, Docs) deliberately probed the **converged interactive /
+atomic component clusters** — the ~60-entry roster of a modern kit (tabs,
+switch, accordion, carousel, stepper, command palette, pagination, progress,
+breadcrumb, …). Full curve:
+
+> **6 → 1 → 2 → 2 → 1 → (1+wall) → (2+hooks) → 1 → 2 → 3 → 1**
+
+What the re-run establishes:
+
+- **A 60-component roster did NOT explode into 60 new tags.** Across three apps it
+  added **6 composites** (`mh-tabs`, `mh-alert`, `mh-carousel`, `mh-breadcrumb`,
+  `mh-steps`, `mh-pagination`) — and the third app needed only one, because it
+  reused the first two apps' work. The rest of the roster resolved one of three
+  ways without a new composite:
+  - **Native element + a role/attribute.** switch = `<input type=checkbox role=switch>`;
+    accordion = `<details>`; progress = `<progress>`; select/checkbox/radio =
+    native; tab/step/crumb/page "active" = `aria-current`; disabled = `aria-disabled`.
+    The boundary finding from apps 1–7 (binary roles ride a native attribute) held
+    and extended cleanly to interactive controls.
+  - **Structural refinement of an existing composite.** command palette =
+    `dialog:has(input[type=search])`; switch-row = `mh-list`/`mh-item`; inline
+    radio label = `label:has(> input[type=radio])`; dense form = `<form>` + `mh-grid`.
+  - **Reuse across domains.** `mh-tabs` (settings → product), `mh-alert`
+    (settings → checkout → docs), `mh-breadcrumb` (product → docs), `<details>`
+    (settings → docs).
+- **The known colour-variant wall recurred and is now sharper.** Field *errors*
+  got an honest on-rails fix — a new `--mh-danger` token + the native
+  `aria-invalid` attribute. But **multi-severity fills** (alert info/success/warning)
+  and a **destructive button** ("Delete account") still have no native attribute to
+  ride, so they fall back to a leading emoji — the same wall as `mh-badge` status
+  colour. This is the one place the vocabulary consistently strains.
+- **Verdict (10 apps).** Within CRUD / content / commerce / docs — the bulk of
+  real app surface — MaxHTML stays **generative, not bespoke**: a large converged
+  component roster maps onto *existing composites + native atoms + a small, mostly
+  one-time set of new composites*, and a fresh domain (docs) dropped straight back
+  to one. The earlier edges are unchanged: coordinate geometry still ejects to
+  `<svg>` (app 5), and open-ended *colour* variants still want a hook the kit
+  withholds. The bet continues to hold where the design fits the opinions.
 
 ## Reading the curve after 7 apps
 

@@ -1,0 +1,24 @@
+<h1>Command palette <small>(⌘K)</small></h1>
+<p>No new tag — a <code>&lt;dialog&gt;</code> built around a <code>&lt;input type=search&gt;</code> restyles itself into a top-anchored, search-first command palette, keyed on <strong>structure</strong> (<code>dialog:has(&gt; input[type=search])</code>), exactly like the lightbox variant. It reuses the native <code>&lt;dialog&gt;</code> + <code>mh-dialog.js</code> (open via <code>commandfor</code>, close on backdrop/Esc), with results in an <code>mh-list</code> and key hints as <code>&lt;kbd&gt;</code>.</p>
+<h2>Example</h2>
+<figure>
+<button type=button commandfor=cmdk-demo>Search <kbd>⌘K</kbd></button>
+</figure>
+<dialog id=cmdk-demo>
+<input type=search placeholder="Search docs…">
+<mh-list>
+<mh-item><header><strong>Installation</strong><small>Getting started</small></header><footer><kbd>↵</kbd></footer></mh-item>
+<mh-item><header><strong>Authentication</strong><small>Guides</small></header><footer><kbd>↵</kbd></footer></mh-item>
+<mh-item><header><strong>Rate limits</strong><small>Guides</small></header><footer><kbd>↵</kbd></footer></mh-item>
+</mh-list>
+</dialog>
+<h2>Usage</h2>
+<pre><code>&lt;button type=button commandfor=cmdk&gt;Search &lt;kbd&gt;⌘K&lt;/kbd&gt;&lt;/button&gt;
+
+&lt;dialog id=cmdk&gt;
+  &lt;input type=search placeholder="Search docs…"&gt;
+  &lt;mh-list&gt;
+    &lt;mh-item&gt;&lt;header&gt;&lt;strong&gt;Installation&lt;/strong&gt;&lt;small&gt;Getting started&lt;/small&gt;&lt;/header&gt;
+      &lt;footer&gt;&lt;kbd&gt;↵&lt;/kbd&gt;&lt;/footer&gt;&lt;/mh-item&gt;
+  &lt;/mh-list&gt;
+&lt;/dialog&gt;</code></pre>

@@ -1,0 +1,13 @@
+<h1>Alert</h1>
+<p><code>&lt;mh-alert&gt;</code> is an inline notice — "changes saved", "verify your email", a form-level error. Like <code>&lt;mh-badge&gt;</code>, severity colour can't ride a class (the kit forbids variant hooks), so it rides a <strong>leading emoji</strong> as content (ℹ️ ✅ ⚠️ 🔴) — the same convention as badges. An optional trailing <code>&lt;button&gt;</code> floats to the right.</p>
+<h2>Example</h2>
+<figure>
+<mh-alert>ℹ️ <strong>Heads up.</strong> Your trial ends in 5 days.</mh-alert>
+<mh-alert>✅ <strong>Saved.</strong> Your profile was updated.</mh-alert>
+<mh-alert>⚠️ <strong>Verify your email.</strong> We sent a link to ada@example.com.<button type=button>Resend</button></mh-alert>
+<mh-alert>🔴 <strong>Payment failed.</strong> Update your card to keep your plan.<button type=button>Fix</button></mh-alert>
+</figure>
+<h2>Usage</h2>
+<pre><code>&lt;mh-alert&gt;✅ &lt;strong&gt;Saved.&lt;/strong&gt; Your profile was updated.&lt;/mh-alert&gt;
+&lt;mh-alert&gt;⚠️ &lt;strong&gt;Verify your email.&lt;/strong&gt; …&lt;button type=button&gt;Resend&lt;/button&gt;&lt;/mh-alert&gt;</code></pre>
+<p><small>Known limit: the box is neutral; severity is the emoji, not a colour fill — the same colour-variant wall as <code>mh-badge</code>.</small></p>

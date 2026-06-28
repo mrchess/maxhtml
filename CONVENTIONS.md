@@ -94,6 +94,16 @@ Inside a slot, tell primitives apart by **context + role**, never by counting:
 | `mh-badge` | neutral status pill (atom) | a short label + leading emoji dot for status colour (`🟢 Customer`); no colour variant — colour rides on the emoji, never a class |
 | `<dialog>` | modal (needs `mh-dialog.js`) | `<header>` + body/`<form>` + `<footer>`; open via `<button commandfor="id">`. **Image variant (lightbox):** content is an `<img>` → wide, dark photo viewer, keyed on structure (`dialog:has(> img)`), no new tag/hook |
 | `<table>` | data table | native — styled by the kit, no classes. **Property panel variant:** a row label as `<th scope="row">` in `<tbody>` → muted/narrow key column (keyed on structure, no hook) |
+| `mh-tabs` | horizontal in-page section nav (settings, profile, product detail) | `<a>` tabs; active = `aria-current="page"` (same model as `mh-submenu`). Each routes to its own URL — the content-level cousin of the vertical sidebar nav. In-page panel switching needs JS |
+| `mh-alert` | inline notice / banner | optional `<strong>` lead + body + trailing `<button>`; severity rides a **leading emoji** (`ℹ️`/`✅`/`⚠️`/`🔴`), no colour variant (same wall as `mh-badge`) |
+| `<details>` / `<summary>` | accordion / disclosure | native — styled by the kit, zero JS. `<summary>` = header (with +/− affordance); the rest = panel. Stack for an accordion |
+| native form controls | checkbox · radio · switch · select · progress | native, styled by the kit (atoms, not new tags). A **switch** = `<input type=checkbox role=switch>` (self-describing role, no class). Field hint = `<small>` in the `<label>`; error = `aria-invalid="true"`. `<progress value max>` = determinate bar |
+| `mh-carousel` | horizontal scroll-snap strip (product images, featured row) | slides are `<img>` (full-bleed) or `<mh-card>`/`<figure>`; CSS scroll-snap, zero JS. Distinct from `mh-gallery` (wrapping grid) and `mh-board` (fixed lanes) |
+| `mh-breadcrumb` | trail nav | `<a>` crumbs; last = `aria-current="page"`. `/` separators inserted by CSS, never typed |
+| `mh-steps` | ordered step indicator (checkout, onboarding, wizard) | an `<ol>` of `<li>`; current = `aria-current="step"`. Done steps derive from structure (`li:has(~ li[aria-current])`) — one marker, no per-step class |
+| `mh-pagination` | numbered pager (search results, tables, index) | `<a>` page links (current = `aria-current="page"`) + prev/next (`aria-disabled="true"` to disable an end) + `<small>` ellipsis |
+| `<dialog>` command-palette variant | ⌘K palette | a `<dialog>` whose content leads with `<input type=search>` → top-anchored, search-first (results in `mh-list`, hints as `<kbd>`). Keyed on structure, like the lightbox — no new tag |
+| prose atoms | lists · blockquote · kbd · code | native `<ul>`/`<ol>`/`<li>`, `<blockquote>`, `<pre><code>`, inline `<code>`, `<kbd>` — styled by the kit for long-form docs |
 
 **Icons:** emoji for now (`👋`, `❌`) — held as element *content*, never in CSS, so
 they swap to a future `<mh-icon name>` without touching layout.
