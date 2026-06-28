@@ -23,6 +23,13 @@ only**.
 4. If a design needs something the vocabulary can't express, **stop and ask** —
    do not improvise with inline styles, primitives, or invented tags.
 5. Do not choose or emit a theme. The host sets the theme via CSS tokens.
+6. **Emit the minimum — this is the whole point.** Every token you don't write is
+   the win MaxHTML exists for. Never emit anything the already-loaded layer can
+   decide: positioning, placement, collision, sizing, colour, and theme are not
+   yours to write. Prefer the lightest expression of an intent — native `title`
+   over `<mh-tooltip>` for a plain hint, a native attribute over a wrapper. If a
+   thing only matters at render time (where an element sits, which side a tooltip
+   flips to), it is the layer's job, not markup — you can't even see it.
 
 ## Composite layouts (reach for these first)
 
@@ -58,7 +65,7 @@ only**.
 - `<mh-avatar>` — round user image. Content: an emoji, initials, or an `<img>`.
 - `<mh-badge>` — small neutral status pill (table cells, record headers, board cards). Content: a short label, with a leading emoji dot for status colour (`🟢 Customer`, `🟡 Lead`, `🔴 Churned`). There is no colour variant — status colour rides on the emoji, never a class.
 - `<dialog>` — modal. Slots: `<header>` + body or `<form>` + `<footer>` of buttons. Open it with a trigger `<button commandfor="dialogId">`. Closes on any dialog button, the backdrop, or Esc. **Lightbox variant:** make the dialog's content an `<img>` (plus optional `<p>` caption + `<footer>` actions) and it styles itself as a wide, dark photo viewer — same tag, same open/close wiring, no extra hooks.
-- `<mh-tooltip>` — CSS-only hover/focus hint. Children: a trigger (a `<button>`/`<a>`) + the tip as `<small role="tooltip">`. Wire a11y with `aria-describedby` on the trigger + a matching `id` on the tip. For a plain text hint, prefer the native `title` attribute (`<button title="…">`) and skip the component.
+- `<mh-tooltip>` — themed hover/focus hint. Children: a trigger (a `<button>`/`<a>`) + the tip as `<small role="tooltip">`; a11y via `aria-describedby` on the trigger + a matching `id` on the tip. **Emit no placement** — the side is automatic. For a plain text hint, prefer the native `title` attribute (`<button title="…">`) and skip the component (fewest tokens).
 - `<table>` — data table. Plain native `<thead>`/`<tbody>`/`<tr>`/`<th>`/`<td>`; the kit styles it. **Property panel:** for a key/value record panel, drop the `<thead>` and make each row's label a `<th scope="row">` in `<tbody>` (`<tr><th scope=row>Email</th><td>…</td></tr>`) — the kit renders the label column muted + narrow automatically.
 
 Icons: use emoji as text (`👋`, `❌`, `🚫`) — never SVG or icon classes.

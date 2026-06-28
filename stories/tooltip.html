@@ -23,8 +23,10 @@
 <p>Put <code>aria-describedby="id"</code> on the trigger and a matching <code>id</code> on the <code>&lt;small role="tooltip"&gt;</code>. Keyboard users get it via <code>:focus-within</code>; screen readers get it via the description. All native attributes — no class, no <code>data-*</code>, no script.</p>
 <h2>For a plain hint, skip the component</h2>
 <p>A bare text hint doesn't need any of this — use the native <code>title</code> attribute: <code>&lt;button title="Delete forever"&gt;🗑&lt;/button&gt;</code>. It's the <code>type=button</code> of tooltips: content on a native attribute, zero vocabulary. Reach for <code>&lt;mh-tooltip&gt;</code> only when you want it themed, on focus, or richer.</p>
-<h2>Limits (and the graduation path)</h2>
-<p>Default placement is <strong>top</strong> — no manual <code>placement</code> hook (that'd be an open-ended variant the kit avoids). A tip inside an <code>overflow:hidden</code> ancestor will clip, and edge-collision flipping needs CSS anchor positioning or a small <code>mh-tooltip.js</code> behavior layer — the same graduation path as <code>mh-menu</code>. Until then it's <strong>zero JS, zero data hooks</strong>.</p>
+<h2>Placement is automatic — the model emits none of it</h2>
+<p>This is the token rule in action: a tooltip's side is a <em>runtime layout</em> decision (it depends on where the trigger renders — something the model can't see), so the model never emits it. There is <strong>no placement attribute to type.</strong> It prefers <strong>top</strong>, and where CSS <strong>anchor positioning</strong> is supported the browser <strong>auto-flips</strong> it below near the viewport's top edge — zero emitted placement, zero JS. Older browsers degrade to a static top tooltip.</p>
+<h2>The one real limit (graduation path)</h2>
+<p>A tip inside an <code>overflow:hidden</code> / scrolling ancestor still clips, and if you need <em>shift</em> (slide along the edge) rather than just flip, that's the <code>mh-menu</code>-style graduation: a small <code>mh-tooltip.js</code> that drops in <a href="https://floating-ui.com">Floating UI</a> (the Popper successor) to position the tip in the top layer. The kit still only <em>styles</em> the tip; Floating UI does the geometry. Crucially this changes <strong>nothing</strong> the model emits — placement stays out of the markup whether it's done by anchor-positioning CSS or by the script.</p>
 <h2>Usage</h2>
 <pre><code>&lt;mh-tooltip&gt;
   &lt;button aria-describedby="t1"&gt;🗑 Delete&lt;/button&gt;

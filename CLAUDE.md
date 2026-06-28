@@ -31,9 +31,17 @@ dashboard" costs **markup tokens only**.
    assemblies). That's where token cost is high, conventions are strong, and
    classless/widget libraries leave a gap. Atoms exist only as the building
    blocks of composites — we style them, we don't innovate on them.
-3. **LLM-friendly (token-minimal).** The tag name *is* the component's meaning.
-   Variants ride on native attributes/structure, never net-new class/style/data
-   hooks. Goal: fewest tokens to both emit *and* iterate on.
+3. **Token-minimal — the north star.** The single goal every other tenet serves:
+   the fewest tokens an LLM must emit to build *and* iterate on UI. The tag name
+   *is* the component's meaning; variants ride on native attributes/structure,
+   never net-new class/style/data hooks. **Corollary: emit nothing the loaded
+   layer can decide.** Styling, positioning, placement, collision, sizing, and
+   theme are decided by the amortized CSS/JS (loaded once, zero emission tokens) —
+   the model never emits them, and especially never emits a runtime/layout
+   decision it can't even see (where something renders, which side a tooltip
+   flips). A behavior layer is therefore *free* on tokens too: CSS-vs-JS is a
+   robustness choice, never a token one. When two markups mean the same thing,
+   the lighter one wins (native `title` over a `<mh-tooltip>` wrapper).
 4. **CSS lives outside.** All design in one external stylesheet, amortized, never
    re-emitted by the model. This is the actual fix for the token drain.
 5. **Ejectable.** A closed vocabulary maps to a deterministic translation table

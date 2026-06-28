@@ -10,6 +10,28 @@ cheaply. It's designed with **two exits** — you pick one at the end, not up fr
 
 One artifact, two exits. Nothing here forces the choice early.
 
+## The north star: minimise emitted tokens
+
+Everything else in MaxHTML is in service of one goal — **the fewest tokens an LLM
+must emit to build and iterate on UI.** That's why styling lives in an external
+sheet (amortised, never re-emitted), why the tag name *is* the component, and why
+variants ride on native attributes instead of net-new hooks.
+
+The operational corollary, which every other rule descends from:
+
+> **Emit nothing the loaded layer can decide.** Styling, positioning, placement,
+> collision, sizing, and theme are decided by the stylesheet/behavior layer — they
+> are loaded once and cost zero emission tokens. The model emits only the minimum
+> *semantic* markup. In particular it never emits a **runtime/layout decision it
+> can't even see** (where an element renders, which side a tooltip flips to); that
+> is the layer's job. When two expressions carry the same meaning, emit the
+> lighter one (native `title` over a `<mh-tooltip>` wrapper; a native attribute
+> over a new element).
+
+This is also why a behavior layer (JS) is *free* on tokens: like the stylesheet,
+it loads once and is never re-emitted — so "CSS vs JS" for something like tooltip
+collision is a robustness choice, never a token one.
+
 ## Naming rule
 
 > **Custom tag where it names a component; semantic tag where HTML already has the concept.**
@@ -89,7 +111,7 @@ Inside a slot, tell primitives apart by **context + role**, never by counting:
 | `mh-card` | titled container | `<header>` + body + `<footer>` (actions) |
 | `mh-stat` | metric tile | `<header>` (label) + `<strong>` (value) + `<small>` (delta) |
 | `mh-menu` | dropdown (needs `mh-menu.js`) | `<button>` (trigger) + `<a>` items |
-| `mh-tooltip` | CSS-only hover/focus hint (no JS) | a trigger + `<small role="tooltip">` tip; a11y via `aria-describedby`+`id`. Plain hints: use native `title` instead |
+| `mh-tooltip` | themed hover/focus hint | a trigger + `<small role="tooltip">` tip; a11y via `aria-describedby`+`id`. **Placement is automatic** (top + anchor-positioning auto-flip; no placement attribute to emit). Plain hints: use native `title` instead |
 | `mh-avatar` | round user image | an emoji, initials, or an `<img>` |
 | `mh-badge` | neutral status pill (atom) | a short label + leading emoji dot for status colour (`🟢 Customer`); no colour variant — colour rides on the emoji, never a class |
 | `<dialog>` | modal (needs `mh-dialog.js`) | `<header>` + body/`<form>` + `<footer>`; open via `<button commandfor="id">`. **Image variant (lightbox):** content is an `<img>` → wide, dark photo viewer, keyed on structure (`dialog:has(> img)`), no new tag/hook |

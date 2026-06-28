@@ -925,15 +925,20 @@
 
 /* ===== component: <mh-tooltip> (CSS-only floating hint, zero JS) ======== */
 /* Wrap a trigger + its tip; the tip is the child with role="tooltip" — a native,
-   self-describing slot (not sibling position). It shows on hover OR keyboard
-   focus (:focus-within), positioned a fixed offset above the trigger. The float
-   is CHROME — a constant offset relative to its own trigger — so it lives in the
-   sheet: no per-instance coordinates, no data hook, no JS. Wire accessibility
-   with aria-describedby (on the trigger) + matching id (on the tip).
-   Default placement is top; a tip inside an overflow:hidden ancestor will clip,
-   and edge-collision flipping needs CSS anchor positioning or a behavior layer —
-   that's the graduation path, same as mh-menu. For a plain unstyled hint, just
-   use the native `title` attribute instead. */
+   self-describing slot (not sibling position). Shows on hover OR keyboard focus
+   (:focus-within). a11y: aria-describedby on the trigger + matching id on the tip.
+
+   PLACEMENT IS AUTOMATIC — and the model emits NONE of it (token minimisation:
+   never emit a runtime/layout decision the loaded layer can make). Two layers,
+   no placement attribute exists to type:
+     • baseline (everywhere): static top, with an arrow.
+     • enhancement (@supports anchor positioning): the browser auto-flips to the
+       best side near a viewport edge — still zero emitted placement, zero JS.
+   Limits: a tip inside an overflow:hidden / scrolling ancestor still clips, and
+   anchor-flip only flips (no shift) — to escape clipping or shift along an edge,
+   graduate to Floating UI in a small mh-tooltip.js (same path as mh-menu); that
+   still changes nothing the model emits. For a plain unstyled hint, prefer the
+   native `title` attribute and skip this component entirely (fewest tokens). */
 :where(mh-tooltip) { position: relative; display: inline-flex; }
 :where(mh-tooltip > [role=tooltip]) {
   position: absolute;
@@ -966,3 +971,25 @@
 }
 :where(mh-tooltip:hover > [role=tooltip]),
 :where(mh-tooltip:focus-within > [role=tooltip]) { opacity: 1; translate: -50% -.25rem; }
+
+/* enhancement: CSS anchor positioning → auto-flip near a viewport edge, still no
+   emitted placement and no JS. The tip's bottom pins to the anchor's top and
+   centres horizontally; flip-block drops it below when there's no room above.
+   The wrapper goes position:static here so the tip anchors to the trigger rather
+   than being trapped in the wrapper's box. Drops the arrow (can't know the chosen
+   side). Degrades to the static-top baseline above where unsupported. */
+@supports (anchor-name: --a) {
+  :where(mh-tooltip) { anchor-name: --mh-tt; position: static; }
+  :where(mh-tooltip > [role=tooltip]) {
+    position-anchor: --mh-tt;
+    inset: auto;
+    bottom: anchor(top);
+    justify-self: anchor-center;
+    translate: none;
+    margin: 0 0 .4rem;
+    position-try-fallbacks: flip-block;
+  }
+  :where(mh-tooltip > [role=tooltip])::after { display: none; }
+  :where(mh-tooltip:hover > [role=tooltip]),
+  :where(mh-tooltip:focus-within > [role=tooltip]) { translate: none; }
+}

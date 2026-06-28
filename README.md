@@ -44,9 +44,15 @@ cost markup tokens and nothing else.
   *layouts* (dashboard shell, split, grid, page header) and whole-page *recipes*.
   That's where token cost is high, conventions are strong, and other kits leave a
   gap. Atoms are just the building blocks.
-- **LLM-friendly.** The tag name *is* the component. Variants come from native
-  attributes and structure (`<button>` vs `<button type=button>`), never from
-  net-new styling hooks. Fewest tokens to emit and to iterate.
+- **Token-minimal — the north star.** Everything else serves one goal: the fewest
+  tokens an LLM must emit to build and iterate on UI. The tag name *is* the
+  component; variants come from native attributes and structure (`<button>` vs
+  `<button type=button>`), never net-new styling hooks. The corollary the rest
+  follows from: **emit nothing the loaded layer can decide** — styling,
+  positioning, placement, collision, and theme are the amortized CSS/JS's job
+  (loaded once, never re-emitted), so the model never writes them, and never
+  emits a runtime decision it can't even see. (A behavior layer is free on tokens
+  too — so "CSS vs JS" is a robustness call, not a token one.)
 - **CSS lives outside.** Every visual decision is in `maxhtml.css`, loaded once
   via one `<link>` and never re-emitted. This is the whole trick.
 - **Ejectable.** Because the vocabulary is closed and stable, converting off
