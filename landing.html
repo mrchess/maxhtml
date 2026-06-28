@@ -3,63 +3,67 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<title>MaxHTML — UI that barely costs a token</title>
+<title>Northwind — landing page recipe</title>
 <link rel=stylesheet href=maxhtml.css>
 </head>
 <body>
 <mh-navbar>
-<strong>MaxHTML</strong>
-<a href="https://github.com/mrchess/maxhtml">Docs</a>
-<a href="https://github.com/mrchess/maxhtml">GitHub</a>
+<strong>Northwind</strong>
+<a href="#">Product</a>
+<a href="#">Pricing</a>
+<a href="#">Docs</a>
 </mh-navbar>
 
 <mh-hero>
-<h1>UI that barely costs a token.</h1>
-<p>An opinionated component kit so an LLM can generate and restyle whole interfaces cheaply — it writes markup, the styling stays out of the prompt.</p>
+<h1>Ship faster with Northwind.</h1>
+<p>The all-in-one workspace for teams who'd rather build than configure. Plan, track, and launch — without the busywork.</p>
 <footer>
-<button>Get started</button>
-<button type=button>View on GitHub</button>
+<button>Start free trial</button>
+<button type=button>Book a demo</button>
 </footer>
 </mh-hero>
 
 <mh-section>
-<h2>Why MaxHTML</h2>
+<h2>Everything in one place</h2>
 <mh-grid>
 <mh-card>
-<header>Cheap to emit</header>
-<p>~40% fewer tokens than a hand-rolled dashboard. The model writes markup; the CSS lives outside and never gets re-typed.</p>
+<header>Plan</header>
+<p>Roadmaps, sprints, and backlogs that stay in sync, so everyone knows what's next.</p>
 </mh-card>
 <mh-card>
-<header>On-rails &amp; consistent</header>
-<p>A closed vocabulary means no inline-style drift. Every screen comes out looking like the same design system.</p>
+<header>Track</header>
+<p>Live dashboards and automatic status rollups — no more chasing people for updates.</p>
 </mh-card>
 <mh-card>
-<header>No lock-in</header>
-<p>Eject to Tailwind with a deterministic mapping, or theme it and ship as-is — valid, accessible HTML either way.</p>
+<header>Launch</header>
+<p>One-click releases with changelogs your customers actually read.</p>
 </mh-card>
 </mh-grid>
 </mh-section>
 
 <mh-section>
-<h2>Try it</h2>
-<p>Paste this into Claude, then ask for any screen. The whole vocabulary lives in the linked rail — the prompt itself stays tiny.</p>
-<pre><code>You build UI as MaxHTML — a closed kit of mh-* components styled by an
-already-loaded stylesheet. Emit MARKUP ONLY: no style="", no &lt;style&gt;/CSS,
-no &lt;div&gt;/&lt;span&gt;, no class/data-*. Variants ride native attributes
-(&lt;button&gt; = primary, &lt;button type=button&gt; = secondary, tone="danger" …).
-Need a component you don't know? Ask — don't improvise.
-
-Full vocabulary + rules:   https://mrchess.github.io/maxhtml/PROMPT.md
-Stylesheet (include once): https://mrchess.github.io/maxhtml/maxhtml.css
-
-Now build: a dashboard with a sidebar, four stat tiles, and a recent-activity table.</code></pre>
+<h2>Loved by fast-moving teams</h2>
+<mh-grid>
+<mh-card>
+<header>Acme Corp</header>
+<p>"We cut our release cycle in half in the first month."</p>
+</mh-card>
+<mh-card>
+<header>Globex</header>
+<p>"Finally, a tool the whole team actually opens every day."</p>
+</mh-card>
+<mh-card>
+<header>Initech</header>
+<p>"Setup took an afternoon. The ROI took a week."</p>
+</mh-card>
+</mh-grid>
 </mh-section>
 
 <mh-section>
-<h2>Stop paying for styling tokens.</h2>
+<h2>Start building today.</h2>
 <footer>
-<button>Get started</button>
-<button type=button>Read the docs</button>
+<button>Start free trial</button>
+<button type=button>Talk to sales</button>
 </footer>
 </mh-section>
 </body>

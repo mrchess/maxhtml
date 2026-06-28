@@ -1,34 +1,33 @@
-<mh-navbar>
-<strong>MaxHTML</strong>
-<a href="https://github.com/mrchess/maxhtml">Docs</a>
-<a href="https://github.com/mrchess/maxhtml">GitHub</a>
-</mh-navbar>
-
 <mh-hero>
-<h1>UI that barely costs a token.</h1>
-<p>An opinionated component kit so an LLM can generate and restyle whole interfaces cheaply — it writes markup, the styling stays out of the prompt.</p>
-<footer>
-<button>Get started</button>
-<button type=button>View on GitHub</button>
-</footer>
+<h1>The MaxHTML kit</h1>
+<p>A closed set of <code>mh-*</code> components an LLM emits as plain markup — every visual decision lives in one external stylesheet, so building and re-iterating on UI barely spends a token. Browse the components, composites, and recipes in the sidebar.</p>
 </mh-hero>
 
 <mh-section>
-<h2>Why MaxHTML</h2>
+<h2>Why it exists</h2>
 <mh-grid>
 <mh-card>
 <header>Cheap to emit</header>
-<p>~40% fewer tokens than a hand-rolled dashboard. The model writes markup; the CSS lives outside and never gets re-typed.</p>
+<p>The model writes markup; the CSS loads once and is never re-typed. "Move this section / regenerate that form" costs markup tokens only.</p>
 </mh-card>
 <mh-card>
 <header>On-rails &amp; consistent</header>
-<p>A closed vocabulary means no inline-style drift. Every screen comes out looking like the same design system.</p>
+<p>A closed vocabulary with no inline-style drift — every screen comes out looking like one design system.</p>
 </mh-card>
 <mh-card>
 <header>No lock-in</header>
-<p>Eject to Tailwind with a deterministic mapping, or theme it and ship as-is — valid, accessible HTML either way.</p>
+<p>Eject to Tailwind with a deterministic mapping, or theme it via tokens and ship as-is — valid, accessible HTML either way.</p>
 </mh-card>
 </mh-grid>
+</mh-section>
+
+<mh-section>
+<h2>The token grab</h2>
+<mh-grid>
+<mh-stat><header>vs Tailwind</header><strong>−69%</strong><small>fewer emitted tokens, real app screen</small></mh-stat>
+<mh-stat><header>vs Pico / Shoelace</header><strong>−27%</strong><small>at the app / dashboard level</small></mh-stat>
+</mh-grid>
+<p>Measured on real dashboard + CRM screens, emitted markup only (framework CSS amortized). The edge scales with how verbose the baseline is — and, honestly, shrinks on simple atoms where it can reverse. <a href="#benchmark">See the full analysis →</a></p>
 </mh-section>
 
 <mh-section>
@@ -44,12 +43,4 @@ Full vocabulary + rules:   https://mrchess.github.io/maxhtml/PROMPT.md
 Stylesheet (include once): https://mrchess.github.io/maxhtml/maxhtml.css
 
 Now build: a dashboard with a sidebar, four stat tiles, and a recent-activity table.</code></pre>
-</mh-section>
-
-<mh-section>
-<h2>Stop paying for styling tokens.</h2>
-<footer>
-<button>Get started</button>
-<button type=button>Read the docs</button>
-</footer>
 </mh-section>
