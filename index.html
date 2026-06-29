@@ -114,7 +114,7 @@ function syncActiveNav() {
 function showStory() {
   var id = location.hash.slice(1);
   if (!id) { location.replace(location.pathname + '#home'); return; }
-  fetch('stories/' + id + '.html')
+  fetch('stories/' + id + '.html', { cache: 'no-cache' })
     .then(function (r) { if (!r.ok) throw r.status; return r.text(); })
     .then(function (html) {
       stage.innerHTML = html; stage.scrollTop = 0; syncActiveNav();
