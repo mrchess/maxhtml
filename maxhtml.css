@@ -17,15 +17,15 @@
 
 /* ===== token layer — override these to theme (EXIT B) ==================== */
 :root {
-  --mh-bg:        #faf9ff;   /* page background */
-  --mh-surface:   #f0ecff;   /* raised/recessed surfaces (sidemenu, code) */
-  --mh-fg:        #12082a;   /* primary text */
-  --mh-muted:     #7c6a9a;   /* secondary text */
-  --mh-line:      #ddd4f8;   /* borders / dividers */
-  --mh-accent:    #7c3aed;   /* brand / active / primary */
+  --mh-bg:        #f0f6ff;   /* page background */
+  --mh-surface:   #e4eeff;   /* raised/recessed surfaces (sidemenu, code) */
+  --mh-fg:        #0b1e3a;   /* primary text */
+  --mh-muted:     #4d6a9a;   /* secondary text */
+  --mh-line:      #c2d5f0;   /* borders / dividers */
+  --mh-accent:    #2563eb;   /* brand / active / primary */
   --mh-accent-fg: #ffffff;   /* text on accent */
-  --mh-scrim:     #12082a;   /* immersive overlay surface (lightbox frame) */
-  --mh-scrim-fg:  #faf9ff;   /* text on the scrim */
+  --mh-scrim:     #0b1e3a;   /* immersive overlay surface (lightbox frame) */
+  --mh-scrim-fg:  #f0f6ff;   /* text on the scrim */
   --mh-danger:    #dc2626;   /* error / invalid / destructive */
   --mh-danger-fg: #ffffff;   /* text on danger */
   /* semantic severity — the [tone] axis (badge dot, alert/toast icon+border).
@@ -34,12 +34,12 @@
   --mh-success:   #16a34a;   /* ok / healthy / positive state */
   --mh-warning:   #d97706;   /* caution / degraded / needs attention */
   --mh-info:      #2563eb;   /* informational / neutral notice */
-  --mh-hover:     rgba(124,58,237,.08);                     /* hover tint */
-  --mh-shadow:    0 8px 32px rgba(124,58,237,.15);          /* menu / popover shadow */
-  --mh-shadow-lg: 0 24px 64px rgba(124,58,237,.28);         /* dialog shadow */
-  --mh-backdrop:  rgba(18,8,42,.5);                         /* modal backdrop */
+  --mh-hover:     rgba(37,99,235,.08);                      /* hover tint */
+  --mh-shadow:    0 8px 32px rgba(37,99,235,.15);           /* menu / popover shadow */
+  --mh-shadow-lg: 0 24px 64px rgba(37,99,235,.25);          /* dialog shadow */
+  --mh-backdrop:  rgba(11,30,58,.5);                        /* modal backdrop */
   /* categorical chart palette — donut segments, multi-series */
-  --mh-c1: #7c3aed;  --mh-c2: #3b82f6;  --mh-c3: #eab308;  --mh-c4: #ec4899;  --mh-c5: #16a34a;
+  --mh-c1: #2563eb;  --mh-c2: #7c3aed;  --mh-c3: #eab308;  --mh-c4: #ec4899;  --mh-c5: #16a34a;
   /* type & density — theme these for a tighter/looser "shape" (e.g. shadcn) */
   --mh-text-base:     1rem;     /* body + control text */
   --mh-h1:            1.6rem;
