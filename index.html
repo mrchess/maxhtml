@@ -113,7 +113,7 @@ function syncActiveNav() {
 
 function showStory() {
   var id = location.hash.slice(1);
-  if (!id) { stage.innerHTML = INTRO; syncActiveNav(); return; }
+  if (!id) { location.replace(location.pathname + '#home'); return; }
   fetch('stories/' + id + '.html')
     .then(function (r) { if (!r.ok) throw r.status; return r.text(); })
     .then(function (html) {
