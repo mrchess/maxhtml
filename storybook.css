@@ -8,7 +8,19 @@
    shrink and scroll instead of growing the page.) */
 html, body { height: 100%; }
 body > mh-layout { height: 100vh; grid-template-rows: 1fr; }
-body > mh-layout > mh-sidemenu { min-height: 0; overflow-y: auto; }
+body > mh-layout > mh-sidemenu {
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;                            /* Firefox */
+  scrollbar-color: var(--mh-line) transparent;      /* Firefox: thumb track */
+}
+body > mh-layout > mh-sidemenu::-webkit-scrollbar       { width: 5px; }
+body > mh-layout > mh-sidemenu::-webkit-scrollbar-track { background: transparent; }
+body > mh-layout > mh-sidemenu::-webkit-scrollbar-thumb {
+  background: var(--mh-line);
+  border-radius: 99px;
+}
+body > mh-layout > mh-sidemenu::-webkit-scrollbar-thumb:hover { background: var(--mh-muted); }
 
 /* doc content area — scrolls internally. Full width so example canvases use the
    whole space; prose is capped to a readable measure below. */
