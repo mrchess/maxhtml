@@ -12,6 +12,57 @@
 </mh-section>
 
 <mh-section>
+<h2>MaxHTML vs Tailwind</h2>
+<p>The same card, two ways. Left is what the model emits; right is the Tailwind equivalent.</p>
+<mh-grid>
+<div>
+<p><strong>MaxHTML</strong> — 7 lines</p>
+<mh-card>
+<header>Monthly Revenue</header>
+<p>Revenue across all regions this quarter.</p>
+<footer><button>View report</button><button type=button>Export</button></footer>
+</mh-card>
+<pre><code>&lt;mh-card&gt;
+  &lt;header&gt;Monthly Revenue&lt;/header&gt;
+  &lt;p&gt;Revenue across all regions
+     this quarter.&lt;/p&gt;
+  &lt;footer&gt;
+    &lt;button&gt;View report&lt;/button&gt;
+    &lt;button type=button&gt;Export&lt;/button&gt;
+  &lt;/footer&gt;
+&lt;/mh-card&gt;</code></pre>
+</div>
+<div>
+<p><strong>Tailwind</strong> — 18 lines</p>
+<pre><code>&lt;div class="rounded-xl border border-slate-200
+     bg-white shadow-sm"&gt;
+  &lt;div class="p-6 pb-3"&gt;
+    &lt;h3 class="font-semibold tracking-tight"&gt;
+      Monthly Revenue
+    &lt;/h3&gt;
+    &lt;p class="text-sm text-slate-500 mt-1"&gt;
+      Revenue across all regions this quarter.
+    &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="px-6 pb-6 flex gap-2"&gt;
+    &lt;button class="bg-slate-900 text-white text-sm
+         font-medium px-4 py-2 rounded-md
+         hover:bg-slate-800"&gt;
+      View report
+    &lt;/button&gt;
+    &lt;button class="border border-slate-300 text-sm
+         font-medium px-4 py-2 rounded-md
+         hover:bg-slate-50"&gt;
+      Export
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+</mh-grid>
+<p><a href="#benchmark">Full token benchmark →</a></p>
+</mh-section>
+
+<mh-section>
 <h2>Try it</h2>
 <p>Paste into Claude, then ask for any screen.</p>
 <pre><code>You build UI as MaxHTML — a closed kit of mh-* components styled by an
