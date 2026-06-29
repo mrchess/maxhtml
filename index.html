@@ -104,6 +104,26 @@
 var stage = document.querySelector('main');
 var INTRO = stage.innerHTML;
 
+// Fetch cache — maps story id → Promise<html string>. Hover-prefetch and the
+// actual navigation both call fetchStory(), so they share the same request and
+// the click is instant when the prefetch finished first.
+var storyCache = {};
+function fetchStory(id) {
+  if (!storyCache[id]) {
+    storyCache[id] = fetch('stories/' + id + '.html', { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw r.status; return r.text(); });
+  }
+  return storyCache[id];
+}
+
+// Start the fetch on mouseenter so by the time the user clicks it's already done.
+document.querySelectorAll('mh-sidemenu a[href^="#"]').forEach(function (a) {
+  a.addEventListener('mouseenter', function () {
+    var id = a.getAttribute('href').slice(1);
+    if (id) fetchStory(id);
+  });
+});
+
 function syncActiveNav() {
   document.querySelectorAll('mh-sidemenu a[href^="#"]').forEach(function (a) {
     if (a.getAttribute('href') === location.hash) a.setAttribute('aria-current', 'page');
@@ -114,8 +134,7 @@ function syncActiveNav() {
 function showStory() {
   var id = location.hash.slice(1);
   if (!id) { location.replace(location.pathname + '#home'); return; }
-  fetch('stories/' + id + '.html', { cache: 'no-cache' })
-    .then(function (r) { if (!r.ok) throw r.status; return r.text(); })
+  fetchStory(id)
     .then(function (html) {
       stage.innerHTML = html; stage.scrollTop = 0; syncActiveNav();
       // Recipes render in isolated iframes; the parent's data-theme can't cross
