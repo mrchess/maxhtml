@@ -12,31 +12,36 @@
      overriding these tokens: --mh-bg, --mh-surface, --mh-fg, --mh-muted,
      --mh-line, --mh-accent, --mh-accent-fg, --mh-radius. For a DARK theme also
      set --mh-hover to a translucent WHITE (e.g. rgba(255,255,255,.08)),
-     --mh-shadow / --mh-shadow-lg (stronger), and --mh-scrim. Output nothing else.
+     --mh-shadow / --mh-shadow-lg (stronger), and --mh-scrim. For a GLASS theme,
+     additionally make --mh-bg a gradient, set --mh-panel + --mh-surface to
+     translucent rgba fills, --mh-line to a translucent white, and --mh-blur to
+     e.g. blur(16px) saturate(1.6). Output nothing else.
    ─────────────────────────────────────────────────────────────────────────── */
 
-/* glass-dark — deep navy, blue glow, dark-mode tone colours */
+/* glass-dark — frosted glass: cool gradient page, translucent blurred panels */
 :root[data-theme="glass-dark"] {
-  --mh-bg:        #0b0d17;
-  --mh-surface:   #13152a;
-  --mh-fg:        #e2e4f0;
-  --mh-muted:     #7880a0;
-  --mh-line:      #1f2240;
-  --mh-accent:    #3b82f6;
+  --mh-bg:        linear-gradient(135deg, #0a0c1a 0%, #161334 48%, #0a2536 100%) fixed;
+  --mh-panel:     rgba(34, 39, 72, 0.45);   /* see-through card/dialog/menu fill */
+  --mh-surface:   rgba(20, 24, 50, 0.40);   /* see-through sidebar / recessed */
+  --mh-fg:        #e8eaf6;
+  --mh-muted:     #9aa2c6;
+  --mh-line:      rgba(255, 255, 255, 0.12);
+  --mh-accent:    #4d8bff;
   --mh-accent-fg: #ffffff;
   --mh-scrim:     #000000;
-  --mh-scrim-fg:  #e2e4f0;
+  --mh-scrim-fg:  #e8eaf6;
   --mh-danger:    #f87171;
   --mh-success:   #4ade80;
   --mh-warning:   #fbbf24;
   --mh-info:      #60a5fa;
-  --mh-hover:     rgba(255,255,255,.07);
-  --mh-shadow:    0 8px 32px rgba(59,130,246,.25);
-  --mh-shadow-lg: 0 24px 64px rgba(59,130,246,.4);
-  --mh-backdrop:  rgba(0,0,0,.7);
-  --mh-c1: #3b82f6;  --mh-c2: #a78bfa;  --mh-c3: #fbbf24;  --mh-c4: #f472b6;  --mh-c5: #4ade80;
+  --mh-hover:     rgba(255,255,255,.08);
+  --mh-shadow:    0 8px 32px rgba(0,0,0,.35);
+  --mh-shadow-lg: 0 24px 64px rgba(0,0,0,.55);
+  --mh-backdrop:  rgba(8,10,24,.6);
+  --mh-blur:      blur(16px) saturate(1.6);  /* the frost */
+  --mh-c1: #4d8bff;  --mh-c2: #a78bfa;  --mh-c3: #fbbf24;  --mh-c4: #f472b6;  --mh-c5: #4ade80;
   --mh-heading-tracking: -0.02em;
-  --mh-radius:    10px;
+  --mh-radius:    14px;
 }
 
 /* bootstrap — Bootstrap 5 palette, 16px base, standard density */
