@@ -4,11 +4,22 @@
 </mh-hero>
 
 <mh-section>
+<h2>How it works</h2>
+<p>"Put the styling in one file" isn't the whole story — plenty of CSS kits do that. The real trick is <strong>a fixed set of building blocks, plus a rulebook that keeps the AI using them.</strong></p>
 <mh-grid>
-<mh-stat><header>vs Tailwind</header><strong>−69%</strong><small>tokens on a real app screen</small></mh-stat>
-<mh-stat><header>vs Pico / Shoelace</header><strong>−27%</strong><small>at app-shell level</small></mh-stat>
+<mh-card>
+<header>1 · Ready-made building blocks</header>
+<p>A closed kit of pieces — from a button up to a whole dashboard shell or a fill-in-the-blank page recipe. Those big layouts are exactly what plain CSS and widget libraries leave you to hand-build.</p>
+</mh-card>
+<mh-card>
+<header>2 · The styling is loaded once</header>
+<p>The kit's design lives in one CSS file the browser loads a single time. The AI writes only tag names like <code>&lt;mh-card&gt;</code> — never colors, spacing, or shadows. The tag says <em>what</em> it is; the file already knows <em>how</em> it looks.</p>
+</mh-card>
+<mh-card>
+<header>3 · Consistent by default</header>
+<p>The AI reaches for a ready-made recipe first, then snaps the blocks together freely when none fits exactly. What it <em>won't</em> do is hand-roll raw HTML and CSS — that's the drift and the token drain the kit exists to prevent.</p>
+</mh-card>
 </mh-grid>
-<p>Measured on real dashboard + CRM screens, emitted markup only (framework CSS amortized). Edge shrinks on simple atoms. <a href="#benchmark">Full analysis →</a></p>
 </mh-section>
 
 <mh-section>
@@ -63,6 +74,14 @@
 </mh-section>
 
 <mh-section>
+<mh-grid>
+<mh-stat><header>vs Tailwind</header><strong>−69%</strong><small>tokens on a real app screen</small></mh-stat>
+<mh-stat><header>vs Pico / Shoelace</header><strong>−27%</strong><small>at app-shell level</small></mh-stat>
+</mh-grid>
+<p>Measured on real dashboard + CRM screens, emitted markup only (framework CSS amortized). Edge shrinks on simple atoms. <a href="#benchmark">Full analysis →</a></p>
+</mh-section>
+
+<mh-section>
 <h2>Try it</h2>
 <p>Paste into Claude, then ask for any screen.</p>
 <pre><code>You build UI as MaxHTML — a closed kit of mh-* components styled by an
@@ -75,24 +94,4 @@ Full vocabulary + rules:   https://mrchess.github.io/maxhtml/PROMPT.md
 Stylesheet (include once): https://mrchess.github.io/maxhtml/maxhtml.css
 
 Now build: a dashboard with a sidebar, four stat tiles, and a recent-activity table.</code></pre>
-</mh-section>
-
-<mh-section>
-<h2>How it works</h2>
-<p>"Put the styling in one file" isn't the whole story — plenty of CSS kits do that. The real trick is <strong>a fixed set of building blocks, plus a rulebook that keeps the AI using them.</strong></p>
-<mh-grid>
-<mh-card>
-<header>1 · Ready-made building blocks</header>
-<p>A closed kit of pieces — from a button up to a whole dashboard shell or a fill-in-the-blank page recipe. Those big layouts are exactly what plain CSS and widget libraries leave you to hand-build.</p>
-</mh-card>
-<mh-card>
-<header>2 · The styling is loaded once</header>
-<p>The kit's design lives in one CSS file the browser loads a single time. The AI writes only tag names like <code>&lt;mh-card&gt;</code> — never colors, spacing, or shadows. The tag says <em>what</em> it is; the file already knows <em>how</em> it looks.</p>
-</mh-card>
-<mh-card>
-<header>3 · Consistent by default</header>
-<p>The AI reaches for a ready-made recipe first, then snaps the blocks together freely when none fits exactly. What it <em>won't</em> do is hand-roll raw HTML and CSS — that's the drift and the token drain the kit exists to prevent. If something genuinely can't be built from the kit, it asks instead of going rogue.</p>
-</mh-card>
-</mh-grid>
-<p><strong>Explain it like I'm 5:</strong> it's a box of LEGO. You don't describe every bump and color of every brick — you just grab the window piece and the door piece and snap them together. The pieces all live in the box, so building is fast and everything fits neatly. Want a different look? Swap in another box of bricks — your house keeps the same windows and doors.</p>
 </mh-section>
