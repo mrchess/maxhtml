@@ -52,7 +52,7 @@ only**.
 - **Charts** — frame each in a normal `<mh-card>` (`<header>` title, body = the chart, `<footer>` = legend of `<small>` items). The chart marks carry their *data* (the one place numeric data rides in markup):
   - Bar chart: `<mh-bars>` of `<mh-bar style="--v:0.62">` — `--v` is the value, 0–1.
   - Donut: `<mh-donut style="--p1:40; --p2:30; --p3:20; --p4:10">` — segment percentages (palette `--mh-c1…c5`).
-  - Line/area: an inline `<svg viewBox="0 0 W H" preserveAspectRatio="none">` with `<polygon>` (area), `<polyline>` (line), `<circle>` (points), `<line>` (gridlines) — the kit styles each by tag.
+  - Line/area: an inline `<svg viewBox="0 0 W H" preserveAspectRatio="none">` with `<polygon>` (area), `<polyline>` (line), `<path d="M x,y l0,0">` per data point (a round-capped zero-length stroke — stays a circle under the non-uniform stretch; a `<circle>` would oval), `<line>` (gridlines) — the kit styles each by tag.
 - `<mh-thread>` of `<mh-bubble>` — sender-aligned messaging thread. A plain `<mh-bubble>` is incoming (left); `<mh-bubble me>` is the current user's own (right, accent). A `<small>` in a bubble is its timestamp; a `<header>` in the thread is a day divider. (For avatar+author+body conversation rows use `<mh-message>` instead.) The conversation **list** beside it is a reused `<mh-list>` (active row `aria-current`); the composer is a reused `<form>`.
 - `<mh-center>` — centers one child in the viewport (auth, empty states). Child is usually an `<mh-card>` with a `<form>`.
 - `<mh-profile>` — profile header. Children: a big `<mh-avatar>` + a `<header>` (`<h1>` name + `<p>` meta) + a `<footer>` of actions.
@@ -126,7 +126,101 @@ layout, sizing, or colour.
 If a layout tempts you toward `style=` and it is **not** a free-form canvas, stop
 and ask instead (rule 4).
 
-## Example
+## Page recipes (whole-page shapes)
+
+These are the conventional whole-page assemblies. When asked for a "dashboard", a
+"settings page", a "management page", etc., **start from the matching skeleton and
+fill the slots** — don't reinvent the shell. Each is just a composition of the
+vocabulary above; nothing new. `…` marks where you add real content.
+
+**Dashboard / overview** — app shell, KPI tiles, then cards / charts / tables.
+
+```html
+<mh-app>
+  <mh-navbar>…</mh-navbar>
+  <mh-sidemenu>…</mh-sidemenu>
+  <main><mh-page>
+    <header><h1>Overview</h1><button>New report</button></header>
+    <mh-grid><mh-stat>…</mh-stat>…</mh-grid>
+    <mh-card><header>Revenue</header>… chart …</mh-card>
+    <mh-card><header>Recent activity</header><table>…</table></mh-card>
+  </mh-page></main>
+</mh-app>
+```
+
+**Resource management** — a list of records, each with row actions, plus side
+cards (e.g. config, danger zone). (Deployments, project settings, members.)
+
+```html
+<mh-app>… shell …
+  <main><mh-page>
+    <header><h1>northwind-api</h1><button>Deploy</button></header>
+    <mh-card><header>Deployments</header><mh-list>
+      <mh-item>
+        <header><strong>main <mh-badge tone="success">Production</mh-badge></strong>
+          <small>a1b2c3d · Ada Lovelace · 2m ago</small></header>
+        <footer><button disabled>Promote</button><button type=button>Rollback</button>
+          <button type=button>Delete</button></footer>
+      </mh-item>…
+    </mh-list></mh-card>
+    <mh-card><header>Danger zone</header>
+      <mh-alert tone="danger"><strong>These actions are irreversible.</strong> …</mh-alert>
+      <footer><button type=button>Delete project</button></footer>
+    </mh-card>
+  </mh-page></main>
+</mh-app>
+```
+
+**Settings / preferences** — tabs over stacked cards (forms, switch rows, a
+`<details>` danger zone).
+
+```html
+<mh-app>… shell …
+  <main><mh-page>
+    <header><h1>Settings</h1></header>
+    <mh-tabs><a aria-current="page">Account</a><a href="#">Billing</a>…</mh-tabs>
+    <mh-card><header>Profile</header><form>…<button>Save changes</button></form></mh-card>
+    <mh-card><header>Notifications</header><mh-list>
+      <mh-item><header><strong>Product updates</strong><small>…</small></header>
+        <footer><input type=checkbox role=switch checked></footer></mh-item>…
+    </mh-list></mh-card>
+  </mh-page></main>
+</mh-app>
+```
+
+**Master / detail (two-pane)** — a list on the left, the selected record on the
+right. (Inbox, messaging, contacts.)
+
+```html
+<mh-layout>
+  <mh-sidemenu>…<mh-list><mh-item aria-current="page">…</mh-item>…</mh-list></mh-sidemenu>
+  <main>
+    <mh-navbar>… record header …</mh-navbar>
+    … the record: an <mh-thread>, a <table> property panel, or <mh-card>s …
+  </main>
+</mh-layout>
+```
+
+**Auth (centered)** — one card centered in the viewport.
+
+```html
+<mh-center><mh-card>
+  <header>Sign in to Acme</header>
+  <form><label>Email<input type=email></label>…<button>Sign in</button></form>
+  <footer><a href="#">Create account</a><a href="#">Forgot password?</a></footer>
+</mh-card></mh-center>
+```
+
+**Landing / marketing** — navbar, hero, then content bands.
+
+```html
+<mh-navbar><strong>Brand</strong><a href="#">Pricing</a>…</mh-navbar>
+<mh-hero><h1>…</h1><p>…</p>
+  <footer><button>Start free trial</button><button type=button>Book a demo</button></footer></mh-hero>
+<mh-section><h2>…</h2><mh-grid><mh-card>…</mh-card>…</mh-grid></mh-section>
+```
+
+## Minimal example
 
 ```html
 <mh-layout>
