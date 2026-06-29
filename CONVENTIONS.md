@@ -111,12 +111,12 @@ Inside a slot, tell primitives apart by **context + role**, never by counting:
 | `mh-navbar` | horizontal top bar | `<strong>` (brand) + `<a>` links |
 | `mh-card` | titled container | `<header>` + body + `<footer>` (actions) |
 | `mh-stat` | metric tile | `<header>` (label) + `<strong>` (value) + `<small>` (delta) |
-| `mh-menu` | dropdown (needs `mh-menu.js`) | `<button>` (trigger) + `<a>` items |
+| `mh-menu` | dropdown (needs `maxhtml.js`) | `<button>` (trigger) + `<a>` items |
 | `mh-tooltip` | themed hover/focus hint | a trigger + `<small role="tooltip">` tip; a11y via `aria-describedby`+`id`. **Placement is automatic** (top + anchor-positioning auto-flip; no placement attribute to emit). Plain hints: use native `title` instead |
 | `mh-avatar` | round user image | an `<img>` (photo), initials when the name is known (`AL`), or `<mh-icon name="user">` when anonymous — never an emoji face |
 | `mh-icon` | icon (atom) | `<mh-icon name="…">` — a mask-based SVG that lives in `maxhtml.css`; `background: currentColor` so it takes the surrounding text colour and is fully themeable. Model emits only the tag + `name` (the artwork is amortised, ~emoji cost). Closed icon set; add one = add a mask rule |
 | `mh-badge` | status pill (atom) | a short label; status colour rides the native **`tone`** attribute (`tone="success\|warning\|danger\|info"`, no attribute = neutral) → a leading colour dot + faint tint. Label stays as text. Count/decorative badge → an `<mh-icon>` inside instead (`<mh-icon name="message"> 18`) |
-| `<dialog>` | modal (needs `mh-dialog.js`) | `<header>` + body/`<form>` + `<footer>`; open via `<button commandfor="id">`. **Image variant (lightbox):** content is an `<img>` → wide, dark photo viewer, keyed on structure (`dialog:has(> img)`), no new tag/hook |
+| `<dialog>` | modal (needs `maxhtml.js`) | `<header>` + body/`<form>` + `<footer>`; open via `<button commandfor="id">`. **Image variant (lightbox):** content is an `<img>` → wide, dark photo viewer, keyed on structure (`dialog:has(> img)`), no new tag/hook |
 | `<table>` | data table | native — styled by the kit, no classes. **Property panel variant:** a row label as `<th scope="row">` in `<tbody>` → muted/narrow key column (keyed on structure, no hook) |
 | `mh-tabs` | horizontal in-page section nav (settings, profile, product detail) | `<a>` tabs; active = `aria-current="page"` (same model as `mh-submenu`). Each routes to its own URL — the content-level cousin of the vertical sidebar nav. In-page panel switching needs JS |
 | `mh-alert` | inline notice / banner | optional `<strong>` lead + body + trailing `<button>`; severity rides the native **`tone`** attribute (same axis as `mh-badge`) → tinted left border + a matching severity icon, both from the stylesheet (no attribute = neutral accent notice) |
@@ -128,7 +128,7 @@ Inside a slot, tell primitives apart by **context + role**, never by counting:
 | `mh-pagination` | numbered pager (search results, tables, index) | `<a>` page links (current = `aria-current="page"`) + prev/next (`aria-disabled="true"` to disable an end) + `<small>` ellipsis |
 | `<dialog>` command-palette variant | ⌘K palette | a `<dialog>` whose content leads with `<input type=search>` → top-anchored, search-first (results in `mh-list`, hints as `<kbd>`). Keyed on structure, like the lightbox — no new tag |
 | prose atoms | lists · blockquote · kbd · code | native `<ul>`/`<ol>`/`<li>`, `<blockquote>`, `<pre><code>`, inline `<code>`, `<kbd>` — styled by the kit for long-form docs |
-| `mh-toasts` | fixed transient-notification stack (bottom-right) | children are reused `<mh-alert tone>`s + a `<button>✕</button>`. Position is chrome (CSS, not a data hook); zero JS to render. `mh-toast.js` adds auto-dismiss + `mhToast(html, {tone})` / `[data-toast][data-tone]` spawn |
+| `mh-toasts` | fixed transient-notification stack (bottom-right) | children are reused `<mh-alert tone>`s + a `<button>✕</button>`. Position is chrome (CSS, not a data hook); zero JS to render. `maxhtml.js` adds auto-dismiss + `mhToast(html, {tone})` / `[data-toast][data-tone]` spawn |
 | `mh-empty` | empty / zero state | optional big leading `<strong>` glyph + `<h2>` + `<p>` + optional `<footer>` actions |
 | `mh-skeleton` / `mh-spinner` | loading atoms | `<mh-skeleton>` = pulsing placeholder line (stack for paragraph/card); `<mh-spinner>` = indeterminate ring (determinate → `<progress>`) |
 | `mh-prompt` | dark "paste this" prompt / terminal block (LLM / dev-tool landing) | prompt **text** only (whitespace preserved, author flush-left); optional `<a>` links + `<strong>` emphasis. Reuses the `--mh-scrim` dark surface tokens |

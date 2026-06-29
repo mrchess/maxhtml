@@ -1,6 +1,6 @@
 <h1>Toasts</h1>
-<p><code>&lt;mh-toasts&gt;</code> is a fixed, viewport-anchored stack of transient notifications (bottom-right). Children are reused <code>&lt;mh-alert&gt;</code>s — severity rides the shared <code>tone</code> axis, no per-toast styling. <strong>The finding:</strong> a toast's <em>position</em> is chrome — a constant viewport offset, like a tooltip's anchor — so it lives in the stylesheet, <strong>not a per-element data hook, and not a wall</strong>. It renders and stacks with zero JS. Only the <em>lifecycle</em> (spawn on an event, auto-dismiss) is behavior — a progressive-enhancement layer (<code>mh-toast.js</code>), exactly like <code>mh-menu</code>/<code>mh-dialog</code>.</p>
-<h2>Try it (mh-toast.js loaded)</h2>
+<p><code>&lt;mh-toasts&gt;</code> is a fixed, viewport-anchored stack of transient notifications (bottom-right). Children are reused <code>&lt;mh-alert&gt;</code>s — severity rides the shared <code>tone</code> axis, no per-toast styling. <strong>The finding:</strong> a toast's <em>position</em> is chrome — a constant viewport offset, like a tooltip's anchor — so it lives in the stylesheet, <strong>not a per-element data hook, and not a wall</strong>. It renders and stacks with zero JS. Only the <em>lifecycle</em> (spawn on an event, auto-dismiss) is behavior — a progressive-enhancement layer (<code>maxhtml.js</code>), exactly like <code>mh-menu</code>/<code>mh-dialog</code>.</p>
+<h2>Try it (maxhtml.js loaded)</h2>
 <figure>
 <button type=button data-toast="<strong>Saved.</strong> Your changes are stored." data-tone="success">Show a toast</button>
 <button type=button data-toast="<strong>Heads up.</strong> api-eu latency is rising." data-tone="warning">Warning toast</button>
@@ -11,6 +11,6 @@
   &lt;mh-alert tone="success"&gt;&lt;strong&gt;Deploy finished.&lt;/strong&gt; v2.3.1 is live.&lt;button type=button&gt;✕&lt;/button&gt;&lt;/mh-alert&gt;
 &lt;/mh-toasts&gt;
 
-&lt;!-- behavior (mh-toast.js): auto-dismiss + spawn on an event --&gt;
+&lt;!-- behavior (maxhtml.js): auto-dismiss + spawn on an event --&gt;
 &lt;button data-toast="&lt;strong&gt;Saved.&lt;/strong&gt; …" data-tone="success"&gt;Save&lt;/button&gt;   &lt;!-- declarative --&gt;
 mhToast('&lt;strong&gt;High latency.&lt;/strong&gt; api-eu p95 &gt; 500ms', {tone: 'warning'});     // programmatic</code></pre>

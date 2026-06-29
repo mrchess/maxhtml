@@ -9,13 +9,12 @@ page shell; the model emits markup only and never links these:
 
 ```html
 <link rel=stylesheet href="https://mrchess.github.io/maxhtml/maxhtml.css">
-<script src="https://mrchess.github.io/maxhtml/mh-menu.js"></script>   <!-- dropdowns -->
-<script src="https://mrchess.github.io/maxhtml/mh-dialog.js"></script> <!-- modals -->
-<script src="https://mrchess.github.io/maxhtml/mh-toast.js"></script>  <!-- auto-dismiss toasts -->
+<script src="https://mrchess.github.io/maxhtml/maxhtml.js"></script>
 ```
 
-Include all three scripts — each is tiny and no-ops unless its component
-(`<mh-menu>` / `<dialog>` / `<mh-toasts>`) is present. The URLs are GitHub Pages
+`maxhtml.js` is the one behavior layer (dropdowns, modals, auto-dismiss toasts);
+it self-gates — each part no-ops unless its component (`<mh-menu>` / `<dialog>` /
+`<mh-toasts>`) is present, so always include it. The URLs are GitHub Pages
 (correct `text/css`/JS MIME, CDN-backed); once you cut a version, pin them to a
 tag via `https://cdn.jsdelivr.net/gh/mrchess/maxhtml@<tag>/…`.
 
@@ -96,7 +95,7 @@ only**.
 - `<progress value="40" max="100">` — native determinate **progress bar** (uploads, completion, goals). Omit `value` for an indeterminate bar.
 - `<mh-pagination>` — numbered **pager** for paged lists (search results, tables, an index). Children: `<a>` page links (current = `aria-current="page"`), prev/next `<a>` (disable an end with `aria-disabled="true"`), and a `<small>` for an `…` ellipsis.
 - **Command palette (⌘K):** a `<dialog>` whose content starts with `<input type=search>` renders as a top-anchored, search-first command palette (results in an `mh-list`, key hints as `<kbd>`). Same tag + open/close wiring as any dialog; keyed on structure, no new tag.
-- `<mh-toasts>` — fixed bottom-right **stack of transient notifications**. Children are `<mh-alert tone="…">`s, each with an optional `<button>✕</button>`. Renders, positions, and stacks with **zero JS**. Auto-dismiss + spawn-on-event need `mh-toast.js` (load it, then `<button data-toast="…" data-tone="success">` or `mhToast('…', {tone:'success'})`).
+- `<mh-toasts>` — fixed bottom-right **stack of transient notifications**. Children are `<mh-alert tone="…">`s, each with an optional `<button>✕</button>`. Renders, positions, and stacks with **zero JS**. Auto-dismiss + spawn-on-event need `maxhtml.js` (load it, then `<button data-toast="…" data-tone="success">` or `mhToast('…', {tone:'success'})`).
 - `<mh-empty>` — **empty / zero state** (no results, empty inbox, all-clear board). An optional big leading `<strong>` glyph + `<h2>` headline + `<p>` + optional `<footer>` of actions.
 - `<mh-skeleton>` — pulsing **loading placeholder** line; stack a few for a paragraph/card. `<mh-spinner>` — indeterminate **loading ring** (inline in a button or beside a "streaming…" label).
 - `<mh-prompt>` — dark **"paste this" prompt / terminal block** (a system prompt or a shell command — the hero artifact of an LLM/dev-tool landing). Emit the prompt **text only**; the dark styling lives in the stylesheet. Whitespace is preserved — author lines flush-left. Optional `<a>` links and `<strong>` emphasis inside.

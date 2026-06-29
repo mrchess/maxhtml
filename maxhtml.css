@@ -213,7 +213,7 @@
 }
 :where(mh-navbar a:hover) { color: var(--mh-fg); }
 
-/* ===== component: <mh-menu> (behavior layer — needs mh-menu.js) ========== */
+/* ===== component: <mh-menu> (behavior layer — needs maxhtml.js) ========== */
 /* Authored as <button> + <a> items. The JS wraps the items in a <menu> popup
    and toggles [open]. With no JS, the items just show as a static list.       */
 :where(mh-menu) { position: relative; display: inline-block; }
@@ -484,7 +484,7 @@
 :where(mh-profile > header > p)  { margin: 0; color: var(--mh-muted); }
 :where(mh-profile > footer) { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
 
-/* ===== component: <dialog> (modal — needs mh-dialog.js to open) ========= */
+/* ===== component: <dialog> (modal — needs maxhtml.js to open) ========= */
 /* Trigger with <button commandfor="dlgId">. Closes on any dialog button, the
    backdrop, or Esc (native). Slots: <header> + body/<form> + <footer>.        */
 :where(dialog) {
@@ -548,7 +548,7 @@
 /* ===== <dialog> image variant (lightbox — behavior reused from <dialog>) = */
 /* A <dialog> whose direct content is an <img> becomes an image-hero lightbox:
    wide, dark, the photo centered. It reuses the native <dialog> and
-   mh-dialog.js verbatim — open with <button commandfor>, close on the backdrop,
+   maxhtml.js verbatim — open with <button commandfor>, close on the backdrop,
    Esc, or any footer button. No new tag, no new JS; the variant is keyed on
    STRUCTURE (the dialog contains an image), never a class/data hook. */
 :where(dialog:has(> img)),
@@ -1479,7 +1479,7 @@
 
 /* ===== <dialog> command-palette variant (⌘K) ========================== */
 /* A <dialog> built around a search input becomes a top-anchored command palette:
-   wide, search-first, results below. Reuses native <dialog> + mh-dialog.js
+   wide, search-first, results below. Reuses native <dialog> + maxhtml.js
    verbatim (open via <button commandfor>, close on backdrop/Esc) — keyed on
    STRUCTURE (the dialog contains a search input), never a class/hook, exactly
    like the lightbox (dialog:has(> img)). Put results in an mh-list; key hints
@@ -1546,14 +1546,14 @@
    toast's POSITION is chrome — a constant viewport offset, like mh-tooltip's
    anchor — so it lives in the sheet, NOT a per-element data hook, and NOT a
    wall. Only the LIFECYCLE (spawn-on-event + auto-dismiss) needs code — a
-   behavior-layer graduation (mh-toast.js), exactly like mh-menu/mh-dialog.
+   behavior-layer graduation (maxhtml.js), exactly like mh-menu/mh-dialog.
    ========================================================================= */
 
 /* ===== composite: <mh-toasts> (transient notification stack) =========== */
 /* A fixed, viewport-anchored, bottom-right stack. Children are reused <mh-alert>s
    (severity rides the shared [tone] axis — no per-toast styling); the container
    restyles them as compact floating cards and stacks them with flex. Renders
-   fully with ZERO JS; mh-toast.js adds only auto-dismiss + a push() API. */
+   fully with ZERO JS; maxhtml.js adds only auto-dismiss + a push() API. */
 :where(mh-toasts) {
   position: fixed;
   bottom: 1.25rem;

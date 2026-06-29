@@ -127,9 +127,9 @@ the count is the entire point.
 | Path | What |
 |---|---|
 | `maxhtml.css` | the library — tokens + components/composites, all `:where()`, slots scoped with `> tag` |
-| `mh-menu.js`, `mh-dialog.js` | behavior layers (Web Components / native dialog) for the few components needing JS |
+| `maxhtml.js` | the one behavior layer (Web Component menu, native dialog, toasts) for the few components needing JS; self-gating. `mh-canvas.js` is the separate escape-hatch (canvas) layer |
 | `index.html` + `storybook.css` + `stories/` | dogfooded explorer; a fetch router loads `stories/<id>.html` into the shell |
-| `recipes/*.html` (e.g. `login`, `dashboard`, `landing`) | recipe pages — standalone, link only `../maxhtml.css`, zero styling emitted |
+| `recipes/*.html` (e.g. `login`, `dashboard`, `landing`) | recipe pages — standalone, link `../maxhtml.css` (+ `../maxhtml.js` when they use menus/dialogs/toasts), zero styling emitted |
 | `PROMPT.md` | the rail — system prompt that keeps an LLM emitting MaxHTML (markup only) |
 | `CONVENTIONS.md` | vocabulary, naming rule, the slot model, theming tokens, translation table |
 | `experiments/saturation.md` | the saturation-experiment protocol + running log |

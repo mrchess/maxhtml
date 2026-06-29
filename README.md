@@ -140,7 +140,8 @@ Most components are pure CSS (undefined custom elements styled by the
 stylesheet) — they render instantly with no JS. A component graduates to a real
 Web Component *only* when it needs behavior CSS can't express. `mh-menu` is the
 example: a dropdown needs close-on-outside-click, close-on-Escape, and live
-`aria-expanded` — so it's [mh-menu.js](mh-menu.js), loaded with one `<script>`.
+`aria-expanded` — so its behavior lives in [maxhtml.js](maxhtml.js) (the one
+behavior layer for menus, dialogs, and toasts), loaded with one `<script>`.
 The `mh-` prefix means the same markup works either way.
 
 ## Honest limitations
