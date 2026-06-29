@@ -70,17 +70,14 @@
 
 <mh-section>
 <h2>Try it</h2>
-<p><strong>1 · Set up the page once.</strong> Load the kit in your HTML shell — the model never re-emits this — then paste the markup it returns into the <code>&lt;body&gt;</code>.</p>
-<pre><code>&lt;!doctype html&gt;
-&lt;link rel=stylesheet href="https://mrchess.github.io/maxhtml/maxhtml.css"&gt;
-&lt;script src="https://mrchess.github.io/maxhtml/maxhtml.js"&gt;&lt;/script&gt;
-&lt;body&gt;
-  &lt;!-- paste the model's MaxHTML markup here --&gt;
-&lt;/body&gt;</code></pre>
-<p><strong>2 · Paste this system prompt</strong> into Claude, then ask for any screen.</p>
-<mh-prompt>You build UI as MaxHTML — a closed kit of <strong>mh-*</strong> components styled by an already-loaded stylesheet. Emit MARKUP ONLY: no style="", no &lt;style&gt;/CSS, no &lt;div&gt;/&lt;span&gt;, no class/data-*. Variants ride native attributes (&lt;button&gt; = primary, &lt;button type=button&gt; = secondary, tone="danger" …). Need a component you don't know? Ask — don't improvise.
+<p>Paste this system prompt into Claude, ask for any screen, then save the reply as an <code>.html</code> file and open it — the prompt has the model link the kit for you, so it just works.</p>
+<mh-prompt>You build UI as MaxHTML — a closed kit of <strong>mh-*</strong> components styled by one external stylesheet. Emit MARKUP ONLY: no style="", no &lt;style&gt;/CSS, no &lt;div&gt;/&lt;span&gt;, no class/data-*. Variants ride native attributes (&lt;button&gt; = primary, &lt;button type=button&gt; = secondary, tone="danger" …). Output a COMPLETE page that loads the kit once in &lt;head&gt;:
+  &lt;link rel=stylesheet href="https://mrchess.github.io/maxhtml/maxhtml.css"&gt;
+  &lt;script src="https://mrchess.github.io/maxhtml/maxhtml.js"&gt;&lt;/script&gt;
+Need a component you don't know? Ask — don't improvise.
 
 Full vocabulary + rules: <a href="https://mrchess.github.io/maxhtml/PROMPT.md">https://mrchess.github.io/maxhtml/PROMPT.md</a>
 
 <strong>Now build: a dashboard with a sidebar, four stat tiles, and a recent-activity table.</strong></mh-prompt>
+<p><small>Embedding in an app that already loads the kit? Drop the <code>&lt;head&gt;</code> lines from the prompt and ask for just the markup.</small></p>
 </mh-section>
