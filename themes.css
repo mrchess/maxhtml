@@ -26,7 +26,7 @@
   --mh-fg:        #e8eaf6;
   --mh-muted:     #9aa2c6;
   --mh-line:      rgba(255, 255, 255, 0.12);
-  --mh-accent:    #4d8bff;
+  --mh-accent:    #8b7cf6;   /* violet — matches the indigo gradient, not the info-blue */
   --mh-accent-fg: #ffffff;
   --mh-scrim:     #000000;
   --mh-scrim-fg:  #e8eaf6;
@@ -39,7 +39,33 @@
   --mh-shadow-lg: 0 24px 64px rgba(0,0,0,.55);
   --mh-backdrop:  rgba(8,10,24,.6);
   --mh-blur:      blur(16px) saturate(1.6);  /* the frost */
-  --mh-c1: #4d8bff;  --mh-c2: #a78bfa;  --mh-c3: #fbbf24;  --mh-c4: #f472b6;  --mh-c5: #4ade80;
+  --mh-c1: #5b9bff;  --mh-c2: #a78bfa;  --mh-c3: #fbbf24;  --mh-c4: #f472b6;  --mh-c5: #4ade80;
+  --mh-heading-tracking: -0.02em;
+  --mh-radius:    14px;
+}
+
+/* glass-light — frosted glass on a soft light gradient, indigo accent */
+:root[data-theme="glass-light"] {
+  --mh-bg:        linear-gradient(135deg, #eef1fb 0%, #ece8fb 45%, #e4f1fb 100%) fixed;
+  --mh-panel:     rgba(255, 255, 255, 0.55);   /* see-through card/dialog/menu fill */
+  --mh-surface:   rgba(255, 255, 255, 0.42);   /* see-through sidebar / recessed */
+  --mh-fg:        #1e2233;
+  --mh-muted:     #5c6280;
+  --mh-line:      rgba(20, 24, 70, 0.10);
+  --mh-accent:    #6246ea;   /* indigo (from the shadcn inspiration) */
+  --mh-accent-fg: #ffffff;
+  --mh-scrim:     #0e1116;
+  --mh-scrim-fg:  #f2f4f7;
+  --mh-danger:    #dc2626;
+  --mh-success:   #16a34a;
+  --mh-warning:   #d97706;
+  --mh-info:      #2563eb;
+  --mh-hover:     rgba(20,24,70,.05);
+  --mh-shadow:    0 8px 32px rgba(60,50,120,.12);
+  --mh-shadow-lg: 0 24px 64px rgba(60,50,120,.18);
+  --mh-backdrop:  rgba(30,34,60,.35);
+  --mh-blur:      blur(16px) saturate(1.6);  /* the frost */
+  --mh-c1: #6246ea;  --mh-c2: #2563eb;  --mh-c3: #d97706;  --mh-c4: #db2777;  --mh-c5: #16a34a;
   --mh-heading-tracking: -0.02em;
   --mh-radius:    14px;
 }
