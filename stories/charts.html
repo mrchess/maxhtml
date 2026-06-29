@@ -34,7 +34,7 @@
 </figure>
 
 <h2>Line / area — a styled inline <code>&lt;svg&gt;</code> (escape hatch)</h2>
-<p>Multi-point geometry can't be a scalar, so the points live in the markup. The kit styles by SVG element type (no classes): <code>polygon</code> = area fill, <code>polyline</code> = line, <code>circle</code> = points, <code>line</code> = gridlines. Use <code>preserveAspectRatio="none"</code> so it fills the card.</p>
+<p>Multi-point geometry can't be a scalar, so the points live in the markup. The kit styles by SVG element type (no classes): <code>polygon</code> = area fill, <code>polyline</code> = line, <code>path</code> = points (a round-capped zero-length stroke, so it stays circular under the non-uniform stretch — a <code>circle</code> would oval), <code>line</code> = gridlines. Use <code>preserveAspectRatio="none"</code> so it fills the card.</p>
 <figure>
 <mh-card>
 <header>Revenue</header>
@@ -44,7 +44,7 @@
 <line x1=0 y1=105 x2=320 y2=105></line>
 <polygon points="0,140 0,110 45,92 90,98 135,62 180,72 225,42 270,52 315,24 320,24 320,140"></polygon>
 <polyline points="0,110 45,92 90,98 135,62 180,72 225,42 270,52 315,24"></polyline>
-<circle cx=135 cy=62 r=3></circle><circle cx=225 cy=42 r=3></circle><circle cx=315 cy=24 r=3></circle>
+<path d="M135,62 l0,0"></path><path d="M225,42 l0,0"></path><path d="M315,24 l0,0"></path>
 </svg>
 </mh-card>
 </figure>

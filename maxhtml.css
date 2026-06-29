@@ -962,7 +962,13 @@
 :where(mh-card svg) { display: block; width: 100%; height: 13rem; overflow: visible; }
 :where(mh-card svg polygon) { fill: var(--mh-accent); opacity: .12; }                 /* area fill */
 :where(mh-card svg polyline) { fill: none; stroke: var(--mh-accent); stroke-width: 2; vector-effect: non-scaling-stroke; }
-:where(mh-card svg circle)   { fill: var(--mh-accent); }                              /* data points */
+/* data points: a zero-length <path> with a round cap. The cap is screen-space
+   (non-scaling-stroke), so it stays a perfect circle even though the chart is
+   stretched non-uniformly by preserveAspectRatio="none" — a <circle> would oval. */
+:where(mh-card svg path) {
+  fill: none; stroke: var(--mh-accent); stroke-width: 6;
+  stroke-linecap: round; vector-effect: non-scaling-stroke;
+}
 :where(mh-card svg line)     { stroke: var(--mh-line); stroke-width: 1; vector-effect: non-scaling-stroke; }  /* gridlines */
 
 /* ----- legend: a row of <small> swatches under a chart (in the card footer) - */
