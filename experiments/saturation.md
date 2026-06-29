@@ -64,6 +64,7 @@ Primitives: `button` `form` `label` `input` `textarea` `h1`–`h6` `p` `a`
 | 9 | E-commerce (Mercantile) — storefront + checkout | product detail, cart, multi-step checkout, confirmation | **3** | `mh-carousel`, `mh-breadcrumb`, `mh-steps` | **mh-tabs** (app 8 — desc/reviews), mh-navbar, mh-page, **mh-grid** (dense address), mh-card, **table** (property-panel summary), **mh-alert** (app 8), mh-badge, select/radio + `<input type=number>` qty, native `<progress>` | none — uptick is real, not a wall (see notes) |
 | 10 | Docs / help center (Acme Docs) — knowledge base | article, API reference, search, FAQ | **1** | `mh-pagination` | **mh-layout**, **mh-sidemenu/submenu** (nav tree), **mh-breadcrumb** (app 9), **mh-card** (TOC), **mh-alert** (callout, app 8), **table** (API params), **`<details>`** FAQ (app 8), **`<dialog>`** ⌘K palette refinement, **mh-list** (results), prose atoms (ul/ol/blockquote/kbd) | none — fully on-rails |
 | 11 | Live ops / monitoring (Beacon) — observability | overview (status + chart), services, live log, empty state | **2** | `mh-toasts`, `mh-empty` | mh-app/page/grid/**mh-stat**, mh-card, **table** + **mh-badge** (services/log), **mh-bars** (chart), **mh-alert** (toast content), native atoms **mh-skeleton**/**mh-spinner** | none — toasts are a behavior layer, not a wall (see notes) |
+| 12 | Cloud hosting / deploys (Northwind) — devops | deployments page (header + deploy table + env vars + danger zone) | **0** | — | mh-app/navbar/sidemenu, **mh-page** header + primary button, **mh-card** ×3, **mh-list/mh-item** (deploy rows: meta+badge header, action footer), **mh-badge** `tone` (Production/Preview/Failed), **table** (env vars), **mh-alert** `tone="danger"`, `<button>`/`type=button`/`disabled` | none — fully on-rails, zero new (see notes) |
 
 **Cross-cutting resolution (post-app-11): the colour-variant wall → the `tone`
 primitive.** The one wall that recurred — semantic status/severity *colour* —
@@ -287,6 +288,30 @@ layer, or a wall?* **Answer: behavior layer, not a wall — and not a data hook.
 - **The dashboard chrome was pure reuse:** `mh-stat` status tiles, `table` +
   `mh-badge` for the services grid and the live log, `mh-bars` for the chart,
   `mh-alert` as the toast content. Curve: **… → 1 → 2.**
+
+**App 12 notes (Cloud hosting / deploys — the zero-composite confirmation).** A
+Vercel/Railway-style deployments page — header + deploy table + env vars + danger
+zone — built with **zero new composites**, the strongest possible saturation
+result for a fresh domain (devops). Every section fell out of existing vocabulary:
+- **The "deployments table" is `mh-list`/`mh-item`, not `<table>`.** The honest
+  call of the build: each row carries branch + status badge + commit/author/time
+  **and** a footer of three actions (Promote / Rollback / Delete). A per-row
+  *action footer stacked under metadata* is an **item** shape (the same one the
+  settings notifications list uses — `<header>` meta + `<footer>` control), not a
+  tabular grid. Forcing it into a `<table>` would have been the jam the protocol
+  warns against. Primary vs secondary rides native attributes (`<button>` vs
+  `<button type=button>`), and the active (Production) row's Promote is just
+  `disabled` — no class, no hook.
+- **Status colour was free** because the recurring colour-variant wall is already
+  resolved: `mh-badge tone="success|info|danger"` renders Production / Preview /
+  Failed with a tinted dot — the exact payoff of the post-app-11 `tone` primitive,
+  reused verbatim from monitoring (#11).
+- **Env vars + danger zone are pure card reuse.** Env vars = `mh-card` + `<table>`
+  + an `Add variable` footer button. Danger zone = `mh-card` + `mh-alert
+  tone="danger"` (tinted border + severity icon) over two `type=button` actions.
+- **Walls:** none. Curve: **… → 2 → 0.** A brand-new domain landing on zero is the
+  saturation curve doing exactly what the bet predicted — the kit is generative,
+  not bespoke, across CRUD/content/commerce/docs/devops surface.
 
 ## Reading the curve after 11 apps (saturation re-run, apps 8–11)
 

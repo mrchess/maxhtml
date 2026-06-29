@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Deployments — MaxHTML recipe</title>
+<link rel=stylesheet href=maxhtml.css>
+</head>
+<body>
+<mh-app>
+<mh-navbar>
+<strong>Northwind</strong>
+<a href="#">Docs</a>
+<a href="#">Support</a>
+<mh-avatar><mh-icon name="user"></mh-icon></mh-avatar>
+</mh-navbar>
+<mh-sidemenu>
+<header>Northwind</header>
+<nav>
+<mh-submenu>
+<header>Project</header>
+<a href="deployments.html" aria-current=page>Deployments</a>
+<a href="#">Analytics</a>
+<a href="#">Logs</a>
+<a href="#">Storage</a>
+<a href="#">Domains</a>
+</mh-submenu>
+<mh-submenu>
+<header>Account</header>
+<a href="settings.html">Settings</a>
+<a href="#">Sign out</a>
+</mh-submenu>
+</nav>
+</mh-sidemenu>
+<main>
+<mh-page>
+<header>
+<h1>northwind-api</h1>
+<button>Deploy</button>
+</header>
+
+<mh-card>
+<header>Deployments</header>
+<mh-list>
+<mh-item>
+<header>
+<strong>main <mh-badge tone="success">Production</mh-badge></strong>
+<small><code>a1b2c3d</code> · Ada Lovelace · 2m ago</small>
+</header>
+<footer>
+<button disabled>Promote</button>
+<button type=button>Rollback</button>
+<button type=button>Delete</button>
+</footer>
+</mh-item>
+<mh-item>
+<header>
+<strong>feat/checkout-v2 <mh-badge tone="info">Preview</mh-badge></strong>
+<small><code>f4e5d6c</code> · Grace Hopper · 18m ago</small>
+</header>
+<footer>
+<button>Promote</button>
+<button type=button>Rollback</button>
+<button type=button>Delete</button>
+</footer>
+</mh-item>
+<mh-item>
+<header>
+<strong>fix/rate-limit <mh-badge tone="info">Preview</mh-badge></strong>
+<small><code>9b8c7d6</code> · Alan Turing · 1h ago</small>
+</header>
+<footer>
+<button>Promote</button>
+<button type=button>Rollback</button>
+<button type=button>Delete</button>
+</footer>
+</mh-item>
+<mh-item>
+<header>
+<strong>chore/deps-bump <mh-badge tone="danger">Failed</mh-badge></strong>
+<small><code>2e3f4a5</code> · Katherine Johnson · 3h ago</small>
+</header>
+<footer>
+<button>Promote</button>
+<button type=button>Rollback</button>
+<button type=button>Delete</button>
+</footer>
+</mh-item>
+<mh-item>
+<header>
+<strong>feat/search <mh-badge tone="info">Preview</mh-badge></strong>
+<small><code>7c6b5a4</code> · Margaret Hamilton · 5h ago</small>
+</header>
+<footer>
+<button>Promote</button>
+<button type=button>Rollback</button>
+<button type=button>Delete</button>
+</footer>
+</mh-item>
+</mh-list>
+</mh-card>
+
+<mh-card>
+<header>Environment Variables</header>
+<table>
+<thead><tr><th>Key</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td><code>DATABASE_URL</code></td><td><code>postgres://••••••••</code></td></tr>
+<tr><td><code>REDIS_URL</code></td><td><code>redis://••••••••</code></td></tr>
+<tr><td><code>STRIPE_SECRET_KEY</code></td><td><code>sk_live_••••••••</code></td></tr>
+<tr><td><code>LOG_LEVEL</code></td><td><code>info</code></td></tr>
+</tbody>
+</table>
+<footer><button>Add variable</button></footer>
+</mh-card>
+
+<mh-card>
+<header>Danger zone</header>
+<mh-alert tone="danger"><strong>These actions are irreversible.</strong> Transferring or deleting affects every environment and all team members.</mh-alert>
+<footer>
+<button type=button>Transfer project</button>
+<button type=button>Delete project</button>
+</footer>
+</mh-card>
+</mh-page>
+</main>
+</mh-app>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<h1>Deployments <small>(recipe)</small></h1>
+<p>A cloud-hosting deployments page (think Vercel/Railway) — and a <strong>zero-new-composite</strong> result. The whole screen is reuse: the shell (<code>mh-app</code>/<code>mh-navbar</code>/<code>mh-sidemenu</code>), the <code>mh-page</code> header with a primary <strong>Deploy</strong> button, and three <code>mh-card</code>s. The deployment "table" is a <strong><code>mh-list</code>/<code>mh-item</code></strong>: branch + status <code>mh-badge</code> + commit/author/time in the item <code>&lt;header&gt;</code>, and the row actions (Promote / Rollback / Delete) in the item <code>&lt;footer&gt;</code> — the per-row action footer is an <em>item</em> shape, not a tabular grid, so a real <code>&lt;table&gt;</code> would have been the wrong fit. Primary vs secondary rides native attributes (<code>&lt;button&gt;</code> vs <code>&lt;button type=button&gt;</code>); the active row's Promote is just <code>disabled</code>. Env vars are a plain <code>&lt;table&gt;</code> in a card with an <code>Add variable</code> footer button, and the Danger zone is a card with a <code>tone="danger"</code> <code>mh-alert</code> over its actions.</p>
+<h2>Live</h2>
+<iframe src="deployments.html" title="Deployments recipe"></iframe>
+<h2>Recipe</h2>
+<pre><code>&lt;mh-app&gt;…&lt;mh-navbar/&gt;…&lt;mh-sidemenu/&gt;
+  &lt;main&gt;&lt;mh-page&gt;
+    &lt;header&gt;&lt;h1&gt;northwind-api&lt;/h1&gt;&lt;button&gt;Deploy&lt;/button&gt;&lt;/header&gt;
+
+    &lt;mh-card&gt;&lt;header&gt;Deployments&lt;/header&gt;&lt;mh-list&gt;
+      &lt;mh-item&gt;
+        &lt;header&gt;&lt;strong&gt;main &lt;mh-badge tone="success"&gt;Production&lt;/mh-badge&gt;&lt;/strong&gt;
+          &lt;small&gt;&lt;code&gt;a1b2c3d&lt;/code&gt; · Ada Lovelace · 2m ago&lt;/small&gt;&lt;/header&gt;
+        &lt;footer&gt;&lt;button disabled&gt;Promote&lt;/button&gt;&lt;button type=button&gt;Rollback&lt;/button&gt;
+          &lt;button type=button&gt;Delete&lt;/button&gt;&lt;/footer&gt;
+      &lt;/mh-item&gt;
+      &lt;mh-item&gt;…&lt;mh-badge tone="info"&gt;Preview&lt;/mh-badge&gt;…&lt;button&gt;Promote&lt;/button&gt;…&lt;/mh-item&gt;
+      &lt;mh-item&gt;…&lt;mh-badge tone="danger"&gt;Failed&lt;/mh-badge&gt;…&lt;/mh-item&gt;
+    &lt;/mh-list&gt;&lt;/mh-card&gt;
+
+    &lt;mh-card&gt;&lt;header&gt;Environment Variables&lt;/header&gt;&lt;table&gt;
+      &lt;tr&gt;&lt;td&gt;&lt;code&gt;DATABASE_URL&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;postgres://••••&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;…
+    &lt;/table&gt;&lt;footer&gt;&lt;button&gt;Add variable&lt;/button&gt;&lt;/footer&gt;&lt;/mh-card&gt;
+
+    &lt;mh-card&gt;&lt;header&gt;Danger zone&lt;/header&gt;
+      &lt;mh-alert tone="danger"&gt;&lt;strong&gt;These actions are irreversible.&lt;/strong&gt;…&lt;/mh-alert&gt;
+      &lt;footer&gt;&lt;button type=button&gt;Transfer project&lt;/button&gt;
+        &lt;button type=button&gt;Delete project&lt;/button&gt;&lt;/footer&gt;&lt;/mh-card&gt;
+  &lt;/mh-page&gt;&lt;/main&gt;
+&lt;/mh-app&gt;</code></pre>
