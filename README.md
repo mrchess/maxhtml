@@ -118,12 +118,12 @@ Then open any of these:
 
 | URL | What |
 |---|---|
-| http://localhost:8080/storybook.html | **Start here** — the dogfooded component explorer |
-| `…/login.html` `…/dashboard.html` `…/friends.html` `…/profile.html` `…/landing.html` | baseline recipe pages |
-| `…/albums.html` `…/photos.html` | photos app |
-| `…/calendar.html` `…/booking.html` | calendar / booking app |
-| `…/crm.html` `…/contact.html` `…/pipeline.html` | CRM app |
-| `…/forum.html` `…/thread.html` `…/chat.html` | forum / chat app |
+| http://localhost:8080/index.html | **Start here** — the dogfooded component explorer |
+| `…/recipes/login.html` `…/recipes/dashboard.html` `…/recipes/friends.html` `…/recipes/profile.html` `…/recipes/landing.html` | baseline recipe pages |
+| `…/recipes/albums.html` `…/recipes/photos.html` | photos app |
+| `…/recipes/calendar.html` `…/recipes/booking.html` | calendar / booking app |
+| `…/recipes/crm.html` `…/recipes/contact.html` `…/recipes/pipeline.html` | CRM app |
+| `…/recipes/forum.html` `…/recipes/thread.html` `…/recipes/chat.html` | forum / chat app |
 
 Any other static server works too — e.g. `npx serve` or `php -S localhost:8080`.
 

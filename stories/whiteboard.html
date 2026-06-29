@@ -1,7 +1,7 @@
 <h1>Whiteboard <small>(recipe — escape hatch)</small></h1>
 <p>A diagram editor — <code>mh-app</code> shell + <code>mh-canvas</code> with a floating <code>mh-toolbar</code>, an SVG connector layer, and draggable <code>mh-note</code> stickies. <strong>This is the first recipe that leaves the rail</strong>, and it's here to show exactly where and how.</p>
 <h2>Live <small>(drag the notes)</small></h2>
-<iframe src="whiteboard.html" title="Whiteboard recipe"></iframe>
+<iframe src="recipes/whiteboard.html" title="Whiteboard recipe"></iframe>
 <h2>What's on-rails vs. the escape hatch</h2>
 <p><strong>On-rails:</strong> the app shell, the floating <code>mh-toolbar</code> (buttons + <code>aria-pressed</code>), the note's <em>visual</em> box (paper, shadow, type — all in the stylesheet), and the dotted-grid canvas background. The toolbar's <em>anchor</em> (top-centre) is reusable chrome, so it lives in the sheet too.</p>
 <p><strong>Escape hatch:</strong> a canvas's substance is <em>per-element position</em> and <em>connector geometry</em> — that's <strong>data</strong>, unique per note, so it can't live in an external stylesheet. Positions ride on the custom properties <code>--x/--y/--w</code> (and colour on <code>--note</code>) set via <code>style="…"</code>. The <code>style</code> attribute carries <em>only data</em> here — never a visual rule — but it is still an exception to rule&nbsp;1 ("never write <code>style=</code>"). Connectors are a raw <code>&lt;svg&gt;</code> of <code>&lt;line&gt;</code>s with inline coordinates.</p>

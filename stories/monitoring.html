@@ -1,7 +1,7 @@
 <h1>Live ops / monitoring <small>(recipe)</small></h1>
 <p>A monitoring dashboard — chrome is pure reuse (<code>mh-app</code>/<code>mh-page</code>/<code>mh-grid</code>/<code>mh-stat</code> status tiles, <code>mh-card</code>, <code>&lt;table&gt;</code> + <code>mh-badge</code> service status, <code>mh-bars</code> chart). The new ground is the <strong>async/transient cluster</strong>: a fixed <code>mh-toasts</code> stack (bottom-right), <code>mh-skeleton</code> placeholders + <code>mh-spinner</code> for loading panels, and an <code>mh-empty</code> zero-state. The toasts render with zero styling and zero JS.</p>
 <h2>Live</h2>
-<iframe src="monitoring.html" title="Monitoring recipe"></iframe>
+<iframe src="recipes/monitoring.html" title="Monitoring recipe"></iframe>
 <h2>Recipe</h2>
 <pre><code>&lt;mh-app&gt;…&lt;mh-navbar/&gt;…&lt;mh-sidemenu/&gt;
   &lt;main&gt;&lt;mh-page&gt;

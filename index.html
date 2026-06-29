@@ -160,14 +160,15 @@ function currentTheme() {
 }
 
 // Mirror the active theme into a recipe iframe. Recipes link only maxhtml.css
-// (standalone by design), so we also inject themes.css on demand here.
+// (standalone by design), so we also inject themes.css on demand here. Recipes
+// live in recipes/, so the injected href is resolved relative to that frame.
 function themeFrame(f) {
   try {
     var doc = f.contentDocument;
     if (!doc || !doc.head) return;
     if (!doc.querySelector('link[data-mh-themes]')) {
       var link = doc.createElement('link');
-      link.rel = 'stylesheet'; link.href = 'themes.css'; link.setAttribute('data-mh-themes', '');
+      link.rel = 'stylesheet'; link.href = '../themes.css'; link.setAttribute('data-mh-themes', '');
       doc.head.appendChild(link);
     }
     var t = currentTheme();

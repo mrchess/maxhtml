@@ -1,7 +1,7 @@
 <h1>Deployments <small>(recipe)</small></h1>
 <p>A cloud-hosting deployments page (think Vercel/Railway) — and a <strong>zero-new-composite</strong> result. The whole screen is reuse: the shell (<code>mh-app</code>/<code>mh-navbar</code>/<code>mh-sidemenu</code>), the <code>mh-page</code> header with a primary <strong>Deploy</strong> button, and three <code>mh-card</code>s. The deployment "table" is a <strong><code>mh-list</code>/<code>mh-item</code></strong>: branch + status <code>mh-badge</code> + commit/author/time in the item <code>&lt;header&gt;</code>, and the row actions (Promote / Rollback / Delete) in the item <code>&lt;footer&gt;</code> — the per-row action footer is an <em>item</em> shape, not a tabular grid, so a real <code>&lt;table&gt;</code> would have been the wrong fit. Primary vs secondary rides native attributes (<code>&lt;button&gt;</code> vs <code>&lt;button type=button&gt;</code>); the active row's Promote is just <code>disabled</code>. Env vars are a plain <code>&lt;table&gt;</code> in a card with an <code>Add variable</code> footer button, and the Danger zone is a card with a <code>tone="danger"</code> <code>mh-alert</code> over its actions.</p>
 <h2>Live</h2>
-<iframe src="deployments.html" title="Deployments recipe"></iframe>
+<iframe src="recipes/deployments.html" title="Deployments recipe"></iframe>
 <h2>Recipe</h2>
 <pre><code>&lt;mh-app&gt;…&lt;mh-navbar/&gt;…&lt;mh-sidemenu/&gt;
   &lt;main&gt;&lt;mh-page&gt;

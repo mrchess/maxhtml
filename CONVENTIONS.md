@@ -156,7 +156,7 @@ Radix sidebar is ~9 nested components (`Sidebar`/`SidebarHeader`/`SidebarGroup`/
 tags for the parts HTML already names.
 
 The library grows by adding a component here, a rule block in `maxhtml.css`, and
-a `<section>` story + `mh-submenu` link in `storybook.html`.
+a `<section>` story in `stories/` + an `mh-submenu` link in `index.html`.
 
 ## The escape hatch (free-form canvases)
 

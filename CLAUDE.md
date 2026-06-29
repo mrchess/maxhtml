@@ -128,8 +128,8 @@ the count is the entire point.
 |---|---|
 | `maxhtml.css` | the library — tokens + components/composites, all `:where()`, slots scoped with `> tag` |
 | `mh-menu.js`, `mh-dialog.js` | behavior layers (Web Components / native dialog) for the few components needing JS |
-| `storybook.html` + `storybook.css` + `stories/` | dogfooded explorer; a fetch router loads `stories/<id>.html` into the shell |
-| `login/dashboard/friends/profile/landing.html` | recipe pages — standalone, link only `maxhtml.css`, zero styling emitted |
+| `index.html` + `storybook.css` + `stories/` | dogfooded explorer; a fetch router loads `stories/<id>.html` into the shell |
+| `recipes/*.html` (e.g. `login`, `dashboard`, `landing`) | recipe pages — standalone, link only `../maxhtml.css`, zero styling emitted |
 | `PROMPT.md` | the rail — system prompt that keeps an LLM emitting MaxHTML (markup only) |
 | `CONVENTIONS.md` | vocabulary, naming rule, the slot model, theming tokens, translation table |
 | `experiments/saturation.md` | the saturation-experiment protocol + running log |
