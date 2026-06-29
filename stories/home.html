@@ -1,38 +1,19 @@
 <mh-hero>
-<h1>The MaxHTML kit</h1>
-<p>A closed set of <code>mh-*</code> components an LLM emits as plain markup — all the styling lives in one amortized stylesheet, so regenerating a screen costs markup tokens, never styling tokens. The edge is biggest against verbose CSS; consistency, app-shell coverage, and a clean eject do the rest. Browse the components, composites, and recipes in the sidebar.</p>
+<h1>Build UI with an LLM. Pay for markup, not styling.</h1>
+<p>A closed <code>mh-*</code> kit — all styling in one amortized stylesheet the model never re-emits. Iterate on any screen for the cost of markup tokens only.</p>
 </mh-hero>
 
 <mh-section>
-<h2>Why it exists</h2>
 <mh-grid>
-<mh-card>
-<header>Cheap to emit</header>
-<p>The model writes markup; the CSS loads once and is never re-typed. "Move this section / regenerate that form" costs markup tokens only.</p>
-</mh-card>
-<mh-card>
-<header>On-rails &amp; consistent</header>
-<p>A closed vocabulary with no inline-style drift — every screen comes out looking like one design system.</p>
-</mh-card>
-<mh-card>
-<header>No lock-in</header>
-<p>Eject to Tailwind with a deterministic mapping, or theme it via tokens and ship as-is — valid, accessible HTML either way.</p>
-</mh-card>
+<mh-stat><header>vs Tailwind</header><strong>−69%</strong><small>tokens on a real app screen</small></mh-stat>
+<mh-stat><header>vs Pico / Shoelace</header><strong>−27%</strong><small>at app-shell level</small></mh-stat>
 </mh-grid>
-</mh-section>
-
-<mh-section>
-<h2>The token grab</h2>
-<mh-grid>
-<mh-stat><header>vs Tailwind</header><strong>−69%</strong><small>fewer emitted tokens, real app screen</small></mh-stat>
-<mh-stat><header>vs Pico / Shoelace</header><strong>−27%</strong><small>at the app / dashboard level</small></mh-stat>
-</mh-grid>
-<p>Measured on real dashboard + CRM screens, emitted markup only (framework CSS amortized). The edge scales with how verbose the baseline is — and, honestly, shrinks on simple atoms where it can reverse. <a href="#benchmark">See the full analysis →</a></p>
+<p>Measured on real dashboard + CRM screens, emitted markup only (framework CSS amortized). Edge shrinks on simple atoms. <a href="#benchmark">Full analysis →</a></p>
 </mh-section>
 
 <mh-section>
 <h2>Try it</h2>
-<p>Paste this into Claude, then ask for any screen. The whole vocabulary lives in the linked rail — the prompt itself stays tiny.</p>
+<p>Paste into Claude, then ask for any screen.</p>
 <pre><code>You build UI as MaxHTML — a closed kit of mh-* components styled by an
 already-loaded stylesheet. Emit MARKUP ONLY: no style="", no &lt;style&gt;/CSS,
 no &lt;div&gt;/&lt;span&gt;, no class/data-*. Variants ride native attributes
