@@ -17,29 +17,29 @@
 
 /* ===== token layer — override these to theme (EXIT B) ==================== */
 :root {
-  --mh-bg:        #0b0d17;   /* page background */
-  --mh-surface:   #13152a;   /* raised/recessed surfaces (sidemenu, code) */
-  --mh-fg:        #e2e4f0;   /* primary text */
-  --mh-muted:     #7880a0;   /* secondary text */
-  --mh-line:      #1f2240;   /* borders / dividers */
+  --mh-bg:        #faf9ff;   /* page background */
+  --mh-surface:   #f0ecff;   /* raised/recessed surfaces (sidemenu, code) */
+  --mh-fg:        #12082a;   /* primary text */
+  --mh-muted:     #7c6a9a;   /* secondary text */
+  --mh-line:      #ddd4f8;   /* borders / dividers */
   --mh-accent:    #7c3aed;   /* brand / active / primary */
   --mh-accent-fg: #ffffff;   /* text on accent */
-  --mh-scrim:     #000000;   /* immersive overlay surface (lightbox frame) */
-  --mh-scrim-fg:  #e2e4f0;   /* text on the scrim */
-  --mh-danger:    #f87171;   /* error / invalid / destructive */
+  --mh-scrim:     #12082a;   /* immersive overlay surface (lightbox frame) */
+  --mh-scrim-fg:  #faf9ff;   /* text on the scrim */
+  --mh-danger:    #dc2626;   /* error / invalid / destructive */
   --mh-danger-fg: #ffffff;   /* text on danger */
   /* semantic severity — the [tone] axis (badge dot, alert/toast icon+border).
      Override to reskin every tone'd component at once. danger reuses the token
      above. neutral = no [tone] attribute (no colour). */
-  --mh-success:   #4ade80;   /* ok / healthy / positive state */
-  --mh-warning:   #fbbf24;   /* caution / degraded / needs attention */
-  --mh-info:      #60a5fa;   /* informational / neutral notice */
-  --mh-hover:     rgba(255,255,255,.07);                    /* hover tint */
-  --mh-shadow:    0 8px 32px rgba(124,58,237,.25);          /* menu / popover shadow */
-  --mh-shadow-lg: 0 24px 64px rgba(124,58,237,.4);          /* dialog shadow */
-  --mh-backdrop:  rgba(0, 0, 0, .7);                        /* modal backdrop */
+  --mh-success:   #16a34a;   /* ok / healthy / positive state */
+  --mh-warning:   #d97706;   /* caution / degraded / needs attention */
+  --mh-info:      #2563eb;   /* informational / neutral notice */
+  --mh-hover:     rgba(124,58,237,.08);                     /* hover tint */
+  --mh-shadow:    0 8px 32px rgba(124,58,237,.15);          /* menu / popover shadow */
+  --mh-shadow-lg: 0 24px 64px rgba(124,58,237,.28);         /* dialog shadow */
+  --mh-backdrop:  rgba(18,8,42,.5);                         /* modal backdrop */
   /* categorical chart palette — donut segments, multi-series */
-  --mh-c1: #7c3aed;  --mh-c2: #38bdf8;  --mh-c3: #fbbf24;  --mh-c4: #f472b6;  --mh-c5: #4ade80;
+  --mh-c1: #7c3aed;  --mh-c2: #3b82f6;  --mh-c3: #eab308;  --mh-c4: #ec4899;  --mh-c5: #16a34a;
   /* type & density — theme these for a tighter/looser "shape" (e.g. shadcn) */
   --mh-text-base:     1rem;     /* body + control text */
   --mh-h1:            1.6rem;
@@ -349,7 +349,7 @@
   display: block;
   max-width: 60rem;
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 1.25rem 1.5rem;
 }
 :where(mh-section > h2) { text-align: center; font-size: 1.7rem; letter-spacing: var(--mh-heading-tracking); margin: 0 0 1.25rem; }
 :where(mh-section > p)  { text-align: center; max-width: 40rem; margin: 0 auto 1.5rem; color: var(--mh-muted); }

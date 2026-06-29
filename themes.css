@@ -27,7 +27,7 @@
   --mh-accent-fg: #fafafa;
   --mh-scrim:     #0e1116;
   --mh-scrim-fg:  #f2f4f7;
-  /* tone colors — re-anchor to light-bg values (default is now dark) */
+  /* tone/interaction — neutral values vs the default's purple-tinted palette */
   --mh-danger:    #dc2626;
   --mh-success:   #16a34a;
   --mh-warning:   #d97706;
