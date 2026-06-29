@@ -15,42 +15,61 @@
      --mh-shadow / --mh-shadow-lg (stronger), and --mh-scrim. Output nothing else.
    ─────────────────────────────────────────────────────────────────────────── */
 
-/* shadcn — light (zinc neutrals, near-black primary, Inter, 14px, tight density) */
-:root[data-theme="shadcn"] {
-  /* palette */
+/* glass-dark — deep navy, blue glow, dark-mode tone colours */
+:root[data-theme="glass-dark"] {
+  --mh-bg:        #0b0d17;
+  --mh-surface:   #13152a;
+  --mh-fg:        #e2e4f0;
+  --mh-muted:     #7880a0;
+  --mh-line:      #1f2240;
+  --mh-accent:    #3b82f6;
+  --mh-accent-fg: #ffffff;
+  --mh-scrim:     #000000;
+  --mh-scrim-fg:  #e2e4f0;
+  --mh-danger:    #f87171;
+  --mh-success:   #4ade80;
+  --mh-warning:   #fbbf24;
+  --mh-info:      #60a5fa;
+  --mh-hover:     rgba(255,255,255,.07);
+  --mh-shadow:    0 8px 32px rgba(59,130,246,.25);
+  --mh-shadow-lg: 0 24px 64px rgba(59,130,246,.4);
+  --mh-backdrop:  rgba(0,0,0,.7);
+  --mh-c1: #3b82f6;  --mh-c2: #a78bfa;  --mh-c3: #fbbf24;  --mh-c4: #f472b6;  --mh-c5: #4ade80;
+  --mh-heading-tracking: -0.02em;
+  --mh-radius:    10px;
+}
+
+/* bootstrap — Bootstrap 5 palette, 16px base, standard density */
+:root[data-theme="bootstrap"] {
   --mh-bg:        #ffffff;
-  --mh-surface:   #f4f4f5;
-  --mh-fg:        #09090b;
-  --mh-muted:     #71717a;
-  --mh-line:      #e4e4e7;
-  --mh-accent:    #18181b;
-  --mh-accent-fg: #fafafa;
-  --mh-scrim:     #0e1116;
-  --mh-scrim-fg:  #f2f4f7;
-  /* tone/interaction — neutral values vs the default's purple-tinted palette */
-  --mh-danger:    #dc2626;
-  --mh-success:   #16a34a;
-  --mh-warning:   #d97706;
-  --mh-info:      #2563eb;
+  --mh-surface:   #f8f9fa;
+  --mh-fg:        #212529;
+  --mh-muted:     #6c757d;
+  --mh-line:      #dee2e6;
+  --mh-accent:    #0d6efd;
+  --mh-accent-fg: #ffffff;
+  --mh-scrim:     #212529;
+  --mh-scrim-fg:  #f8f9fa;
+  --mh-danger:    #dc3545;
+  --mh-success:   #198754;
+  --mh-warning:   #ffc107;
+  --mh-info:      #0dcaf0;
   --mh-hover:     rgba(0,0,0,.05);
-  --mh-shadow:    0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
-  --mh-shadow-lg: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
-  --mh-backdrop:  rgba(0,0,0,.45);
-  /* chart palette */
-  --mh-c1: #18181b;  --mh-c2: #3b82f6;  --mh-c3: #eab308;  --mh-c4: #9333ea;  --mh-c5: #ec4899;
-  /* type — Inter at 14px, lighter weight distribution */
-  --mh-font:            "Inter", system-ui, -apple-system, sans-serif;
-  --mh-text-base:       0.875rem;
-  --mh-h1:              1.875rem;
-  --mh-h2:              1.25rem;
+  --mh-shadow:    0 0.125rem 0.25rem rgba(0,0,0,.075);
+  --mh-shadow-lg: 0 0.5rem 1rem rgba(0,0,0,.15);
+  --mh-backdrop:  rgba(0,0,0,.5);
+  --mh-c1: #0d6efd;  --mh-c2: #198754;  --mh-c3: #ffc107;  --mh-c4: #dc3545;  --mh-c5: #0dcaf0;
+  --mh-font:            system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mh-text-base:       1rem;
+  --mh-h1:              2rem;
+  --mh-h2:              1.5rem;
   --mh-weight:          400;
   --mh-weight-strong:   500;
-  --mh-weight-bold:     600;
-  --mh-heading-tracking: -0.025em;
-  /* density — tighter controls, 240px sidebar */
-  --mh-control-py:  0.4rem;
-  --mh-control-px:  0.875rem;
-  --mh-gap:         0.75rem;
-  --mh-side-w:      240px;
-  --mh-radius:      6px;
+  --mh-weight-bold:     700;
+  --mh-heading-tracking: 0em;
+  --mh-control-py:      0.375rem;
+  --mh-control-px:      0.75rem;
+  --mh-gap:             1rem;
+  --mh-side-w:          250px;
+  --mh-radius:          6px;
 }

@@ -17,15 +17,16 @@
 
 /* ===== token layer — override these to theme (EXIT B) ==================== */
 :root {
-  --mh-bg:        #f0f6ff;   /* page background */
-  --mh-surface:   #e4eeff;   /* raised/recessed surfaces (sidemenu, code) */
-  --mh-fg:        #0b1e3a;   /* primary text */
-  --mh-muted:     #4d6a9a;   /* secondary text */
-  --mh-line:      #c2d5f0;   /* borders / dividers */
-  --mh-accent:    #2563eb;   /* brand / active / primary */
-  --mh-accent-fg: #ffffff;   /* text on accent */
-  --mh-scrim:     #0b1e3a;   /* immersive overlay surface (lightbox frame) */
-  --mh-scrim-fg:  #f0f6ff;   /* text on the scrim */
+  /* MaxShad — zinc neutrals, near-black primary, Inter 14px, tight density */
+  --mh-bg:        #ffffff;   /* page background */
+  --mh-surface:   #f4f4f5;   /* raised/recessed surfaces (sidemenu, code) */
+  --mh-fg:        #09090b;   /* primary text */
+  --mh-muted:     #71717a;   /* secondary text */
+  --mh-line:      #e4e4e7;   /* borders / dividers */
+  --mh-accent:    #18181b;   /* brand / active / primary */
+  --mh-accent-fg: #fafafa;   /* text on accent */
+  --mh-scrim:     #0e1116;   /* immersive overlay surface (lightbox frame) */
+  --mh-scrim-fg:  #f2f4f7;   /* text on the scrim */
   --mh-danger:    #dc2626;   /* error / invalid / destructive */
   --mh-danger-fg: #ffffff;   /* text on danger */
   /* semantic severity — the [tone] axis (badge dot, alert/toast icon+border).
@@ -34,27 +35,27 @@
   --mh-success:   #16a34a;   /* ok / healthy / positive state */
   --mh-warning:   #d97706;   /* caution / degraded / needs attention */
   --mh-info:      #2563eb;   /* informational / neutral notice */
-  --mh-hover:     rgba(37,99,235,.08);                      /* hover tint */
-  --mh-shadow:    0 8px 32px rgba(37,99,235,.15);           /* menu / popover shadow */
-  --mh-shadow-lg: 0 24px 64px rgba(37,99,235,.25);          /* dialog shadow */
-  --mh-backdrop:  rgba(11,30,58,.5);                        /* modal backdrop */
+  --mh-hover:     rgba(0,0,0,.05);                                     /* hover tint */
+  --mh-shadow:    0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06); /* menu / popover shadow */
+  --mh-shadow-lg: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06); /* dialog shadow */
+  --mh-backdrop:  rgba(0,0,0,.45);                                     /* modal backdrop */
   /* categorical chart palette — donut segments, multi-series */
-  --mh-c1: #2563eb;  --mh-c2: #7c3aed;  --mh-c3: #eab308;  --mh-c4: #ec4899;  --mh-c5: #16a34a;
-  /* type & density — theme these for a tighter/looser "shape" (e.g. shadcn) */
-  --mh-text-base:     1rem;     /* body + control text */
-  --mh-h1:            1.6rem;
-  --mh-h2:            1.25rem;
-  --mh-weight:        500;      /* medium — labels, secondary emphasis */
-  --mh-weight-strong: 600;      /* semibold — buttons, titles, headers */
-  --mh-weight-bold:   700;      /* bold — h1, brand */
-  --mh-heading-tracking: -0.02em; /* letter-spacing for h1/h2 — tighten for modern feel */
-  --mh-control-py:    .55rem;   /* control vertical padding (the tightness lever) */
-  --mh-control-px:    1rem;     /* control horizontal padding */
-  --mh-radius:    10px;
-  --mh-gap:       1rem;
-  --mh-side-w:    250px;     /* sidemenu width */
-  --mh-font:      system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --mh-mono:      ui-monospace, SFMono-Regular, Menlo, monospace;
+  --mh-c1: #18181b;  --mh-c2: #3b82f6;  --mh-c3: #eab308;  --mh-c4: #9333ea;  --mh-c5: #ec4899;
+  /* type & density */
+  --mh-font:            "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mh-mono:            ui-monospace, SFMono-Regular, Menlo, monospace;
+  --mh-text-base:       0.875rem;  /* 14px */
+  --mh-h1:              1.875rem;
+  --mh-h2:              1.25rem;
+  --mh-weight:          400;
+  --mh-weight-strong:   500;
+  --mh-weight-bold:     600;
+  --mh-heading-tracking: -0.025em;
+  --mh-control-py:      0.4rem;
+  --mh-control-px:      0.875rem;
+  --mh-radius:          6px;
+  --mh-gap:             0.75rem;
+  --mh-side-w:          240px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
