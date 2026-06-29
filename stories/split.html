@@ -1,0 +1,19 @@
+<h1>Split <small>(composite)</small></h1>
+<p>An asymmetric two-column content split: a <strong>narrow rail</strong> (stats, a TOC, an aside) beside a <strong>wider main</strong> column, at a fixed ~1:2 ratio. The two children map to the two columns by source order — rail first, main second — and they stack on a narrow viewport. This is what <code>mh-grid</code> (symmetric, equal auto-fit tracks) and <code>mh-app</code>/<code>mh-layout</code> (full-height app shells with a fixed-px sidebar) can't be.</p>
+<h2>Example</h2>
+<mh-split>
+<mh-grid>
+<mh-stat><header>Release cycle</header><strong>−48%</strong><small>time to ship</small></mh-stat>
+<mh-stat><header>Meetings</header><strong>−6 hrs</strong><small>per week</small></mh-stat>
+</mh-grid>
+<mh-card>
+<header>Acme Corp</header>
+<p>"We cut our release cycle in half in the first month. The whole team actually opens it every day."</p>
+</mh-card>
+</mh-split>
+<h2>Usage</h2>
+<p>Children are usually region-arrangers themselves — an <code>mh-grid</code> of stats beside an <code>mh-grid</code> of cards, or a block of prose beside an aside.</p>
+<pre><code>&lt;mh-split&gt;
+  &lt;mh-grid&gt;...stats rail...&lt;/mh-grid&gt;   &lt;!-- narrow, first --&gt;
+  &lt;mh-card&gt;...main...&lt;/mh-card&gt;          &lt;!-- wider, second --&gt;
+&lt;/mh-split&gt;</code></pre>

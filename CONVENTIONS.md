@@ -86,6 +86,7 @@ Inside a slot, tell primitives apart by **context + role**, never by counting:
 | `mh-grid` | responsive auto-fit grid | tiles / cards |
 | `mh-hero` | centered hero band (landing) | `<h1>` + `<p>` + `<footer>` (buttons) |
 | `mh-section` | centered content band (landing) | `<h2>` + body + optional `<footer>` |
+| `mh-split` | asymmetric two-column split (rail + main, ~1:2, stacks on mobile) | narrow first child (rail — stats/TOC/aside) + wider second child (main). Order = structure; for *equal* columns use `mh-grid` |
 | `mh-list` / `mh-item` | row list with actions | item: `mh-avatar` + `<header>` (name/meta) + `<footer>` (actions) |
 | `mh-center` | centered single-column shell (auth, empty) | one child (usually `mh-card`) |
 | `mh-profile` | profile header | big `mh-avatar` + `<header>` (name/meta) + `<footer>` (actions) |
@@ -130,6 +131,7 @@ Inside a slot, tell primitives apart by **context + role**, never by counting:
 | `mh-toasts` | fixed transient-notification stack (bottom-right) | children are reused `<mh-alert tone>`s + a `<button>✕</button>`. Position is chrome (CSS, not a data hook); zero JS to render. `mh-toast.js` adds auto-dismiss + `mhToast(html, {tone})` / `[data-toast][data-tone]` spawn |
 | `mh-empty` | empty / zero state | optional big leading `<strong>` glyph + `<h2>` + `<p>` + optional `<footer>` actions |
 | `mh-skeleton` / `mh-spinner` | loading atoms | `<mh-skeleton>` = pulsing placeholder line (stack for paragraph/card); `<mh-spinner>` = indeterminate ring (determinate → `<progress>`) |
+| `mh-prompt` | dark "paste this" prompt / terminal block (LLM / dev-tool landing) | prompt **text** only (whitespace preserved, author flush-left); optional `<a>` links + `<strong>` emphasis. Reuses the `--mh-scrim` dark surface tokens |
 
 **Icons:** `<mh-icon name="…">` — mask-based SVGs (Lucide, ISC) that live in
 `maxhtml.css`; the model emits only the tag + `name`, never the artwork, so an
@@ -245,6 +247,8 @@ semantic inner tags as-is.
 | `<mh-badge tone="success">Active</mh-badge>` | `<span class="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold text-green-700 border-green-200"><span class="size-2 rounded-full bg-green-600"></span>Active</span>` (map `tone` → the colour quad) |
 | `<mh-alert tone="danger">…</mh-alert>` | `<div role="alert" class="flex items-center gap-2 rounded border border-l-[3px] border-l-red-600 p-3"><LucideCircleX class="size-5 text-red-600"/>…</div>` |
 | `<mh-icon name="user">` | `<LucideUser class="size-[1em]"/>` (or `<i class="i-lucide-user">`) — the `name` maps 1:1 to the Lucide icon |
+| `<mh-split>…</mh-split>` | `<div class="grid md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-8 items-start">…</div>` |
+| `<mh-prompt>…</mh-prompt>` | `<pre class="rounded-lg bg-slate-900 text-slate-200 p-6 font-mono leading-relaxed whitespace-pre-wrap shadow-lg">…</pre>` |
 
 Inner semantic tags (`<nav>`, `<button>`, `<a>`, `<h1>`) translate to themselves
 — they already carry the right meaning.

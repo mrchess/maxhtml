@@ -42,6 +42,7 @@ only**.
 - `<mh-grid>` — responsive grid. Children: tiles or cards; they wrap automatically.
 - `<mh-hero>` — centered hero band (landing pages). Children: `<h1>` + `<p>` + a `<footer>` of action `<button>`s.
 - `<mh-section>` — centered content band (landing pages). Children: an `<h2>` + body + optional `<footer>` of buttons.
+- `<mh-split>` — asymmetric two-column split: a **narrow rail** (first child) beside a **wider main** column (second child), ~1:2, stacking on mobile. Children are usually region-arrangers themselves (an `<mh-grid>` of stats beside an `<mh-grid>` of cards, or prose beside an aside). Use it when you need *unequal* columns — `<mh-grid>` is for *equal* auto-fit tracks; `<mh-app>`/`<mh-layout>` are full-height app shells, not a content split.
 - `<mh-list>` of `<mh-item>` — row list. Each item: a leading `<mh-avatar>`, a `<header>` (`<strong>` name + `<small>` meta), and a `<footer>` of actions. Put extra/optional actions in an overflow `<mh-menu>`, not more buttons.
 - `<mh-gallery>` — image tile grid (albums, photo grids). Children: `<figure>` tiles, each holding an `<img>` (cropped square) and an **optional** `<figcaption>` (`<strong>` title + `<small>` meta). Caption = album cover; no caption = bare photo. Wrap the `<img>` in an `<a>` (route) or a `<button commandfor="id">` (open a lightbox).
 - `<mh-calendar>` — month grid. Inside it put a real `<table>`: a `<thead>` weekday row (`<th>`) + `<tbody>` week `<tr>`s of day `<td>`. Each day `<td>` holds a `<strong>` (date) + optional `<a>` event chips. Mark today with `aria-current="date"` on its `<td>`; leave out-of-month days as empty `<td>`. Give an event `<a>` a `commandfor="id"` to open its `<dialog>`.
@@ -83,6 +84,7 @@ only**.
 - `<mh-toasts>` — fixed bottom-right **stack of transient notifications**. Children are `<mh-alert tone="…">`s, each with an optional `<button>✕</button>`. Renders, positions, and stacks with **zero JS**. Auto-dismiss + spawn-on-event need `mh-toast.js` (load it, then `<button data-toast="…" data-tone="success">` or `mhToast('…', {tone:'success'})`).
 - `<mh-empty>` — **empty / zero state** (no results, empty inbox, all-clear board). An optional big leading `<strong>` glyph + `<h2>` headline + `<p>` + optional `<footer>` of actions.
 - `<mh-skeleton>` — pulsing **loading placeholder** line; stack a few for a paragraph/card. `<mh-spinner>` — indeterminate **loading ring** (inline in a button or beside a "streaming…" label).
+- `<mh-prompt>` — dark **"paste this" prompt / terminal block** (a system prompt or a shell command — the hero artifact of an LLM/dev-tool landing). Emit the prompt **text only**; the dark styling lives in the stylesheet. Whitespace is preserved — author lines flush-left. Optional `<a>` links and `<strong>` emphasis inside.
 
 Icons: use `<mh-icon name="…">` from the closed set above — never an emoji, an
 `<svg>`, or an icon class. Emoji are allowed **only** as genuine user content (the
@@ -218,6 +220,9 @@ right. (Inbox, messaging, contacts.)
 <mh-hero><h1>…</h1><p>…</p>
   <footer><button>Start free trial</button><button type=button>Book a demo</button></footer></mh-hero>
 <mh-section><h2>…</h2><mh-grid><mh-card>…</mh-card>…</mh-grid></mh-section>
+<mh-section><h2>Proof, not promises</h2>
+  <mh-split><mh-grid><mh-stat>…</mh-stat>…</mh-grid><mh-card>…quote…</mh-card></mh-split></mh-section>
+<mh-section><h2>Start in one command</h2><mh-prompt>$ npx create-brand my-app</mh-prompt></mh-section>
 ```
 
 ## Minimal example

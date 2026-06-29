@@ -5,23 +5,32 @@
 
 <mh-section>
 <mh-grid>
-<mh-stat><header>vs Tailwind</header><strong>−69%</strong><small>tokens on a real app screen</small></mh-stat>
-<mh-stat><header>vs Pico / Shoelace</header><strong>−27%</strong><small>at app-shell level</small></mh-stat>
+<mh-card>
+<header>1 · Ready-made building blocks</header>
+<p>A closed kit of pieces — from a button up to a whole dashboard shell. These big layouts are exactly what plain CSS and widget libraries leave you to hand-build.</p>
+</mh-card>
+<mh-card>
+<header>2 · The styling is loaded once</header>
+<p>The kit's design lives in one CSS file. The AI writes only tag names like <code>&lt;mh-card&gt;</code> — never colors or spacing. The tag says <em>what</em> it is; the file knows <em>how</em> it looks.</p>
+</mh-card>
+<mh-card>
+<header>3 · Consistent by default</header>
+<p>The AI reaches for a ready-made recipe first. What it <em>won't</em> do is hand-roll raw HTML and CSS — that's the drift and token drain the kit exists to prevent.</p>
+</mh-card>
 </mh-grid>
-<p>Measured on real dashboard + CRM screens, emitted markup only (framework CSS amortized). Edge shrinks on simple atoms. <a href="#benchmark">Full analysis →</a></p>
 </mh-section>
 
 <mh-section>
 <h2>MaxHTML vs Tailwind</h2>
 <p>The same card, two ways. Left is what the model emits; right is the Tailwind equivalent.</p>
+<mh-split>
 <mh-grid>
-<div>
-<p><strong>MaxHTML</strong> — 7 lines</p>
+<mh-stat><header>vs Tailwind</header><strong>−69%</strong><small>tokens on a real app screen</small></mh-stat>
+<mh-stat><header>vs Pico / Shoelace</header><strong>−27%</strong><small>at app-shell level</small></mh-stat>
+</mh-grid>
+<mh-grid>
 <mh-card>
-<header>Monthly Revenue</header>
-<p>Revenue across all regions this quarter.</p>
-<footer><button>View report</button><button type=button>Export</button></footer>
-</mh-card>
+<header>MaxHTML · 7 lines</header>
 <pre><code>&lt;mh-card&gt;
   &lt;header&gt;Monthly Revenue&lt;/header&gt;
   &lt;p&gt;Revenue across all regions
@@ -31,67 +40,41 @@
     &lt;button type=button&gt;Export&lt;/button&gt;
   &lt;/footer&gt;
 &lt;/mh-card&gt;</code></pre>
-</div>
-<div>
-<p><strong>Tailwind</strong> — 18 lines</p>
-<pre><code>&lt;div class="rounded-xl border border-slate-200
-     bg-white shadow-sm"&gt;
+</mh-card>
+<mh-card>
+<header>Tailwind · 18 lines</header>
+<pre><code>&lt;div class="rounded-xl border
+     border-slate-200 bg-white shadow-sm"&gt;
   &lt;div class="p-6 pb-3"&gt;
     &lt;h3 class="font-semibold tracking-tight"&gt;
       Monthly Revenue
     &lt;/h3&gt;
     &lt;p class="text-sm text-slate-500 mt-1"&gt;
-      Revenue across all regions this quarter.
+      Revenue across all regions…
     &lt;/p&gt;
   &lt;/div&gt;
   &lt;div class="px-6 pb-6 flex gap-2"&gt;
-    &lt;button class="bg-slate-900 text-white text-sm
-         font-medium px-4 py-2 rounded-md
-         hover:bg-slate-800"&gt;
+    &lt;button class="bg-slate-900 text-white…"&gt;
       View report
     &lt;/button&gt;
-    &lt;button class="border border-slate-300 text-sm
-         font-medium px-4 py-2 rounded-md
-         hover:bg-slate-50"&gt;
+    &lt;button class="border border-slate-300…"&gt;
       Export
     &lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-</div>
-</mh-grid>
-<p><a href="#benchmark">Full token benchmark →</a></p>
-</mh-section>
-
-<mh-section>
-<h2>How it works</h2>
-<p>"Put the styling in one file" isn't the whole story — plenty of CSS kits do that. The real trick is <strong>a fixed set of building blocks, plus a rulebook that keeps the AI using them.</strong></p>
-<mh-grid>
-<mh-card>
-<header>1 · Ready-made building blocks</header>
-<p>A closed kit of pieces — from a button up to a whole dashboard shell or a fill-in-the-blank page recipe. Those big layouts are exactly what plain CSS and widget libraries leave you to hand-build.</p>
-</mh-card>
-<mh-card>
-<header>2 · The styling is loaded once</header>
-<p>The kit's design lives in one CSS file the browser loads a single time. The AI writes only tag names like <code>&lt;mh-card&gt;</code> — never colors, spacing, or shadows. The tag says <em>what</em> it is; the file already knows <em>how</em> it looks.</p>
-</mh-card>
-<mh-card>
-<header>3 · Consistent by default</header>
-<p>The AI reaches for a ready-made recipe first, then snaps the blocks together freely when none fits exactly. What it <em>won't</em> do is hand-roll raw HTML and CSS — that's the drift and the token drain the kit exists to prevent.</p>
 </mh-card>
 </mh-grid>
+</mh-split>
+<p><a href="#benchmark">Full token benchmark →</a> · Measured on real dashboard + CRM screens, emitted markup only. Edge shrinks on simple atoms.</p>
 </mh-section>
 
 <mh-section>
 <h2>Try it</h2>
-<p>Paste into Claude, then ask for any screen.</p>
-<pre><code>You build UI as MaxHTML — a closed kit of mh-* components styled by an
-already-loaded stylesheet. Emit MARKUP ONLY: no style="", no &lt;style&gt;/CSS,
-no &lt;div&gt;/&lt;span&gt;, no class/data-*. Variants ride native attributes
-(&lt;button&gt; = primary, &lt;button type=button&gt; = secondary, tone="danger" …).
-Need a component you don't know? Ask — don't improvise.
+<p>Paste this system prompt into Claude, then ask for any screen.</p>
+<mh-prompt>You build UI as MaxHTML — a closed kit of <strong>mh-*</strong> components styled by an already-loaded stylesheet. Emit MARKUP ONLY: no style="", no &lt;style&gt;/CSS, no &lt;div&gt;/&lt;span&gt;, no class/data-*. Variants ride native attributes (&lt;button&gt; = primary, &lt;button type=button&gt; = secondary, tone="danger" …). Need a component you don't know? Ask — don't improvise.
 
-Full vocabulary + rules:   https://mrchess.github.io/maxhtml/PROMPT.md
-Stylesheet (include once): https://mrchess.github.io/maxhtml/maxhtml.css
+Full vocabulary + rules:   <a href="https://mrchess.github.io/maxhtml/PROMPT.md">https://mrchess.github.io/maxhtml/PROMPT.md</a>
+Stylesheet (include once): <a href="https://mrchess.github.io/maxhtml/maxhtml.css">https://mrchess.github.io/maxhtml/maxhtml.css</a>
 
-Now build: a dashboard with a sidebar, four stat tiles, and a recent-activity table.</code></pre>
+<strong>Now build: a dashboard with a sidebar, four stat tiles, and a recent-activity table.</strong></mh-prompt>
 </mh-section>

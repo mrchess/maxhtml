@@ -1,0 +1,12 @@
+<h1>Prompt block <small>(composite)</small></h1>
+<p>A dark, immersive "paste this" surface for a system prompt or a shell command — the hero artifact of an LLM / dev-tool landing page. It reuses the kit's <strong>scrim</strong> tokens (the same dark immersive surface as the lightbox), so it themes from one place; the model emits the prompt <em>text</em> only, never the dark styling. Monospace and whitespace-preserving — author the lines flush-left and they render as typed.</p>
+<h2>Example</h2>
+<mh-prompt>$ npx create-northwind my-workspace
+
+<strong>✓ Workspace ready in 12s.</strong> Open <a href="https://app.northwind.dev">app.northwind.dev</a> to invite your team.</mh-prompt>
+<h2>Usage</h2>
+<p>Slots: prompt text, with optional <code>&lt;a&gt;</code> links and <code>&lt;strong&gt;</code> emphasis.</p>
+<pre><code>&lt;mh-prompt&gt;You build UI as MaxHTML — a closed kit of mh-* components…
+
+Full rules: &lt;a&gt;https://…/PROMPT.md&lt;/a&gt;
+&lt;strong&gt;Now build: a dashboard with four stat tiles.&lt;/strong&gt;&lt;/mh-prompt&gt;</code></pre>

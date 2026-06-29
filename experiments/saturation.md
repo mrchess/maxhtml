@@ -65,6 +65,7 @@ Primitives: `button` `form` `label` `input` `textarea` `h1`–`h6` `p` `a`
 | 10 | Docs / help center (Acme Docs) — knowledge base | article, API reference, search, FAQ | **1** | `mh-pagination` | **mh-layout**, **mh-sidemenu/submenu** (nav tree), **mh-breadcrumb** (app 9), **mh-card** (TOC), **mh-alert** (callout, app 8), **table** (API params), **`<details>`** FAQ (app 8), **`<dialog>`** ⌘K palette refinement, **mh-list** (results), prose atoms (ul/ol/blockquote/kbd) | none — fully on-rails |
 | 11 | Live ops / monitoring (Beacon) — observability | overview (status + chart), services, live log, empty state | **2** | `mh-toasts`, `mh-empty` | mh-app/page/grid/**mh-stat**, mh-card, **table** + **mh-badge** (services/log), **mh-bars** (chart), **mh-alert** (toast content), native atoms **mh-skeleton**/**mh-spinner** | none — toasts are a behavior layer, not a wall (see notes) |
 | 12 | Cloud hosting / deploys (Northwind) — devops | deployments page (header + deploy table + env vars + danger zone) | **0** | — | mh-app/navbar/sidemenu, **mh-page** header + primary button, **mh-card** ×3, **mh-list/mh-item** (deploy rows: meta+badge header, action footer), **mh-badge** `tone` (Production/Preview/Failed), **table** (env vars), **mh-alert** `tone="danger"`, `<button>`/`type=button`/`disabled` | none — fully on-rails, zero new (see notes) |
+| 13 | Marketing landing — "split-proof" style (also the home/landing redesign) | hero, feature grid, proof band (stats *beside* code/quote), prompt CTA | **2** (1 layout gap + 1 borderline) | `mh-split`, `mh-prompt` | mh-navbar, **mh-hero**, **mh-section**, **mh-grid**/**mh-card**, **mh-stat**, `<pre>`/`<code>` | none — dark prompt resolved via scrim tokens, not a wall (see notes) |
 
 **Cross-cutting resolution (post-app-11): the colour-variant wall → the `tone`
 primitive.** The one wall that recurred — semantic status/severity *colour* —
@@ -312,6 +313,41 @@ result for a fresh domain (devops). Every section fell out of existing vocabular
 - **Walls:** none. Curve: **… → 2 → 0.** A brand-new domain landing on zero is the
   saturation curve doing exactly what the bet predicted — the kit is generative,
   not bespoke, across CRUD/content/commerce/docs/devops surface.
+
+**App 13 notes (Marketing landing — the "split-proof" style).** Not a CRUD app
+but a new *visual style* of landing page (and the redesign the home + landing
+recipe now ship): a centered hero, a feature grid, a "proof" band where the stat
+tiles sit **beside** a wider code/quote column, and a dark "paste this" prompt
+CTA. The whole point of the brief was the **layout**, so jamming it into a stack
+(as app 9 did to avoid a generic split) would have discarded the design. Two new
+composites — honestly counted as **one solid + one borderline**:
+- **`mh-split`** (the real gap) — an **asymmetric** two-column content split: a
+  narrow rail (first child) beside a wider main (second), ~1:2, stacking on
+  mobile. `mh-grid` is deliberately *symmetric* (equal auto-fit tracks) and
+  `mh-app`/`mh-layout` are full-height app shells with a fixed-**px** sidebar —
+  neither is a content-width, *unequal*, stacking split. This is exactly the
+  "region arranger" MaxHTML targets, and it's broadly reusable (stats+detail,
+  article+TOC, text+media, form+summary). The two children map to the two columns
+  by **source order** — intrinsic grid placement, not a `:nth` "meaning" hook —
+  so it stays edit-proof. app 9 *resisted* a split because stacking was honest
+  there; here the split **is** the design, so it's a genuine wall → composite.
+- **`mh-prompt`** (borderline, like app 9's `mh-breadcrumb`) — a dark terminal /
+  "paste this prompt" surface. Strictly it's a *skin* of a code block, and the
+  layout works without it — so it risks over-counting. It earned a tag anyway
+  because (a) "paste this prompt" is the **hero artifact** of an LLM/dev-tool
+  landing and recurs across the category, and (b) it adds **zero new visual
+  tokens** — it reuses the existing `--mh-scrim`/`--mh-scrim-fg` dark-surface
+  tokens that the lightbox already established, so the dark look is themeable from
+  one place and the model still emits text only. Logged as borderline, not solid.
+- **Everything else was reuse:** `mh-hero` (already centered), `mh-section`,
+  `mh-grid`+`mh-card` (features *and* the side-by-side code blocks), `mh-stat`
+  (the rail), `<pre>`/`<code>`. The redesign also **removed the `<div>`s** the old
+  hand-built home story carried (code blocks are now `mh-card`s) — back on-rails.
+- **No wall.** The one thing that looked like the recurring colour-variant wall —
+  "make this code block dark" — turned out to ride the existing scrim tokens via a
+  named composite, the same way the lightbox got dark by structure. Curve:
+  **… → 2 → 0 → (1 + 1 borderline).** A brand-new *visual language* (not a new data
+  domain) needed one real layout primitive — consistent with the saturation bet.
 
 ## Reading the curve after 11 apps (saturation re-run, apps 8–11)
 

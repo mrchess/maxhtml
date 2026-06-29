@@ -366,6 +366,48 @@
 :where(mh-section > p)  { text-align: center; max-width: 40rem; margin: 0 auto 1.5rem; color: var(--mh-muted); }
 :where(mh-section > footer) { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; margin-top: 1.75rem; }
 
+/* ===== composite: <mh-split> (asymmetric two-column content split) ===== */
+/* A content-level split: a NARROW first column (a rail — stats, a TOC, an
+   aside) beside a WIDER second column (the main content), at a fixed ~1:2 ratio.
+   Two children → two columns by source order (rail first, main second); they
+   STACK on a narrow viewport. This is what mh-grid (symmetric, equal auto-fit
+   tracks) and mh-app/mh-layout (full-height app shells with a fixed-px sidebar)
+   can't be: an asymmetric, content-width, stacking split. Children are usually
+   region-arrangers themselves (an mh-grid of stats beside an mh-grid of cards)
+   or a block of prose beside an aside. Order = structure, not a class/hook. */
+:where(mh-split) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 2rem;
+  align-items: start;
+  margin: 0 0 1.5rem;
+}
+@media (max-width: 720px) {
+  :where(mh-split) { grid-template-columns: 1fr; }
+}
+
+/* ===== composite: <mh-prompt> (dark prompt / terminal block) =========== */
+/* A dark, immersive "paste this" surface for a system prompt or a shell command
+   — the hero artifact of an LLM / dev-tool landing page. Reuses the scrim tokens
+   (the same dark immersive surface as the lightbox), so it themes from one place;
+   the model emits the prompt TEXT only, never the dark styling. Monospace and
+   white-space:pre-wrap, so author the lines flush-left and they render as typed.
+   Slots: prompt text, with optional <a> links and <strong> emphasis. */
+:where(mh-prompt) {
+  display: block;
+  padding: 1.5rem 1.75rem;
+  border-radius: calc(var(--mh-radius) + 4px);
+  background: var(--mh-scrim);
+  color: var(--mh-scrim-fg);
+  box-shadow: var(--mh-shadow-lg);
+  font: var(--mh-text-base)/1.7 var(--mh-mono);
+  white-space: pre-wrap;
+  text-align: left;
+  overflow-x: auto;
+}
+:where(mh-prompt a)      { color: color-mix(in srgb, var(--mh-info), white 45%); }
+:where(mh-prompt strong) { color: #fff; font-weight: var(--mh-weight-bold); }
+
 /* ===== component: <mh-avatar> ========================================== */
 /* Round container for a person. Holds, in order of preference: an <img> (photo),
    initials text when the name is known (e.g. "AD"), or <mh-icon name="user"> for
