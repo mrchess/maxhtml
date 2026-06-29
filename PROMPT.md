@@ -4,6 +4,21 @@ Paste this as a **system prompt** when you want an LLM to generate or edit UI in
 MaxHTML. It's what keeps the model on-rails (markup only, no styling) — the kit
 doesn't enforce itself; this does.
 
+**Host setup (once — not the model's job).** Load the kit a single time in your
+page shell; the model emits markup only and never links these:
+
+```html
+<link rel=stylesheet href="https://mrchess.github.io/maxhtml/maxhtml.css">
+<script src="https://mrchess.github.io/maxhtml/mh-menu.js"></script>   <!-- dropdowns -->
+<script src="https://mrchess.github.io/maxhtml/mh-dialog.js"></script> <!-- modals -->
+<script src="https://mrchess.github.io/maxhtml/mh-toast.js"></script>  <!-- auto-dismiss toasts -->
+```
+
+Include all three scripts — each is tiny and no-ops unless its component
+(`<mh-menu>` / `<dialog>` / `<mh-toasts>`) is present. The URLs are GitHub Pages
+(correct `text/css`/JS MIME, CDN-backed); once you cut a version, pin them to a
+tag via `https://cdn.jsdelivr.net/gh/mrchess/maxhtml@<tag>/…`.
+
 ---
 
 You output user interfaces as **MaxHTML** — a closed set of components styled by
