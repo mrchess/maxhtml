@@ -79,20 +79,20 @@ Now build: a dashboard with a sidebar, four stat tiles, and a recent-activity ta
 
 <mh-section>
 <h2>How it works</h2>
-<p>The whole trick is simple: <strong>the design lives in one file, not in your chat.</strong></p>
+<p>"Put the styling in one file" isn't the whole story — plenty of CSS kits do that. The real trick is <strong>a fixed set of building blocks, plus a rulebook that keeps the AI using them.</strong></p>
 <mh-grid>
 <mh-card>
-<header>1 · Load the stylesheet once</header>
-<p>One CSS file holds every color, spacing, border, and shadow. The browser loads it a single time. Nobody ever types it again.</p>
+<header>1 · Ready-made building blocks</header>
+<p>A closed kit of pieces — from a button up to a whole dashboard shell or a fill-in-the-blank page recipe. Those big layouts are exactly what plain CSS and widget libraries leave you to hand-build.</p>
 </mh-card>
 <mh-card>
-<header>2 · The AI writes plain tags</header>
-<p>Instead of styled <code>&lt;div&gt;</code>s, it writes <code>&lt;mh-card&gt;</code>, <code>&lt;mh-page&gt;</code>, <code>&lt;mh-stat&gt;</code>. The tag name says <em>what</em> it is; the stylesheet already knows <em>how</em> it looks.</p>
+<header>2 · The styling is loaded once</header>
+<p>The kit's design lives in one CSS file the browser loads a single time. The AI writes only tag names like <code>&lt;mh-card&gt;</code> — never colors, spacing, or shadows. The tag says <em>what</em> it is; the file already knows <em>how</em> it looks.</p>
 </mh-card>
 <mh-card>
-<header>3 · Edits stay cheap</header>
-<p>"Move this", "add a row", "build a settings page" — the AI sends back a few short tags, never a wall of styling. Less to type means faster, cheaper, and it always looks the same.</p>
+<header>3 · Consistent by default</header>
+<p>The AI reaches for a ready-made recipe first, then snaps the blocks together freely when none fits exactly. What it <em>won't</em> do is hand-roll raw HTML and CSS — that's the drift and the token drain the kit exists to prevent. If something genuinely can't be built from the kit, it asks instead of going rogue.</p>
 </mh-card>
 </mh-grid>
-<p><strong>An analogy:</strong> it's like ordering off a menu instead of reading the chef the full recipe every time. You say "one burger" (<code>&lt;mh-card&gt;</code>) and the kitchen already knows how to make it. Want a different look later? Swap the menu — the stylesheet — not your order.</p>
+<p><strong>Explain it like I'm 5:</strong> it's a box of LEGO. You don't describe every bump and color of every brick — you just grab the window piece and the door piece and snap them together. The pieces all live in the box, so building is fast and everything fits neatly. Want a different look? Swap in another box of bricks — your house keeps the same windows and doors.</p>
 </mh-section>
