@@ -17,29 +17,29 @@
 
 /* ===== token layer — override these to theme (EXIT B) ==================== */
 :root {
-  --mh-bg:        #ffffff;   /* page background */
-  --mh-surface:   #f7f8fa;   /* raised/recessed surfaces (sidemenu, code) */
-  --mh-fg:        #1a1a1a;   /* primary text */
-  --mh-muted:     #5f6b76;   /* secondary text */
-  --mh-line:      #e3e6ea;   /* borders / dividers */
-  --mh-accent:    #2d7a4b;   /* brand / active / primary */
+  --mh-bg:        #0b0d17;   /* page background */
+  --mh-surface:   #13152a;   /* raised/recessed surfaces (sidemenu, code) */
+  --mh-fg:        #e2e4f0;   /* primary text */
+  --mh-muted:     #7880a0;   /* secondary text */
+  --mh-line:      #1f2240;   /* borders / dividers */
+  --mh-accent:    #7c3aed;   /* brand / active / primary */
   --mh-accent-fg: #ffffff;   /* text on accent */
-  --mh-scrim:     #0e1116;   /* immersive overlay surface (lightbox frame) */
-  --mh-scrim-fg:  #f2f4f7;   /* text on the scrim */
-  --mh-danger:    #c0362c;   /* error / invalid / destructive */
+  --mh-scrim:     #000000;   /* immersive overlay surface (lightbox frame) */
+  --mh-scrim-fg:  #e2e4f0;   /* text on the scrim */
+  --mh-danger:    #f87171;   /* error / invalid / destructive */
   --mh-danger-fg: #ffffff;   /* text on danger */
   /* semantic severity — the [tone] axis (badge dot, alert/toast icon+border).
      Override to reskin every tone'd component at once. danger reuses the token
      above. neutral = no [tone] attribute (no colour). */
-  --mh-success:   #2e7d32;   /* ok / healthy / positive state */
-  --mh-warning:   #b45309;   /* caution / degraded / needs attention */
-  --mh-info:      #2563eb;   /* informational / neutral notice */
-  --mh-hover:     rgba(0, 0, 0, .05);              /* hover tint — flip to white on dark themes */
-  --mh-shadow:    0 10px 28px rgba(0, 0, 0, .14);  /* menu / popover shadow */
-  --mh-shadow-lg: 0 24px 64px rgba(0, 0, 0, .28);  /* dialog shadow */
-  --mh-backdrop:  rgba(0, 0, 0, .45);              /* modal backdrop */
-  /* categorical chart palette — donut segments, multi-series (roughly 🟢🔵🟡🟣🩷) */
-  --mh-c1: #2d7a4b;  --mh-c2: #3b82f6;  --mh-c3: #eab308;  --mh-c4: #9333ea;  --mh-c5: #ec4899;
+  --mh-success:   #4ade80;   /* ok / healthy / positive state */
+  --mh-warning:   #fbbf24;   /* caution / degraded / needs attention */
+  --mh-info:      #60a5fa;   /* informational / neutral notice */
+  --mh-hover:     rgba(255,255,255,.07);                    /* hover tint */
+  --mh-shadow:    0 8px 32px rgba(124,58,237,.25);          /* menu / popover shadow */
+  --mh-shadow-lg: 0 24px 64px rgba(124,58,237,.4);          /* dialog shadow */
+  --mh-backdrop:  rgba(0, 0, 0, .7);                        /* modal backdrop */
+  /* categorical chart palette — donut segments, multi-series */
+  --mh-c1: #7c3aed;  --mh-c2: #38bdf8;  --mh-c3: #fbbf24;  --mh-c4: #f472b6;  --mh-c5: #4ade80;
   /* type & density — theme these for a tighter/looser "shape" (e.g. shadcn) */
   --mh-text-base:     1rem;     /* body + control text */
   --mh-h1:            1.6rem;
@@ -47,9 +47,10 @@
   --mh-weight:        500;      /* medium — labels, secondary emphasis */
   --mh-weight-strong: 600;      /* semibold — buttons, titles, headers */
   --mh-weight-bold:   700;      /* bold — h1, brand */
+  --mh-heading-tracking: -0.02em; /* letter-spacing for h1/h2 — tighten for modern feel */
   --mh-control-py:    .55rem;   /* control vertical padding (the tightness lever) */
   --mh-control-px:    1rem;     /* control horizontal padding */
-  --mh-radius:    8px;
+  --mh-radius:    10px;
   --mh-gap:       1rem;
   --mh-side-w:    250px;     /* sidemenu width */
   --mh-font:      system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -107,8 +108,8 @@
 :where(textarea:focus) { outline: 2px solid var(--mh-accent); outline-offset: 1px; border-color: var(--mh-accent); }
 
 /* ===== typography (global base — component rules below override per slot) = */
-:where(h1) { font-size: var(--mh-h1); font-weight: var(--mh-weight-bold); line-height: 1.2;  margin: 0 0 .75rem; }
-:where(h2) { font-size: var(--mh-h2); font-weight: var(--mh-weight-bold); line-height: 1.25; margin: 1.5rem 0 .5rem; }
+:where(h1) { font-size: var(--mh-h1); font-weight: var(--mh-weight-bold); line-height: 1.2;  letter-spacing: var(--mh-heading-tracking); margin: 0 0 .75rem; }
+:where(h2) { font-size: var(--mh-h2); font-weight: var(--mh-weight-bold); line-height: 1.25; letter-spacing: var(--mh-heading-tracking); margin: 1.5rem 0 .5rem; }
 :where(h3) { font-size: 1.05rem; font-weight: var(--mh-weight-bold); line-height: 1.3;  margin: 1.25rem 0 .5rem; }
 :where(p)  { margin: 0 0 1rem; }
 :where(a)  { color: var(--mh-accent); }
@@ -338,7 +339,7 @@
   padding: 4rem 1.5rem 1.5rem;
   text-align: center;
 }
-:where(mh-hero > h1) { font-size: 2.6rem; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 1rem; }
+:where(mh-hero > h1) { font-size: 2.6rem; line-height: 1.1; letter-spacing: var(--mh-heading-tracking); margin: 0 0 1rem; }
 :where(mh-hero > p)  { font-size: 1.15rem; color: var(--mh-muted); max-width: 34rem; margin: 0 auto 1.75rem; }
 :where(mh-hero > footer) { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
 
@@ -350,7 +351,7 @@
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }
-:where(mh-section > h2) { text-align: center; font-size: 1.7rem; margin: 0 0 1.25rem; }
+:where(mh-section > h2) { text-align: center; font-size: 1.7rem; letter-spacing: var(--mh-heading-tracking); margin: 0 0 1.25rem; }
 :where(mh-section > p)  { text-align: center; max-width: 40rem; margin: 0 auto 1.5rem; color: var(--mh-muted); }
 :where(mh-section > footer) { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; margin-top: 1.75rem; }
 
