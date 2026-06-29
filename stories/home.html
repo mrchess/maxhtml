@@ -76,3 +76,23 @@ Stylesheet (include once): https://mrchess.github.io/maxhtml/maxhtml.css
 
 Now build: a dashboard with a sidebar, four stat tiles, and a recent-activity table.</code></pre>
 </mh-section>
+
+<mh-section>
+<h2>How it works</h2>
+<p>The whole trick is simple: <strong>the design lives in one file, not in your chat.</strong></p>
+<mh-grid>
+<mh-card>
+<header>1 · Load the stylesheet once</header>
+<p>One CSS file holds every color, spacing, border, and shadow. The browser loads it a single time. Nobody ever types it again.</p>
+</mh-card>
+<mh-card>
+<header>2 · The AI writes plain tags</header>
+<p>Instead of styled <code>&lt;div&gt;</code>s, it writes <code>&lt;mh-card&gt;</code>, <code>&lt;mh-page&gt;</code>, <code>&lt;mh-stat&gt;</code>. The tag name says <em>what</em> it is; the stylesheet already knows <em>how</em> it looks.</p>
+</mh-card>
+<mh-card>
+<header>3 · Edits stay cheap</header>
+<p>"Move this", "add a row", "build a settings page" — the AI sends back a few short tags, never a wall of styling. Less to type means faster, cheaper, and it always looks the same.</p>
+</mh-card>
+</mh-grid>
+<p><strong>An analogy:</strong> it's like ordering off a menu instead of reading the chef the full recipe every time. You say "one burger" (<code>&lt;mh-card&gt;</code>) and the kitchen already knows how to make it. Want a different look later? Swap the menu — the stylesheet — not your order.</p>
+</mh-section>
